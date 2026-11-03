@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { Product } from './types/product';
 
@@ -14,12 +14,20 @@ import { CartDrawer } from './components/Cart/CartDrawer';
 import { CategoriesDrawer } from './components/Categories/CategoriesDrawer';
 import { PolicyModal } from './components/common/PolicyModal';
 
-// Dedicated Pages
+// Dedicated Customer Storefront Pages
 import { HomePage } from './pages/HomePage';
 import { CategoryPage } from './pages/CategoryPage';
 import { ProductPage } from './pages/ProductPage';
 import { CheckoutPage } from './pages/CheckoutPage';
 import { OrderSuccessPage } from './pages/OrderSuccessPage';
+
+// Admin Portal Pages
+import { AdminLayout } from './admin/pages/AdminLayout';
+import { AdminDashboardPage } from './admin/pages/AdminDashboardPage';
+import { AdminOrdersPage } from './admin/pages/AdminOrdersPage';
+import { AdminProductsPage } from './admin/pages/AdminProductsPage';
+import { AdminFinancePage } from './admin/pages/AdminFinancePage';
+import { AdminSettingsPage } from './admin/pages/AdminSettingsPage';
 
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -61,6 +69,27 @@ const AppLayout: React.FC = () => {
     }
     window.scrollTo(0, 0);
   };
+
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  if (isAdminRoute) {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#F8F9FD] text-[#252a34]">
+        <ScrollToTop />
+        <Routes>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<AdminDashboardPage />} />
+            <Route path="orders" element={<AdminOrdersPage />} />
+            <Route path="products" element={<AdminProductsPage />} />
+            <Route path="finance" element={<AdminFinancePage />} />
+            <Route path="settings" element={<AdminSettingsPage />} />
+            <Route path="*" element={<Navigate to="dashboard" replace />} />
+          </Route>
+        </Routes>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8F9FD] text-[#252a34]">

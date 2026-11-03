@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product, ProductBundleTier } from '../types/product';
 import { CartItem, DeliveryZone, OrderDetails } from '../types/cart';
+import { addOrder } from '../admin/services/orderStorage';
 
 interface CartContextType {
   items: CartItem[];
@@ -216,6 +217,43 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     setLastOrder(newOrder);
+
+    // Automatically sync with Admin Orders Store
+    try {
+      addOrder({
+        orderId: newOrder.orderId,
+        customerName: newOrder.customerName,
+        phoneNumber: newOrder.phoneNumber,
+        address: newOrder.address,
+        district: newOrder.district,
+        upazila: newOrder.upazila,
+        deliveryZone: newOrder.deliveryZone,
+        notes: newOrder.notes,
+        items: newOrder.items.map((item) => ({
+          product: {
+            id: item.product.id,
+            name: item.product.name,
+            slug: item.product.slug,
+            thumbnail: item.product.thumbnail,
+            price: item.product.price,
+          },
+          quantity: item.quantity,
+          unitPrice: item.unitPrice || item.product.price,
+          selectedVariation: item.selectedVariation,
+          selectedBundle: item.selectedBundle,
+        })),
+        subtotal: newOrder.subtotal,
+        deliveryFee: newOrder.deliveryFee,
+        discount: newOrder.discount,
+        total: newOrder.total,
+        paymentMethod: 'Cash on Delivery',
+        status: 'pending',
+        orderDate: newOrder.orderDate,
+      });
+    } catch (e) {
+      console.error('Failed to sync order to admin store', e);
+    }
+
     clearCart();
     setIsCheckoutOpen(false);
     return newOrder;

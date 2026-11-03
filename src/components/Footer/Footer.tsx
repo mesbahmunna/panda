@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, ShieldCheck } from 'lucide-react';
 import { Logo } from '../common/Logo';
 import { categories } from '../../data/categories';
@@ -159,6 +160,9 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
         <div className="pt-6 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300">
           <div>
             <span>Copyright &copy; 2026 <strong>Baby Panda</strong>. All rights reserved.</span>
+            <Link to="/admin" className="ml-3 text-white/30 hover:text-amber-300 transition-colors text-[11px] underline">
+              Admin Portal
+            </Link>
           </div>
 
           <div className="flex items-center gap-4">

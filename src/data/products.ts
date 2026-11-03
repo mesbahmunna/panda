@@ -4,7 +4,7 @@ import blanketPink from '../assets/products/baby-sleeping-blanket/pink.jpeg';
 import blanketBlue from '../assets/products/baby-sleeping-blanket/blue.jpeg';
 import blanketKhaki from '../assets/products/baby-sleeping-blanket/khaki.jpeg';
 
-export const products: Product[] = [
+const initialProductsList: Product[] = [
   {
     id: 'prod-sleeping-blanket',
     name: 'বেবি স্লিপিং ব্ল্যাঙ্কেট - Baby Sleeping Blanket Swaddle Wrap',
@@ -648,10 +648,41 @@ Choose your bundle pack to save more: 1 Pcs (৳100), 2 Pcs (৳200), 4 Pcs (৳
   }
 ];
 
+const getStoredProducts = (): Product[] => {
+  try {
+    const raw = typeof window !== 'undefined' ? localStorage.getItem('baby_admin_products') : null;
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch {}
+  return initialProductsList;
+};
+
+export const products: Product[] = getStoredProducts();
+
 export const getProductById = (id: string): Product | undefined => {
+  try {
+    const raw = typeof window !== 'undefined' ? localStorage.getItem('baby_admin_products') : null;
+    if (raw) {
+      const parsed: Product[] = JSON.parse(raw);
+      const found = parsed.find(p => p.id === id);
+      if (found) return found;
+    }
+  } catch {}
   return products.find(p => p.id === id);
 };
 
 export const getProductBySlug = (slug: string): Product | undefined => {
+  try {
+    const raw = typeof window !== 'undefined' ? localStorage.getItem('baby_admin_products') : null;
+    if (raw) {
+      const parsed: Product[] = JSON.parse(raw);
+      const found = parsed.find(p => p.slug === slug);
+      if (found) return found;
+    }
+  } catch {}
   return products.find(p => p.slug === slug);
 };
