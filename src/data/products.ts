@@ -79,7 +79,7 @@ export const products: Product[] = [
     discountPercent: 43,
     images: [
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=800&q=80',
+      'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=800',
       'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=800&q=80'
     ],
@@ -119,12 +119,12 @@ Includes 6 cushioned color-coded grinding heads designed for different baby deve
     originalPrice: 2200,
     discountPercent: 34,
     images: [
-      'https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=800&q=80',
+      'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=800',
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80'
     ],
-    thumbnail: 'https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=600&q=80',
+    thumbnail: 'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=600',
     shortDescription: '100% Food-grade silicone divided suction plate, spill-proof suction bowl, soft spoon & fork set, adjustable bib and snack cup.',
     description: `Make your baby's weaning journey mess-free and delightful with our Complete 8-Piece Food-Grade Silicone Baby Feeding Set. Engineered with ultra-strong suction bases on both the divided plate and the deep bowl, curious little hands won't be able to flip or fling their food across the dining table or high chair.
 
@@ -210,7 +210,7 @@ Available in age-calibrated sizing (1 Year, 2 Year, 3 Year) and money-saving qua
     images: [
       'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=800&q=80'
+      'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=800'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=600&q=80',
     shortDescription: '24 soothing sounds including womb heartbeat, rain & lullabies. Built-in warm ambient night light with sleep timer & clip-on loop.',
@@ -283,7 +283,7 @@ Can be used in 6 versatile configurations: inward facing, front outward, back ca
     discountPercent: 36,
     images: [
       'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=800&q=80',
+      'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=800',
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80',
@@ -316,10 +316,10 @@ Boasts 16 organized compartments including 3 composite insulated bottle pockets 
     originalPrice: 1250,
     discountPercent: 38,
     images: [
-      'https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=800&q=80',
+      'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=800',
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
-    thumbnail: 'https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=600&q=80',
+    thumbnail: 'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=600',
     shortDescription: 'Thermal shock resistant borosilicate glass with breast-like silicone teat and dual anti-colic ventilation valves.',
     description: `Crafted from pure pharmaceutical-grade borosilicate glass, this feeding bottle is scratch-resistant, odour-resistant, and can transition directly from refrigerator to hot bottle warmer without cracking.
 
@@ -350,10 +350,10 @@ The ultra-soft spiral silicone teat mimics the natural flex and feel of breastfe
     originalPrice: 950,
     discountPercent: 32,
     images: [
-      'https://images.unsplash.com/photo-1584839401701-a1e64e9a06ec?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1641913337604-7b040a87fc88?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
-    thumbnail: 'https://images.unsplash.com/photo-1584839401701-a1e64e9a06ec?auto=format&fit=crop&w=600&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1641913337604-7b040a87fc88?auto=format&fit=crop&w=600&q=80',
     shortDescription: 'Tear-free, sulfate-free formula with organic aloe vera, calendula, and French lavender. Pediatrician and dermatologist approved.',
     description: `Gently cleanse and nourish your infant's skin and fine hair with this hypoallergenic, tear-free baby wash. Enriched with natural plant botanicals including calming chamomile, organic oat kernel extract, and sweet almond oil.
 
@@ -416,10 +416,10 @@ Features spring latches, revolving gears, interactive fingertip switches, analog
     originalPrice: 3800,
     discountPercent: 36,
     images: [
-      'https://images.unsplash.com/photo-1584839401701-a1e64e9a06ec?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1641913337604-7b040a87fc88?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
-    thumbnail: 'https://images.unsplash.com/photo-1584839401701-a1e64e9a06ec?auto=format&fit=crop&w=600&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1641913337604-7b040a87fc88?auto=format&fit=crop&w=600&q=80',
     shortDescription: 'Space-saving collapsible tub with real-time water temperature digital readout and soft suspended newborn bath cushion.',
     description: `Ensure your baby’s bath water is always at the safe, comfortable temperature (37°C-38°C) with the integrated real-time digital thermometer! The tub folds flat down to just 9cm thickness for effortless storage in compact apartments.
 
@@ -451,7 +451,7 @@ Includes a soft floating bath cushion that cradles newborn babies securely above
     discountPercent: 35,
     images: [
       'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=800&q=80'
+      'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=800'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=600&q=80',
     shortDescription: 'Ultra-quiet invisible in-bra wireless breast pump. 3 modes and 9 suction levels for pain-free, discrete pumping anywhere.',
@@ -556,10 +556,10 @@ Features fold-over cuff mittens to protect baby from accidental facial scratches
     originalPrice: 1450,
     discountPercent: 37,
     images: [
-      'https://images.unsplash.com/photo-1584839401701-a1e64e9a06ec?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1641913337604-7b040a87fc88?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=800&q=80'
     ],
-    thumbnail: 'https://images.unsplash.com/photo-1584839401701-a1e64e9a06ec?auto=format&fit=crop&w=600&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1641913337604-7b040a87fc88?auto=format&fit=crop&w=600&q=80',
     shortDescription: 'Extra plush 500 GSM bamboo terry towel with cute bear ears hood. Absorbs water 3x faster than traditional cotton.',
     description: `Wrap your little one in plush warmth immediately after bath time! Made from 500 GSM premium bamboo fabric, this hooded towel absorbs moisture in seconds to prevent post-bath chills.
 
@@ -627,7 +627,7 @@ Choose your bundle pack to save more: 1 Pcs (৳100), 2 Pcs (৳200), 4 Pcs (৳
     discountPercent: 36,
     images: [
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=800&q=80'
+      'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=800'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=600&q=80',
     shortDescription: 'All essential newborn medical & grooming tools in a durable zippered organizer case: thermometer, nasal aspirator, dropper, brush & more.',

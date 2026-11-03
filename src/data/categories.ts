@@ -13,7 +13,7 @@ export const categories: Category[] = [
     id: 'cat-feeding',
     name: 'Baby Feeding',
     slug: 'baby-feeding',
-    image: 'https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=600&q=80',
+    image: 'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=600',
     itemCount: 36,
     description: 'Anti-colic bottles, silicone bowls, bibs & sterilizers'
   },
@@ -37,7 +37,7 @@ export const categories: Category[] = [
     id: 'cat-bath',
     name: 'Baby Bath & Hygiene',
     slug: 'baby-bath-hygiene',
-    image: 'https://images.unsplash.com/photo-1584839401701-a1e64e9a06ec?auto=format&fit=crop&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1641913337604-7b040a87fc88?auto=format&fit=crop&w=600&q=80',
     itemCount: 29,
     description: 'Ergonomic bathtubs, organic tearless wash, soft hooded towels'
   },

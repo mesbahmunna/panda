@@ -31,7 +31,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
       subtitle: '100% Food-grade Platinum Silicone suction bowls, teats and glass bottles for easy transitions.',
       discount: 'FLAT 35% OFF',
       ctaText: 'Explore Feeding Essentials',
-      image: 'https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=1200&q=80',
+      image: 'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=1200',
       action: onExploreFeeding,
       bgGradient: 'from-sky-950/90 via-slate-900/80 to-transparent'
     },
@@ -180,7 +180,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
               </div>
             </div>
             <img
-              src="https://images.unsplash.com/photo-1584839401736-621f375fca9f?auto=format&fit=crop&w=400&q=80"
+              src="https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=400"
               alt="Baby Feeding"
               className="absolute right-0 bottom-0 w-36 h-36 object-cover rounded-tl-3xl transform group-hover:scale-105 transition-transform"
             />
