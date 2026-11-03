@@ -59,7 +59,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
   };
 
   return (
-    <header className="bg-white sticky top-0 z-40 shadow-sm border-b border-slate-100 relative">
+    <header className="bg-[#0b0952] sticky top-0 z-40 shadow-lg border-b border-indigo-950/60 relative">
       <div className="max-w-7xl mx-auto px-4 py-2.5 md:py-3.5">
         
         {/* If Mobile Search is Open: Hide Logo & Cart, Show Full-Width Search Input */}
@@ -77,7 +77,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                 }}
                 onFocus={() => setShowResults(true)}
                 placeholder="Search baby clothes, feeding sets, toys..."
-                className="w-full pl-9 pr-9 py-2 text-xs rounded-xl bg-slate-100 border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5844ED]/20 focus:border-[#5844ED] text-slate-800"
+                className="w-full pl-9 pr-9 py-2 text-xs rounded-xl bg-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-400 text-slate-800 placeholder:text-slate-400"
               />
               {searchQuery && (
                 <button
@@ -98,7 +98,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                 setShowResults(false);
                 setSearchQuery('');
               }}
-              className="px-2.5 py-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 rounded-lg shrink-0"
+              className="px-2.5 py-1.5 text-xs font-bold text-slate-200 hover:text-white rounded-lg shrink-0"
             >
               Cancel
             </button>
@@ -112,7 +112,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
               onClick={onNavigateHome}
               className="cursor-pointer transition-transform hover:opacity-95 shrink-0"
             >
-              <Logo />
+              <Logo variant="light" />
             </div>
 
             {/* Desktop Center Search Bar (Hidden on Mobile) */}
@@ -127,7 +127,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                   }}
                   onFocus={() => setShowResults(true)}
                   placeholder="Search for baby clothes, feeding sets, toys, bath care..."
-                  className="w-full pl-4 pr-24 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all placeholder:text-slate-400"
+                  className="w-full pl-4 pr-24 py-2.5 rounded-xl bg-white border border-transparent text-sm text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-400 shadow-sm transition-all placeholder:text-slate-400"
                 />
                 {searchQuery && (
                   <button
@@ -198,31 +198,31 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
               <button
                 type="button"
                 onClick={() => setIsMobileSearchOpen(true)}
-                className="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 flex items-center justify-center transition-all md:hidden shrink-0 shadow-xs"
+                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center transition-all md:hidden shrink-0 border border-white/10"
                 aria-label="Search products"
                 title="Search"
               >
-                <Search className="w-4 h-4 text-slate-700" />
+                <Search className="w-4 h-4 text-white" />
               </button>
 
               {/* Desktop Phone Order Inquiry Badge */}
               <a
                 href="tel:+8809617100900"
-                className="hidden lg:flex items-center gap-3 px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-200 hover:bg-brand-50/40 transition-all text-left group"
+                className="hidden lg:flex items-center gap-3 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 hover:border-white/20 transition-all text-left group"
               >
-                <div className="w-8 h-8 rounded-lg bg-brand-100 text-brand-600 flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                <div className="w-8 h-8 rounded-lg bg-brand-500 text-white flex items-center justify-center group-hover:scale-105 transition-transform">
                   <PhoneCall className="w-4 h-4" />
                 </div>
                 <div className="leading-tight">
-                  <span className="block text-[11px] font-medium text-slate-500">Order Inquiry</span>
-                  <span className="text-xs font-bold text-brand-900 tracking-tight">+880 9617-100900</span>
+                  <span className="block text-[11px] font-medium text-slate-300">Order Inquiry</span>
+                  <span className="text-xs font-bold text-white tracking-tight">+880 9617-100900</span>
                 </div>
               </a>
 
               {/* Shopping Cart Button */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="h-9 px-2.5 sm:px-4 sm:h-auto sm:py-2.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl shadow-md shadow-brand-500/20 flex items-center justify-center gap-2 transition-all group shrink-0"
+                className="h-9 px-2.5 sm:px-4 sm:h-auto sm:py-2.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl shadow-md shadow-brand-500/30 flex items-center justify-center gap-2 transition-all group shrink-0 border border-brand-400/30"
                 aria-label="Shopping Cart"
               >
                 <div className="relative flex items-center justify-center">
@@ -234,8 +234,8 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                   )}
                 </div>
                 <div className="hidden sm:flex flex-col text-left leading-none">
-                  <span className="text-[10px] uppercase font-semibold text-brand-100">Cart</span>
-                  <span className="text-xs font-bold mt-0.5">৳ {subtotal.toLocaleString()}</span>
+                  <span className="text-[10px] uppercase font-semibold text-brand-200">Cart</span>
+                  <span className="text-xs font-bold mt-0.5 text-white">৳ {subtotal.toLocaleString()}</span>
                 </div>
               </button>
             </div>

@@ -4,7 +4,6 @@ import { CartProvider } from './context/CartContext';
 import { Product } from './types/product';
 
 // Header & Navigation
-import { TopBar } from './components/Header/TopBar';
 import { MainHeader } from './components/Header/MainHeader';
 import { CategoryNav } from './components/Header/CategoryNav';
 import { MobileNav } from './components/Header/MobileNav';
@@ -68,9 +67,7 @@ const AppLayout: React.FC = () => {
       {/* Scroll to top immediately on route change */}
       <ScrollToTop />
 
-      {/* 1. Header (HT Bazar Top Bar + Main Header + Category Nav) */}
-      <TopBar onNavigateHome={handleNavigateHome} />
-
+      {/* 1. Header (Main Header + Category Nav) */}
       <MainHeader
         onSelectProduct={handleSelectProduct}
         onNavigateHome={handleNavigateHome}

@@ -14,7 +14,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
-    <div className="bg-white border-b border-slate-200/80 hidden md:block">
+    <div className="bg-[#080638] border-b border-indigo-950/80 hidden md:block text-slate-200">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between text-sm">
         
         {/* All Categories Dropdown Trigger */}
@@ -33,7 +33,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
           {dropdownOpen && (
             <div
               onMouseLeave={() => setDropdownOpen(false)}
-              className="absolute left-0 top-full mt-1 w-64 bg-white rounded-xl shadow-floating border border-slate-100 py-2 z-50 animate-fadeIn"
+              className="absolute left-0 top-full mt-1 w-64 bg-white rounded-xl shadow-floating border border-slate-100 py-2 z-50 animate-fadeIn text-slate-700"
             >
               <div
                 onClick={() => {
@@ -84,8 +84,8 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
             onClick={() => onSelectCategory(null)}
             className={`px-3 py-1.5 rounded-md font-medium transition-colors whitespace-nowrap ${
               selectedCategory === null
-                ? 'text-brand-600 font-bold bg-brand-50'
-                : 'text-slate-700 hover:text-brand-600 hover:bg-slate-50'
+                ? 'text-white font-bold bg-white/15'
+                : 'text-slate-300 hover:text-white hover:bg-white/10'
             }`}
           >
             Home
@@ -97,8 +97,8 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
               onClick={() => onSelectCategory(cat.slug)}
               className={`px-3 py-1.5 rounded-md font-medium transition-colors whitespace-nowrap ${
                 selectedCategory === cat.slug
-                  ? 'text-brand-600 font-bold bg-brand-50'
-                  : 'text-slate-700 hover:text-brand-600 hover:bg-slate-50'
+                  ? 'text-white font-bold bg-white/15'
+                  : 'text-slate-300 hover:text-white hover:bg-white/10'
               }`}
             >
               {cat.name}
@@ -107,9 +107,9 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
         </nav>
 
         {/* Helpline right badge */}
-        <div className="hidden xl:flex items-center gap-2 shrink-0 py-2 text-xs font-semibold text-brand-900">
+        <div className="hidden xl:flex items-center gap-2 shrink-0 py-2 text-xs font-semibold text-slate-300">
           <span>Hotline:</span>
-          <span className="text-brand-600 font-bold">+880 9617-100900</span>
+          <span className="text-amber-400 font-bold tracking-wide">+880 9617-100900</span>
         </div>
 
       </div>
