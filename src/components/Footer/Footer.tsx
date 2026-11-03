@@ -2,6 +2,7 @@ import React from 'react';
 import { Phone, Mail, MapPin, ShieldCheck } from 'lucide-react';
 import { Logo } from '../common/Logo';
 import { categories } from '../../data/categories';
+import footerPattern from '../../assets/footer-pattern.jpg';
 
 interface FooterProps {
   onSelectCategory: (slug: string) => void;
@@ -38,8 +39,15 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
   };
 
   return (
-    <footer className="bg-[#0b0952] text-slate-300 text-xs pt-12 pb-24 md:pb-8 border-t border-indigo-950">
-      <div className="max-w-7xl mx-auto px-4">
+    <footer
+      className="relative text-slate-300 text-xs pt-12 pb-24 md:pb-8 border-t border-indigo-950 overflow-hidden bg-[#241066]"
+      style={{
+        backgroundImage: `linear-gradient(to bottom, rgba(16, 8, 55, 0.82), rgba(11, 9, 82, 0.90)), url(${footerPattern})`,
+        backgroundRepeat: 'repeat',
+        backgroundSize: 'auto, 500px auto',
+      }}
+    >
+      <div className="relative z-10 max-w-7xl mx-auto px-4">
         
         {/* Main Footer Columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-12 text-left">
@@ -150,7 +158,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
         {/* Bottom Bar: Copyright & Social Links */}
         <div className="pt-6 border-t border-indigo-950 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div>
-            <span>Copyright &copy; 2026 <strong>BabyBazar</strong>. Developed with reference to HT Bazar shopping experience.</span>
+            <span>Copyright &copy; 2026 <strong>Baby Panda</strong>. All rights reserved.</span>
           </div>
 
           <div className="flex items-center gap-4">
