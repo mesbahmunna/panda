@@ -1,25 +1,32 @@
 import { Category } from '../../types/product';
 import { initialCategories } from '../../data/categories';
+import { DEFAULT_CATEGORY_THEMES } from '../../components/Categories/CategoryIconView';
 
 const CATEGORIES_KEY = 'baby_admin_categories';
 
 export const getAdminCategories = (): Category[] => {
   try {
     const raw = typeof window !== 'undefined' ? localStorage.getItem(CATEGORIES_KEY) : null;
-    if (!raw) {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem(CATEGORIES_KEY, JSON.stringify(initialCategories));
+    let list: Category[] = initialCategories;
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        list = parsed;
       }
-      return initialCategories;
     }
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed) || parsed.length === 0) {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem(CATEGORIES_KEY, JSON.stringify(initialCategories));
-      }
-      return initialCategories;
-    }
-    return parsed;
+    return list.map((c) => {
+      const defaultTheme = DEFAULT_CATEGORY_THEMES[c.slug] || {
+        icon: 'Folder',
+        iconColor: '#4F46E5',
+        bgColor: '#EEF2FF'
+      };
+      return {
+        ...c,
+        icon: c.icon || defaultTheme.icon,
+        iconColor: c.iconColor || defaultTheme.iconColor,
+        bgColor: c.bgColor || defaultTheme.bgColor
+      };
+    });
   } catch (err) {
     console.error('Failed to get categories from storage', err);
     return initialCategories;

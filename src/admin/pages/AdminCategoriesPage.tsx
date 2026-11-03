@@ -8,8 +8,6 @@ import {
   Trash2,
   ExternalLink,
   RotateCcw,
-  UploadCloud,
-  ImageIcon,
   Sparkles,
   CheckCircle2
 } from 'lucide-react';
@@ -20,8 +18,10 @@ import {
   deleteAdminCategory,
   resetCategoriesToDefault
 } from '../services/categoryStorage';
-import { Category } from '../../types/product';
+import { getAdminProducts } from '../services/productStorage';
+import { Category, Product } from '../../types/product';
 import { CategoryFormModal } from '../components/CategoryFormModal';
+import { CategoryIconView } from '../../components/Categories/CategoryIconView';
 
 interface OutletContextType {
   onOpenMobileMenu: () => void;
@@ -31,20 +31,26 @@ interface OutletContextType {
 export const AdminCategoriesPage: React.FC = () => {
   const { onOpenMobileMenu, pendingCount } = useOutletContext<OutletContextType>();
   const [categories, setCategories] = useState<Category[]>(() => getAdminCategories());
+  const [products, setProducts] = useState<Product[]>(() => getAdminProducts());
   const [searchQuery, setSearchQuery] = useState('');
   
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
 
-  const refreshCategories = () => {
+  const refreshData = () => {
     setCategories(getAdminCategories());
+    setProducts(getAdminProducts());
   };
 
   useEffect(() => {
-    refreshCategories();
-    window.addEventListener('baby_categories_updated', refreshCategories);
-    return () => window.removeEventListener('baby_categories_updated', refreshCategories);
+    refreshData();
+    window.addEventListener('baby_categories_updated', refreshData);
+    window.addEventListener('baby_products_updated', refreshData);
+    return () => {
+      window.removeEventListener('baby_categories_updated', refreshData);
+      window.removeEventListener('baby_products_updated', refreshData);
+    };
   }, []);
 
   const handleOpenAdd = () => {
@@ -60,19 +66,19 @@ export const AdminCategoriesPage: React.FC = () => {
   const handleDelete = (c: Category) => {
     if (window.confirm(`Are you sure you want to delete the category "${c.name}"? Products under this category will need reassignment.`)) {
       deleteAdminCategory(c.id);
-      refreshCategories();
+      refreshData();
     }
   };
 
   const handleSave = (saved: Category) => {
     saveAdminCategory(saved);
-    refreshCategories();
+    refreshData();
   };
 
   const handleReset = () => {
     if (window.confirm('Reset all categories back to default baby store categories?')) {
       resetCategoriesToDefault();
-      refreshCategories();
+      refreshData();
     }
   };
 
@@ -144,59 +150,54 @@ export const AdminCategoriesPage: React.FC = () => {
               <table className="w-full text-xs text-left">
                 <thead className="bg-slate-50 text-slate-500 uppercase text-[10px] font-bold border-b border-slate-200">
                   <tr>
-                    <th className="py-3.5 px-4">Cover Image</th>
+                    <th className="py-3.5 px-4">Category Icon</th>
                     <th className="py-3.5 px-4">Category Name & Slug</th>
                     <th className="py-3.5 px-4">Description</th>
-                    <th className="py-3.5 px-4 text-center">Items Count</th>
+                    <th className="py-3.5 px-4 text-center">Actual Products</th>
                     <th className="py-3.5 px-4 text-center">Featured</th>
                     <th className="py-3.5 px-4 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {filteredCategories.map((cat) => (
-                    <tr key={cat.id} className="hover:bg-slate-50/70 transition-colors">
-                      
-                      {/* Cover Photo */}
-                      <td className="py-3.5 px-4">
-                        <div className="w-14 h-14 rounded-xl border border-slate-200 overflow-hidden bg-slate-100 shrink-0">
-                          <img
-                            src={cat.image}
-                            alt={cat.name}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              (e.currentTarget as HTMLImageElement).src =
-                                'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=600&q=80';
-                            }}
-                          />
-                        </div>
-                      </td>
+                  {filteredCategories.map((cat) => {
+                    const actualCount = products.filter(
+                      (p) => p.categorySlug === cat.slug || p.category?.toLowerCase() === cat.name.toLowerCase()
+                    ).length;
 
-                      {/* Name & Slug */}
-                      <td className="py-3.5 px-4">
-                        <button
-                          onClick={() => handleOpenEdit(cat)}
-                          className="font-bold text-slate-900 text-sm hover:underline text-left block"
-                        >
-                          {cat.name}
-                        </button>
-                        <span className="text-[10px] font-mono text-slate-400 block mt-0.5">
-                          /category/{cat.slug}
-                        </span>
-                      </td>
+                    return (
+                      <tr key={cat.id} className="hover:bg-slate-50/70 transition-colors">
+                        
+                        {/* Category Icon */}
+                        <td className="py-3.5 px-4">
+                          <CategoryIconView category={cat} size="md" />
+                        </td>
 
-                      {/* Description */}
-                      <td className="py-3.5 px-4 text-slate-600 max-w-[280px]">
-                        <p className="line-clamp-2 text-xs">
-                          {cat.description || 'No description added.'}
-                        </p>
-                      </td>
+                        {/* Name & Slug */}
+                        <td className="py-3.5 px-4">
+                          <button
+                            onClick={() => handleOpenEdit(cat)}
+                            className="font-bold text-slate-900 text-sm hover:underline text-left block"
+                          >
+                            {cat.name}
+                          </button>
+                          <span className="text-[10px] font-mono text-slate-400 block mt-0.5">
+                            /category/{cat.slug}
+                          </span>
+                        </td>
 
-                      {/* Item Count */}
-                      <td className="py-3.5 px-4 text-center">
-                        <span className="inline-block px-2.5 py-1 bg-slate-100 text-slate-700 font-bold rounded-lg text-xs">
-                          {cat.itemCount} items
-                        </span>
-                      </td>
+                        {/* Description */}
+                        <td className="py-3.5 px-4 text-slate-600 max-w-[280px]">
+                          <p className="line-clamp-2 text-xs">
+                            {cat.description || 'No description added.'}
+                          </p>
+                        </td>
+
+                        {/* Item Count */}
+                        <td className="py-3.5 px-4 text-center">
+                          <span className="inline-block px-2.5 py-1 bg-slate-100 text-slate-800 font-bold rounded-lg text-xs font-mono">
+                            {actualCount} {actualCount === 1 ? 'product' : 'products'}
+                          </span>
+                        </td>
 
                       {/* Featured */}
                       <td className="py-3.5 px-4 text-center">
@@ -244,7 +245,8 @@ export const AdminCategoriesPage: React.FC = () => {
                       </td>
 
                     </tr>
-                  ))}
+                  );
+                })}
                 </tbody>
               </table>
             </div>

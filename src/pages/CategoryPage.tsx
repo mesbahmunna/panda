@@ -5,6 +5,7 @@ import { getStoredCategories } from '../data/categories';
 import { products } from '../data/products';
 import { Product } from '../types/product';
 import { ProductCard } from '../components/Product/ProductCard';
+import { CategoryIconView } from '../components/Categories/CategoryIconView';
 
 export const CategoryPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -61,13 +62,7 @@ export const CategoryPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-4 sm:gap-5">
               {currentCategory && (
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-slate-200 shrink-0 shadow-xs bg-slate-50">
-                  <img
-                    src={currentCategory.image}
-                    alt={currentCategory.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <CategoryIconView category={currentCategory} size="xl" />
               )}
               <div>
                 <div className="flex items-center gap-2 mb-1">

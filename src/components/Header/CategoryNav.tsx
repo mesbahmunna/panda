@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, ChevronDown, Sparkles } from 'lucide-react';
 import { getStoredCategories } from '../../data/categories';
+import { products as baseProducts } from '../../data/products';
+import { CategoryIconView } from '../Categories/CategoryIconView';
+import { Product } from '../../types/product';
 
 interface CategoryNavProps {
   selectedCategory: string | null;
@@ -13,11 +16,39 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [categoryList, setCategoryList] = useState(() => getStoredCategories());
+  const [productList, setProductList] = useState<Product[]>(() => {
+    try {
+      const raw = localStorage.getItem('baby_admin_products');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {}
+    return baseProducts;
+  });
+
+  const refreshData = () => {
+    setCategoryList(getStoredCategories());
+    try {
+      const raw = localStorage.getItem('baby_admin_products');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setProductList(parsed);
+          return;
+        }
+      }
+    } catch {}
+    setProductList(baseProducts);
+  };
 
   useEffect(() => {
-    const handleUpdate = () => setCategoryList(getStoredCategories());
-    window.addEventListener('baby_categories_updated', handleUpdate);
-    return () => window.removeEventListener('baby_categories_updated', handleUpdate);
+    window.addEventListener('baby_categories_updated', refreshData);
+    window.addEventListener('baby_products_updated', refreshData);
+    return () => {
+      window.removeEventListener('baby_categories_updated', refreshData);
+      window.removeEventListener('baby_products_updated', refreshData);
+    };
   }, []);
 
   return (
@@ -57,30 +88,32 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
                 </div>
               </div>
 
-              {categoryList.map((cat) => (
-                <div
-                  key={cat.id}
-                  onClick={() => {
-                    onSelectCategory(cat.slug);
-                    setDropdownOpen(false);
-                  }}
-                  className={`flex items-center justify-between px-4 py-2.5 text-xs font-medium cursor-pointer hover:bg-brand-50 hover:text-brand-600 transition-colors ${
-                    selectedCategory === cat.slug ? 'bg-brand-50 text-brand-600 font-semibold' : 'text-slate-700'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <img
-                      src={cat.image}
-                      alt={cat.name}
-                      className="w-5 h-5 rounded-full object-cover border border-slate-200"
-                    />
-                    <span>{cat.name}</span>
+              {categoryList.map((cat) => {
+                const count = productList.filter(
+                  (p) => p.categorySlug === cat.slug || p.category?.toLowerCase() === cat.name.toLowerCase()
+                ).length;
+
+                return (
+                  <div
+                    key={cat.id}
+                    onClick={() => {
+                      onSelectCategory(cat.slug);
+                      setDropdownOpen(false);
+                    }}
+                    className={`flex items-center justify-between px-4 py-2.5 text-xs font-medium cursor-pointer hover:bg-brand-50 hover:text-brand-600 transition-colors ${
+                      selectedCategory === cat.slug ? 'bg-brand-50 text-brand-600 font-semibold' : 'text-slate-700'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <CategoryIconView category={cat} size="xs" />
+                      <span>{cat.name}</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-full font-mono">
+                      {count}
+                    </span>
                   </div>
-                  <span className="text-[10px] text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-full">
-                    {cat.itemCount}
-                  </span>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

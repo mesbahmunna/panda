@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { X, Sparkles, ChevronRight } from 'lucide-react';
 import { getStoredCategories } from '../../data/categories';
+import { products as baseProducts } from '../../data/products';
+import { CategoryIconView } from './CategoryIconView';
+import { Product } from '../../types/product';
 
 interface CategoriesDrawerProps {
   isOpen: boolean;
@@ -16,11 +19,39 @@ export const CategoriesDrawer: React.FC<CategoriesDrawerProps> = ({
   onSelectCategory,
 }) => {
   const [categoryList, setCategoryList] = useState(() => getStoredCategories());
+  const [productList, setProductList] = useState<Product[]>(() => {
+    try {
+      const raw = localStorage.getItem('baby_admin_products');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {}
+    return baseProducts;
+  });
+
+  const refreshData = () => {
+    setCategoryList(getStoredCategories());
+    try {
+      const raw = localStorage.getItem('baby_admin_products');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setProductList(parsed);
+          return;
+        }
+      }
+    } catch {}
+    setProductList(baseProducts);
+  };
 
   useEffect(() => {
-    const handleUpdate = () => setCategoryList(getStoredCategories());
-    window.addEventListener('baby_categories_updated', handleUpdate);
-    return () => window.removeEventListener('baby_categories_updated', handleUpdate);
+    window.addEventListener('baby_categories_updated', refreshData);
+    window.addEventListener('baby_products_updated', refreshData);
+    return () => {
+      window.removeEventListener('baby_categories_updated', refreshData);
+      window.removeEventListener('baby_products_updated', refreshData);
+    };
   }, []);
 
   if (!isOpen) return null;
@@ -55,26 +86,32 @@ export const CategoriesDrawer: React.FC<CategoriesDrawerProps> = ({
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </div>
 
-            {categoryList.map((cat) => (
-              <div
-                key={cat.id}
-                onClick={() => {
-                  onSelectCategory(cat.slug);
-                  onClose();
-                }}
-                className={`p-3 rounded-xl flex items-center justify-between text-xs font-semibold cursor-pointer transition-colors ${
-                  selectedCategory === cat.slug ? 'bg-brand-50 text-brand-600' : 'text-slate-800 hover:bg-slate-50'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <img src={cat.image} alt={cat.name} className="w-8 h-8 rounded-full object-cover" />
-                  <span>{cat.name}</span>
+            {categoryList.map((cat) => {
+              const count = productList.filter(
+                (p) => p.categorySlug === cat.slug || p.category?.toLowerCase() === cat.name.toLowerCase()
+              ).length;
+
+              return (
+                <div
+                  key={cat.id}
+                  onClick={() => {
+                    onSelectCategory(cat.slug);
+                    onClose();
+                  }}
+                  className={`p-3 rounded-xl flex items-center justify-between text-xs font-semibold cursor-pointer transition-colors ${
+                    selectedCategory === cat.slug ? 'bg-brand-50 text-brand-600' : 'text-slate-800 hover:bg-slate-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <CategoryIconView category={cat} size="sm" />
+                    <span>{cat.name}</span>
+                  </div>
+                  <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold">
+                    {count}
+                  </span>
                 </div>
-                <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold">
-                  {cat.itemCount}
-                </span>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="p-4 border-t border-slate-100 bg-slate-50 text-center text-xs text-slate-500">

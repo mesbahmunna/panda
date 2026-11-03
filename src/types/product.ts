@@ -48,8 +48,11 @@ export interface Category {
   id: string;
   name: string;
   slug: string;
-  image: string;
-  itemCount: number;
+  image?: string;
+  icon?: string;
+  iconColor?: string;
+  bgColor?: string;
+  itemCount?: number;
   description: string;
   featured?: boolean;
 }

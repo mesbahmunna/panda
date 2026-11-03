@@ -1,15 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   X,
   FolderPlus,
-  UploadCloud,
-  ImageIcon,
-  Loader2,
+  Palette,
   Sparkles,
-  Link as LinkIcon
+  Check
 } from 'lucide-react';
 import { Category } from '../../types/product';
-import { uploadImageFile } from '../services/imageUpload';
+import {
+  CategoryIconView,
+  AVAILABLE_ICONS,
+  COLOR_PALETTES,
+  DEFAULT_CATEGORY_THEMES
+} from '../../components/Categories/CategoryIconView';
 
 interface CategoryFormModalProps {
   category: Category | null;
@@ -27,17 +30,13 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
   const [name, setName] = useState(category?.name || '');
   const [slug, setSlug] = useState(category?.slug || '');
   const [description, setDescription] = useState(category?.description || '');
-  const [itemCount, setItemCount] = useState<number>(category?.itemCount || 20);
-  const [image, setImage] = useState(
-    category?.image ||
-      'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=600&q=80'
-  );
+  
+  // Icon and colors
+  const defaultTheme = DEFAULT_CATEGORY_THEMES[category?.slug || ''] || COLOR_PALETTES[0];
+  const [icon, setIcon] = useState<string>(category?.icon || defaultTheme.icon || 'Shirt');
+  const [iconColor, setIconColor] = useState<string>(category?.iconColor || defaultTheme.iconColor);
+  const [bgColor, setBgColor] = useState<string>(category?.bgColor || defaultTheme.bgColor);
   const [featured, setFeatured] = useState<boolean>(category?.featured ?? true);
-
-  const [isUploading, setIsUploading] = useState(false);
-  const [showUrlInput, setShowUrlInput] = useState(false);
-  const [manualUrl, setManualUrl] = useState('');
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleNameChange = (val: string) => {
     setName(val);
@@ -51,20 +50,9 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    try {
-      setIsUploading(true);
-      const uploadedUrl = await uploadImageFile(file);
-      setImage(uploadedUrl);
-    } catch {
-      alert('Failed to upload image. Please try again.');
-    } finally {
-      setIsUploading(false);
-      if (fileInputRef.current) fileInputRef.current.value = '';
-    }
+  const handleSelectPalette = (palette: { iconColor: string; bgColor: string }) => {
+    setIconColor(palette.iconColor);
+    setBgColor(palette.bgColor);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -86,9 +74,10 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
       id: category?.id || `cat-${Date.now()}`,
       name: name.trim(),
       slug: finalSlug,
-      image: image.trim() || 'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=600&q=80',
+      icon,
+      iconColor,
+      bgColor,
       description: description.trim(),
-      itemCount: Number(itemCount) || 0,
       featured
     };
 
@@ -98,17 +87,8 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5">
-      <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-white rounded-3xl w-full max-w-xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[92vh]">
         
-        {/* Hidden File Input */}
-        <input
-          type="file"
-          ref={fileInputRef}
-          accept="image/*"
-          onChange={handleImageUpload}
-          className="hidden"
-        />
-
         {/* Modal Header */}
         <div className="bg-[#0b0952] text-white p-5 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
@@ -120,7 +100,7 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
                 {isEditing ? 'Edit Category' : 'Create New Category'}
               </h2>
               <p className="text-white/60 text-xs">
-                Manage name, URL slug, banner photo, and description
+                Choose category icon, custom color theme, name, and URL slug
               </p>
             </div>
           </div>
@@ -134,24 +114,45 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
         </div>
 
         {/* Modal Form */}
-        <form onSubmit={handleSubmit} className="p-5 overflow-y-auto space-y-4 flex-1">
+        <form onSubmit={handleSubmit} className="p-5 sm:p-6 overflow-y-auto space-y-5 flex-1">
           
-          {/* Category Name & Slug */}
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Category Name *
-            </label>
-            <input
-              type="text"
-              required
-              value={name}
-              onChange={(e) => handleNameChange(e.target.value)}
-              placeholder="e.g. Baby Winter Collection, Baby Toys..."
-              className="w-full text-xs py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-[#0b0952]"
+          {/* Live Icon & Banner Preview */}
+          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-center gap-4">
+            <CategoryIconView
+              icon={icon}
+              iconColor={iconColor}
+              bgColor={bgColor}
+              size="lg"
             />
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
+                Category Preview
+              </span>
+              <h3 className="font-bold text-slate-900 text-sm">
+                {name || 'Category Name'}
+              </h3>
+              <p className="text-xs text-slate-500 line-clamp-1">
+                {description || 'Category description will appear here'}
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          {/* Category Name & Slug */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Category Name *
+              </label>
+              <input
+                type="text"
+                required
+                value={name}
+                onChange={(e) => handleNameChange(e.target.value)}
+                placeholder="e.g. Baby Clothing, Baby Feeding..."
+                className="w-full text-xs py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-[#0b0952]"
+              />
+            </div>
+
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
                 URL Slug (/category/...) *
@@ -161,92 +162,76 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
                 required
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
-                placeholder="e.g. baby-winter-collection"
+                placeholder="e.g. baby-clothing"
                 className="w-full text-xs font-mono py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Estimated Item Count
-              </label>
-              <input
-                type="number"
-                min="0"
-                value={itemCount}
-                onChange={(e) => setItemCount(Number(e.target.value))}
-                className="w-full text-xs font-bold py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none"
               />
             </div>
           </div>
 
-          {/* Category Image Upload */}
-          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                <ImageIcon className="w-4 h-4 text-blue-600" />
-                Category Cover Image *
-              </label>
-              <button
-                type="button"
-                onClick={() => setShowUrlInput(!showUrlInput)}
-                className="text-[11px] text-blue-600 hover:underline flex items-center gap-1"
-              >
-                <LinkIcon className="w-3 h-3" />
-                <span>{showUrlInput ? 'Hide URL' : 'Use URL'}</span>
-              </button>
+          {/* Icon Selector Grid */}
+          <div className="space-y-2">
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+              Select Category Icon
+            </label>
+            <div className="grid grid-cols-6 sm:grid-cols-9 gap-2 p-3 bg-slate-50 rounded-2xl border border-slate-200">
+              {AVAILABLE_ICONS.map((iconName) => {
+                const isSelected = icon === iconName;
+                return (
+                  <button
+                    key={iconName}
+                    type="button"
+                    onClick={() => setIcon(iconName)}
+                    className={`p-2 rounded-xl flex items-center justify-center transition-all ${
+                      isSelected
+                        ? 'bg-[#0b0952] text-white shadow-md scale-105 ring-2 ring-[#0b0952]/30'
+                        : 'bg-white hover:bg-slate-200 text-slate-700 border border-slate-200 shadow-2xs'
+                    }`}
+                    title={iconName}
+                  >
+                    <CategoryIconView
+                      icon={iconName}
+                      iconColor={isSelected ? '#FFFFFF' : iconColor}
+                      bgColor="transparent"
+                      size="sm"
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Color Palette Selector */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-700">
+              <Palette className="w-4 h-4 text-purple-600" />
+              <span>Choose Icon & Background Color Theme</span>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="w-20 h-20 rounded-xl border border-slate-300 overflow-hidden bg-white shrink-0 relative flex items-center justify-center">
-                {isUploading ? (
-                  <Loader2 className="w-6 h-6 text-blue-600 animate-spin" />
-                ) : image ? (
-                  <img src={image} alt="Preview" className="w-full h-full object-cover" />
-                ) : (
-                  <ImageIcon className="w-8 h-8 text-slate-300" />
-                )}
-              </div>
-
-              <div className="flex-1 space-y-2">
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={isUploading}
-                  className="w-full py-2.5 px-3 bg-[#0b0952] hover:bg-[#120f66] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-sm active:scale-95 disabled:opacity-50"
-                >
-                  <UploadCloud className="w-4 h-4 text-amber-400" />
-                  <span>{isUploading ? 'Uploading Image...' : 'Choose Image to Upload'}</span>
-                </button>
-                <p className="text-[10px] text-slate-400 text-center">
-                  Recommended size: 600×600 px (JPG, PNG, WEBP)
-                </p>
-              </div>
+            <div className="flex flex-wrap gap-2.5 pt-1">
+              {COLOR_PALETTES.map((pal) => {
+                const isSelected = iconColor === pal.iconColor && bgColor === pal.bgColor;
+                return (
+                  <button
+                    key={pal.name}
+                    type="button"
+                    onClick={() => handleSelectPalette(pal)}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
+                      isSelected
+                        ? 'border-slate-800 ring-2 ring-slate-800/20 shadow-sm'
+                        : 'border-slate-200 hover:border-slate-300 bg-white'
+                    }`}
+                  >
+                    <span
+                      className="w-4 h-4 rounded-full border border-black/10 shrink-0 flex items-center justify-center"
+                      style={{ backgroundColor: pal.iconColor }}
+                    >
+                      {isSelected && <Check className="w-2.5 h-2.5 text-white" />}
+                    </span>
+                    <span className="text-slate-700">{pal.name}</span>
+                  </button>
+                );
+              })}
             </div>
-
-            {showUrlInput && (
-              <div className="pt-2 flex items-center gap-2">
-                <input
-                  type="text"
-                  value={manualUrl}
-                  onChange={(e) => setManualUrl(e.target.value)}
-                  placeholder="Paste direct image URL (https://...)"
-                  className="flex-1 text-xs py-2 px-3 bg-white border border-slate-300 rounded-lg focus:outline-none"
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (manualUrl.trim()) {
-                      setImage(manualUrl.trim());
-                      setManualUrl('');
-                    }
-                  }}
-                  className="px-3 py-2 bg-slate-800 text-white rounded-lg text-xs font-bold"
-                >
-                  Apply
-                </button>
-              </div>
-            )}
           </div>
 
           {/* Description */}
@@ -281,7 +266,7 @@ export const CategoryFormModal: React.FC<CategoryFormModalProps> = ({
         </form>
 
         {/* Modal Footer */}
-        <div className="bg-slate-50 border-t border-slate-200 p-4 flex items-center justify-end gap-2.5 shrink-0">
+        <div className="bg-slate-50 border-t border-slate-200 p-4 sm:px-6 flex items-center justify-end gap-2.5 shrink-0">
           <button
             type="button"
             onClick={onClose}
