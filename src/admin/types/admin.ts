@@ -16,6 +16,36 @@ export interface AdminOrderItem {
   selectedBundle?: ProductBundleTier;
 }
 
+export interface SteadfastConsignment {
+  consignmentId: number;
+  invoice: string;
+  trackingCode: string;
+  trackingLink?: string;
+  codAmount: number;
+  status: string;
+  recipientName: string;
+  recipientPhone: string;
+  recipientAddress: string;
+  bookedAt: string;
+  note?: string;
+}
+
+export interface SteadfastFraudData {
+  phone: string;
+  deliveryRatio: number | null; // whole percent or null for new customers
+  cancellationRatio: number | null; // whole percent or null
+  volumeBand: 'none' | 'low' | 'medium' | 'high' | 'very_high' | string;
+  volumeRange: string | null; // "7", "10+", "25+", "50+", "100+", or null
+  deliveredCount: number | null;
+  cancelledCount: number | null;
+  totalReports: number;
+  fraudCategories: Record<string, number>;
+  doubtfulReports?: boolean;
+  isInactiveAccount?: boolean;
+  statusMessage?: string;
+  checkedAt: string;
+}
+
 export interface AdminOrder {
   id: string;
   orderId: string;
@@ -35,6 +65,8 @@ export interface AdminOrder {
   status: OrderStatus;
   courierName?: 'Steadfast' | 'Pathao' | 'RedX' | 'Paperfly' | string;
   courierTrackingId?: string;
+  steadfast?: SteadfastConsignment;
+  fraudScore?: SteadfastFraudData;
   assignedStaffId?: string;
   assignedStaffName?: string;
   assignedAt?: string;
@@ -66,4 +98,9 @@ export interface AdminStoreSettings {
   insideDhakaFee: number;
   outsideDhakaFee: number;
   courierHandlingFeePercent: number;
+  steadfastApiKey: string;
+  steadfastSecretKey: string;
+  steadfastBaseUrl: string;
+  steadfastEnabled: boolean;
+  steadfastDefaultNote: string;
 }

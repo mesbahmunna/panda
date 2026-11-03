@@ -368,7 +368,7 @@ export const addOrder = (orderData: Partial<AdminOrder>): AdminOrder => {
 export const updateOrderStatus = (
   orderId: string,
   newStatus: OrderStatus,
-  courierInfo?: { courierName?: string; trackingId?: string }
+  courierInfo?: { courierName?: string; trackingId?: string; steadfast?: any }
 ): void => {
   const orders = getOrders();
   const nowIso = new Date().toISOString();
@@ -383,8 +383,9 @@ export const updateOrderStatus = (
         confirmedAt: newStatus === 'confirmed' ? nowIso : order.confirmedAt,
         cancelledAt: newStatus === 'cancelled' ? nowIso : order.cancelledAt,
         resolvedAt: (newStatus === 'confirmed' || newStatus === 'cancelled') ? nowIso : order.resolvedAt,
-        courierName: courierInfo?.courierName !== undefined ? courierInfo.courierName : order.courierName,
-        courierTrackingId: courierInfo?.trackingId !== undefined ? courierInfo.trackingId : order.courierTrackingId
+        courierName: courierInfo?.courierName !== undefined ? courierInfo.courierName : (courierInfo?.steadfast ? 'Steadfast' : order.courierName),
+        courierTrackingId: courierInfo?.trackingId !== undefined ? courierInfo.trackingId : (courierInfo?.steadfast?.trackingCode || order.courierTrackingId),
+        steadfast: courierInfo?.steadfast !== undefined ? courierInfo.steadfast : order.steadfast
       };
     }
     return order;

@@ -2,9 +2,16 @@
   RewriteEngine On
   RewriteBase /baby/
 
+  # Allow direct access to api folder
+  RewriteRule ^api/(.*)$ api/$1 [L]
+
   # If requested path directly exists in dist/ (e.g. assets, logo.png)
   RewriteCond %{DOCUMENT_ROOT}/baby/dist/$1 -f
   RewriteRule ^(.*)$ dist/$1 [L]
+
+  # Real files in current directory
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
 
   # Otherwise serve the built SPA entry point
   RewriteRule ^(.*)$ dist/index.html [L]

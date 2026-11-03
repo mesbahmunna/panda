@@ -16,6 +16,7 @@ import { AdminOrder, AdminOrderItem } from '../../admin/types/admin';
 import { ProductBundleTier } from '../../types/product';
 import { getAdminProductById } from '../../admin/services/productStorage';
 import { updateOrderDetails } from '../../admin/services/orderStorage';
+import { CustomerFraudBadge } from '../../admin/components/CustomerFraudBadge';
 
 interface StaffOrderEditModalProps {
   order: AdminOrder | null;
@@ -350,7 +351,10 @@ export const StaffOrderEditModal: React.FC<StaffOrderEditModalProps> = ({
               </div>
 
               <div>
-                <label className="block font-semibold text-gray-700 mb-1">Phone Number *</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="font-semibold text-gray-700">Phone Number *</label>
+                  <CustomerFraudBadge phone={phoneNumber || order.phoneNumber} />
+                </div>
                 <input
                   type="text"
                   value={phoneNumber}

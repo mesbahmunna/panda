@@ -68,7 +68,15 @@ export const PackagingSlipModal: React.FC<PackagingSlipModalProps> = ({ order, o
               </div>
               <p className="text-[10px] text-slate-500">Date: {order.orderDate}</p>
               {order.courierName && (
-                <p className="text-xs font-bold text-indigo-700 mt-0.5">Courier: {order.courierName}</p>
+                <p className="text-xs font-bold text-indigo-700 mt-0.5">
+                  Courier: {order.courierName}
+                  {order.courierTrackingId && ` (${order.courierTrackingId})`}
+                </p>
+              )}
+              {order.steadfast?.consignmentId && (
+                <p className="text-[10px] font-mono font-bold text-slate-600">
+                  Steadfast CID: #{order.steadfast.consignmentId}
+                </p>
               )}
             </div>
           </div>

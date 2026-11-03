@@ -13,7 +13,10 @@ import {
   PieChart,
   ShoppingBag,
   ArrowUpRight,
-  ArrowDownRight
+  ArrowDownRight,
+  RefreshCw,
+  ExternalLink,
+  Wallet
 } from 'lucide-react';
 import { AdminHeader } from '../components/AdminHeader';
 import { getOrders } from '../services/orderStorage';
@@ -27,6 +30,7 @@ import {
 import { ExpenseItem, AdminOrder } from '../types/admin';
 import { ExpenseModal } from '../components/ExpenseModal';
 import { getAdminSettings } from '../services/settingsStorage';
+import { fetchMerchantBalance } from '../services/steadfastService';
 
 interface OutletContextType {
   onOpenMobileMenu: () => void;
@@ -38,7 +42,18 @@ export const AdminFinancePage: React.FC = () => {
   const [orders, setOrders] = useState<AdminOrder[]>(() => getOrders());
   const [expenses, setExpenses] = useState<ExpenseItem[]>(() => getExpenses());
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
+  const [sfBalance, setSfBalance] = useState<number | null>(null);
+  const [sfBalanceLoading, setSfBalanceLoading] = useState(false);
   const settings = getAdminSettings();
+
+  const loadSteadfastBalance = async () => {
+    setSfBalanceLoading(true);
+    const res = await fetchMerchantBalance();
+    if (res.success) {
+      setSfBalance(res.currentBalance);
+    }
+    setSfBalanceLoading(false);
+  };
 
   const refreshAll = () => {
     setOrders(getOrders());
@@ -47,6 +62,7 @@ export const AdminFinancePage: React.FC = () => {
 
   useEffect(() => {
     refreshAll();
+    loadSteadfastBalance();
     window.addEventListener('baby_orders_updated', refreshAll);
     window.addEventListener('baby_expenses_updated', refreshAll);
     return () => {
@@ -199,6 +215,60 @@ export const AdminFinancePage: React.FC = () => {
             </div>
           </div>
 
+        </div>
+
+        {/* Steadfast Courier COD Merchant Wallet Card */}
+        <div className="bg-gradient-to-r from-indigo-900 via-indigo-950 to-[#0b0952] text-white p-5 sm:p-6 rounded-3xl border border-indigo-700/50 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 border border-white/15">
+              <Wallet className="w-6 h-6 text-emerald-400" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-sm text-white">Steadfast Merchant COD Balance</span>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
+                  Live API
+                </span>
+              </div>
+              <p className="text-xs text-white/60 mt-0.5">
+                Delivered COD collected by riders, less delivery charges & 1% collection fee. Available for payout.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-3 sm:pt-0 border-white/10">
+            <div className="text-right">
+              <span className="text-[10px] text-white/50 uppercase font-bold tracking-wider block">Available Balance</span>
+              <span className="text-2xl font-black text-emerald-400 font-mono">
+                {sfBalanceLoading ? (
+                  <RefreshCw className="w-5 h-5 animate-spin inline text-white/60" />
+                ) : (
+                  `৳${(sfBalance ?? 0).toLocaleString()}`
+                )}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={loadSteadfastBalance}
+                disabled={sfBalanceLoading}
+                className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors"
+                title="Refresh Steadfast Balance"
+              >
+                <RefreshCw className={`w-4 h-4 ${sfBalanceLoading ? 'animate-spin' : ''}`} />
+              </button>
+              <a
+                href="https://steadfast.com.bd/user/payouts"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95"
+              >
+                <span>Request Payout</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Net Profit & Courier Payout Card */}

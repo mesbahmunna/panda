@@ -38,6 +38,8 @@ import {
 } from '../admin/services/orderStorage';
 import { ImpersonationBanner } from './components/ImpersonationBanner';
 import { StaffOrderEditModal } from './components/StaffOrderEditModal';
+import { CustomerFraudBadge } from '../admin/components/CustomerFraudBadge';
+import { SteadfastTrackingModal } from '../admin/components/SteadfastTrackingModal';
 import { soundManager, subscribeToNewOrderEvents, NewOrderNotificationDetail } from '../utils/audioAlert';
 import { NewOrderAlertBanner } from '../components/common/NewOrderAlertBanner';
 import logoImg from '../assets/logo.png';
@@ -54,6 +56,7 @@ export const StaffDashboardPage: React.FC = () => {
   const [cancelReason, setCancelReason] = useState('Customer cancelled on phone');
   const [isSoundOn, setIsSoundOn] = useState(() => soundManager.isEnabled());
   const [staffNotification, setStaffNotification] = useState<NewOrderNotificationDetail | null>(null);
+  const [trackingModalOrder, setTrackingModalOrder] = useState<AdminOrder | null>(null);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -528,11 +531,12 @@ export const StaffDashboardPage: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-3 text-xs">
                     {/* Customer Info (5 cols) */}
                     <div className="md:col-span-5 space-y-1">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-extrabold text-sm text-gray-900">{order.customerName}</span>
                         <span className="font-mono text-xs font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded">
                           {order.phoneNumber}
                         </span>
+                        <CustomerFraudBadge phone={order.phoneNumber} initialData={order.fraudScore} />
                       </div>
                       <div className="text-gray-600 flex items-start gap-1">
                         <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0 mt-0.5" />
@@ -601,6 +605,18 @@ export const StaffDashboardPage: React.FC = () => {
 
                     {/* Order Controls */}
                     <div className="flex items-center gap-2">
+                      {(order.courierTrackingId || order.steadfast?.trackingCode) && (
+                        <button
+                          type="button"
+                          onClick={() => setTrackingModalOrder(order)}
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-indigo-200 bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition-all shadow-sm"
+                          title="View live journey steps from Steadfast"
+                        >
+                          <Clock className="w-3.5 h-3.5 text-indigo-600" />
+                          <span>Track</span>
+                        </button>
+                      )}
+
                       <button
                         type="button"
                         onClick={() => setEditingOrder(order)}
@@ -701,6 +717,18 @@ export const StaffDashboardPage: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Steadfast Courier Tracking Journey Modal */}
+      {trackingModalOrder && (
+        <SteadfastTrackingModal
+          isOpen={!!trackingModalOrder}
+          onClose={() => setTrackingModalOrder(null)}
+          invoice={trackingModalOrder.orderId}
+          trackingCode={trackingModalOrder.courierTrackingId || trackingModalOrder.steadfast?.trackingCode}
+          trackingLink={trackingModalOrder.steadfast?.trackingLink}
+          orderStatus={trackingModalOrder.status}
+        />
       )}
 
       {/* Staff New Order Notification Audio & Visual Alert Banner */}

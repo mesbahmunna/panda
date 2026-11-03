@@ -12,7 +12,12 @@ export const DEFAULT_SETTINGS: AdminStoreSettings = {
   showroomAddress: 'House 42, Road 11, Block D, Banani, Dhaka-1213, Bangladesh',
   insideDhakaFee: 70,
   outsideDhakaFee: 130,
-  courierHandlingFeePercent: 1.0
+  courierHandlingFeePercent: 1.0,
+  steadfastApiKey: '5a6jjgtod15mg68pdp3pewjae9zu4k8g',
+  steadfastSecretKey: 'rygkmut7erremcmoeczyewi3',
+  steadfastBaseUrl: 'https://portal.packzy.com/api/v1',
+  steadfastEnabled: true,
+  steadfastDefaultNote: 'Handle with care - Baby Panda'
 };
 
 export const getAdminSettings = (): AdminStoreSettings => {
