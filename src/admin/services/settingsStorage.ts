@@ -12,12 +12,7 @@ export const DEFAULT_SETTINGS: AdminStoreSettings = {
   showroomAddress: 'House 42, Road 11, Block D, Banani, Dhaka-1213, Bangladesh',
   insideDhakaFee: 70,
   outsideDhakaFee: 130,
-  courierHandlingFeePercent: 1.0,
-  coupons: [
-    { id: 'c-1', code: 'BABY10', discountType: 'percent', value: 10, active: true },
-    { id: 'c-2', code: 'WELCOME10', discountType: 'percent', value: 10, active: true },
-    { id: 'c-3', code: 'FREESHIP', discountType: 'fixed', value: 70, active: true }
-  ]
+  courierHandlingFeePercent: 1.0
 };
 
 export const getAdminSettings = (): AdminStoreSettings => {

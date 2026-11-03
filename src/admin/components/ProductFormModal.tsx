@@ -39,7 +39,6 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
   const [category, setCategory] = useState(product?.category || categoryList[0]?.name || 'Baby Clothing');
   const [price, setPrice] = useState<number>(product?.price || 450);
   const [originalPrice, setOriginalPrice] = useState<number>(product?.originalPrice || 650);
-  const [badge, setBadge] = useState<string>(product?.badge || '');
   
   // Images state
   const [thumbnail, setThumbnail] = useState(
@@ -275,10 +274,6 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
         'Delivery Time': 'Inside Dhaka 24-48 Hours, Outside Dhaka 2-3 Days',
         'Payment': 'Cash on Delivery (COD)'
       },
-      badge: badge.trim() || undefined,
-      isBestSeller: badge === 'BEST SELLER',
-      isTrending: badge === 'HOT DEAL',
-      isNewArrival: badge === 'NEW ARRIVAL',
       variationGroup: hasVariations && variationOptions.length > 0
         ? {
             name: variationGroupName.trim() || 'Select Option',
@@ -388,7 +383,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
             </div>
 
             {/* Pricing Matrix */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Sale Price (৳ BDT) *
@@ -407,9 +402,16 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Regular / Strike Price (৳)
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-semibold text-slate-700">
+                    Regular / Strike Price (৳)
+                  </label>
+                  {discountPercent > 0 && (
+                    <span className="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md">
+                      {discountPercent}% OFF
+                    </span>
+                  )}
+                </div>
                 <div className="relative">
                   <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-bold text-slate-400 text-sm">৳</span>
                   <input
@@ -420,28 +422,6 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
                     className="w-full text-sm pl-8 pr-3 py-2 bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-[#0b0952]"
                   />
                 </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Promotional Tag / Badge
-                </label>
-                <select
-                  value={badge}
-                  onChange={(e) => setBadge(e.target.value)}
-                  className="w-full text-sm py-2 px-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-[#0b0952]"
-                >
-                  <option value="">No Badge</option>
-                  <option value="HOT DEAL">HOT DEAL 🔥</option>
-                  <option value="POPULAR">POPULAR ⭐</option>
-                  <option value="BEST SELLER">BEST SELLER 🏆</option>
-                  <option value="NEW ARRIVAL">NEW ARRIVAL ✨</option>
-                </select>
-                {discountPercent > 0 && (
-                  <span className="text-[11px] text-emerald-600 font-bold mt-1 block">
-                    Calculated Discount: {discountPercent}% OFF
-                  </span>
-                )}
               </div>
             </div>
           </div>

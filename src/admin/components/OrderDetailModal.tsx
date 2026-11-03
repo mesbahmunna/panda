@@ -266,12 +266,6 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
                 <span>Courier Delivery Fee:</span>
                 <span className="font-semibold text-slate-800">+ ৳{order.deliveryFee}</span>
               </div>
-              {order.discount > 0 && (
-                <div className="flex justify-between text-emerald-600">
-                  <span>Promotional Coupon Discount:</span>
-                  <span className="font-semibold">- ৳{order.discount}</span>
-                </div>
-              )}
               <div className="pt-2 border-t border-slate-200 flex justify-between items-center">
                 <span className="font-bold text-slate-900 text-sm sm:text-base">Total COD to Collect:</span>
                 <span className="font-extrabold text-[#0b0952] text-lg sm:text-xl">৳{order.total}</span>

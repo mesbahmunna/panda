@@ -48,14 +48,6 @@ export interface ExpenseItem {
   note?: string;
 }
 
-export interface CouponItem {
-  id: string;
-  code: string;
-  discountType: 'percent' | 'fixed';
-  value: number;
-  active: boolean;
-}
-
 export interface AdminStoreSettings {
   adminPin: string;
   storeName: string;
@@ -66,5 +58,4 @@ export interface AdminStoreSettings {
   insideDhakaFee: number;
   outsideDhakaFee: number;
   courierHandlingFeePercent: number;
-  coupons: CouponItem[];
 }

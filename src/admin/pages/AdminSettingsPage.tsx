@@ -8,16 +8,13 @@ import {
   Mail,
   MapPin,
   Truck,
-  Tag,
-  Plus,
-  Trash2,
   CheckCircle2,
   Save,
   AlertCircle
 } from 'lucide-react';
 import { AdminHeader } from '../components/AdminHeader';
 import { getAdminSettings, saveAdminSettings } from '../services/settingsStorage';
-import { AdminStoreSettings, CouponItem } from '../types/admin';
+import { AdminStoreSettings } from '../types/admin';
 
 interface OutletContextType {
   onOpenMobileMenu: () => void;
@@ -28,11 +25,6 @@ export const AdminSettingsPage: React.FC = () => {
   const { onOpenMobileMenu, pendingCount } = useOutletContext<OutletContextType>();
   const [settings, setSettings] = useState<AdminStoreSettings>(() => getAdminSettings());
   const [savedSuccess, setSavedSuccess] = useState(false);
-
-  // New coupon form state
-  const [newCouponCode, setNewCouponCode] = useState('');
-  const [newCouponType, setNewCouponType] = useState<'percent' | 'fixed'>('percent');
-  const [newCouponValue, setNewCouponValue] = useState<number>(10);
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,56 +37,11 @@ export const AdminSettingsPage: React.FC = () => {
     setTimeout(() => setSavedSuccess(false), 3000);
   };
 
-  const handleAddCoupon = () => {
-    if (!newCouponCode.trim()) return;
-    const cleanCode = newCouponCode.trim().toUpperCase();
-    if (settings.coupons.some((c) => c.code === cleanCode)) {
-      alert(`Coupon code "${cleanCode}" already exists.`);
-      return;
-    }
-
-    const newCoupon: CouponItem = {
-      id: `c-${Date.now()}`,
-      code: cleanCode,
-      discountType: newCouponType,
-      value: Number(newCouponValue),
-      active: true
-    };
-
-    const updated = {
-      ...settings,
-      coupons: [...settings.coupons, newCoupon]
-    };
-    setSettings(updated);
-    saveAdminSettings(updated);
-    setNewCouponCode('');
-  };
-
-  const handleToggleCoupon = (id: string) => {
-    const updated = {
-      ...settings,
-      coupons: settings.coupons.map((c) =>
-        c.id === id ? { ...c, active: !c.active } : c
-      )
-    };
-    setSettings(updated);
-    saveAdminSettings(updated);
-  };
-
-  const handleDeleteCoupon = (id: string) => {
-    const updated = {
-      ...settings,
-      coupons: settings.coupons.filter((c) => c.id !== id)
-    };
-    setSettings(updated);
-    saveAdminSettings(updated);
-  };
-
   return (
     <div className="flex-1 flex flex-col">
       <AdminHeader
         title="Store & Logistics Settings"
-        subtitle="Manage master security PIN, hotline contact info, delivery rates, and promo coupons"
+        subtitle="Manage master security PIN, hotline contact info, and delivery rates"
         onOpenMobileMenu={onOpenMobileMenu}
         pendingOrdersCount={pendingCount}
       />
@@ -242,87 +189,6 @@ export const AdminSettingsPage: React.FC = () => {
                   className="w-full text-xs font-bold py-2.5 px-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none"
                 />
               </div>
-            </div>
-          </div>
-
-          {/* Section 4: Promotional Coupons */}
-          <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-              <Tag className="w-4 h-4 text-purple-600" />
-              <h3 className="font-bold text-slate-900 text-sm sm:text-base">Promotional Coupon Codes</h3>
-            </div>
-
-            {/* Existing Coupons Table */}
-            <div className="border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-100">
-              {settings.coupons.map((coupon) => (
-                <div key={coupon.id} className="p-3 sm:px-4 flex items-center justify-between gap-3 bg-white">
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono font-bold text-sm text-[#0b0952] bg-slate-100 px-2.5 py-1 rounded-md">
-                      {coupon.code}
-                    </span>
-                    <span className="text-xs text-slate-600 font-medium">
-                      {coupon.discountType === 'percent' ? `${coupon.value}% OFF` : `৳${coupon.value} Fixed OFF`}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <label className="flex items-center gap-1.5 cursor-pointer text-xs font-semibold">
-                      <input
-                        type="checkbox"
-                        checked={coupon.active}
-                        onChange={() => handleToggleCoupon(coupon.id)}
-                        className="w-4 h-4 rounded text-blue-600"
-                      />
-                      <span className={coupon.active ? 'text-emerald-600' : 'text-slate-400'}>
-                        {coupon.active ? 'Active' : 'Disabled'}
-                      </span>
-                    </label>
-
-                    <button
-                      type="button"
-                      onClick={() => handleDeleteCoupon(coupon.id)}
-                      className="p-1 text-slate-400 hover:text-rose-500 rounded"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Add New Coupon Form */}
-            <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-              <input
-                type="text"
-                placeholder="New Coupon (e.g. FLASH20)"
-                value={newCouponCode}
-                onChange={(e) => setNewCouponCode(e.target.value)}
-                className="flex-1 text-xs py-2 px-3 bg-white border border-slate-300 rounded-xl uppercase font-mono font-bold focus:outline-none"
-              />
-              <select
-                value={newCouponType}
-                onChange={(e) => setNewCouponType(e.target.value as any)}
-                className="text-xs py-2 px-3 bg-white border border-slate-300 rounded-xl focus:outline-none"
-              >
-                <option value="percent">Percentage (%)</option>
-                <option value="fixed">Fixed Amount (৳)</option>
-              </select>
-              <input
-                type="number"
-                min="1"
-                placeholder="Value"
-                value={newCouponValue}
-                onChange={(e) => setNewCouponValue(Number(e.target.value))}
-                className="w-20 text-xs py-2 px-2.5 bg-white border border-slate-300 rounded-xl font-bold focus:outline-none"
-              />
-              <button
-                type="button"
-                onClick={handleAddCoupon}
-                className="px-4 py-2 bg-[#0b0952] hover:bg-[#120f66] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1"
-              >
-                <Plus className="w-3.5 h-3.5 text-amber-400" />
-                Add
-              </button>
             </div>
           </div>
 

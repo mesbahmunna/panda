@@ -34,8 +34,6 @@ export const CheckoutPage: React.FC = () => {
     deliveryZone,
     setDeliveryZone,
     deliveryFee,
-    discount,
-    applyCoupon,
     total,
     submitOrder,
     setIsCartOpen,
@@ -54,8 +52,6 @@ export const CheckoutPage: React.FC = () => {
     notes: '',
   });
 
-  const [couponCode, setCouponCode] = useState('');
-  const [couponFeedback, setCouponFeedback] = useState<{ success: boolean; message: string } | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [submitting, setSubmitting] = useState(false);
 
@@ -90,13 +86,6 @@ export const CheckoutPage: React.FC = () => {
     } else {
       setDeliveryZone('outside_dhaka');
     }
-  };
-
-  const handleApplyCoupon = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!couponCode) return;
-    const res = applyCoupon(couponCode);
-    setCouponFeedback(res);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -446,33 +435,6 @@ export const CheckoutPage: React.FC = () => {
                 })}
               </div>
 
-              {/* Promo Coupon Form */}
-              <form onSubmit={handleApplyCoupon} className="pt-2 border-t border-slate-100">
-                <div className="flex gap-2">
-                  <div className="relative flex-1">
-                    <Tag className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      value={couponCode}
-                      onChange={(e) => setCouponCode(e.target.value)}
-                      placeholder="Coupon: BABY10"
-                      className="w-full pl-8 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-brand-500 uppercase font-mono"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-xl transition-colors"
-                  >
-                    Apply
-                  </button>
-                </div>
-                {couponFeedback && (
-                  <p className={`text-[11px] font-medium mt-1.5 ${couponFeedback.success ? 'text-emerald-600' : 'text-rose-600'}`}>
-                    {couponFeedback.message}
-                  </p>
-                )}
-              </form>
-
               {/* Price Calculation breakdown */}
               <div className="pt-3 border-t border-slate-100 space-y-2 text-xs sm:text-sm">
                 <div className="flex justify-between text-slate-600">
@@ -483,12 +445,6 @@ export const CheckoutPage: React.FC = () => {
                   <span>Delivery Charge ({deliveryZone === 'inside_dhaka' ? 'Inside Dhaka' : 'Outside Dhaka'}):</span>
                   <span className="font-semibold text-slate-800">৳ {deliveryFee}</span>
                 </div>
-                {discount > 0 && (
-                  <div className="flex justify-between text-emerald-600 font-semibold">
-                    <span>Discount Coupon:</span>
-                    <span>-৳ {discount.toLocaleString()}</span>
-                  </div>
-                )}
                 <div className="flex justify-between text-base sm:text-lg font-black text-slate-900 pt-3 border-t border-slate-200">
                   <span>Payable on Delivery:</span>
                   <span className="text-brand-600">৳ {total.toLocaleString()}</span>

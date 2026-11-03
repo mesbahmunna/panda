@@ -21,7 +21,6 @@ interface CartContextType {
   setDeliveryZone: (zone: DeliveryZone) => void;
   deliveryFee: number;
   discount: number;
-  applyCoupon: (code: string) => { success: boolean; message: string };
   total: number;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
@@ -66,8 +65,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
 
   const [deliveryZone, setDeliveryZone] = useState<DeliveryZone>('inside_dhaka');
-  const [discount, setDiscount] = useState<number>(0);
-  const [appliedCoupon, setAppliedCoupon] = useState<string>('');
+  const discount = 0;
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [lastOrder, setLastOrder] = useState<OrderDetails | null>(null);
@@ -163,24 +161,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const clearCart = () => {
     setItems([]);
-    setDiscount(0);
-    setAppliedCoupon('');
-  };
-
-  const applyCoupon = (code: string) => {
-    const clean = code.trim().toUpperCase();
-    if (clean === 'BABY10' || clean === 'WELCOME10') {
-      const disc = Math.round(subtotal * 0.1);
-      setDiscount(disc);
-      setAppliedCoupon(clean);
-      return { success: true, message: `Coupon ${clean} applied! 10% discount saved ৳${disc}` };
-    }
-    if (clean === 'FREESHIP') {
-      setDiscount(deliveryFee);
-      setAppliedCoupon(clean);
-      return { success: true, message: 'Free Delivery coupon applied successfully!' };
-    }
-    return { success: false, message: 'Invalid coupon code. Try BABY10 for 10% OFF' };
   };
 
   const submitOrder = (formData: {
@@ -274,7 +254,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setDeliveryZone,
         deliveryFee,
         discount,
-        applyCoupon,
         total,
         isCartOpen,
         setIsCartOpen,

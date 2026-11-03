@@ -186,7 +186,6 @@ export const AdminProductsPage: React.FC = () => {
                     <th className="py-3.5 px-4">Pricing & Discount</th>
                     <th className="py-3.5 px-4">Variations</th>
                     <th className="py-3.5 px-4">Bundle Tiers</th>
-                    <th className="py-3.5 px-4">Badge</th>
                     <th className="py-3.5 px-4 text-right">Actions</th>
                   </tr>
                 </thead>
@@ -265,18 +264,7 @@ export const AdminProductsPage: React.FC = () => {
                           )}
                         </td>
 
-                        {/* 6. Promotional Badge */}
-                        <td className="py-3.5 px-4">
-                          {product.badge ? (
-                            <span className="px-2 py-0.5 bg-rose-50 text-rose-700 border border-rose-200 font-bold text-[10px] rounded-full uppercase">
-                              {product.badge}
-                            </span>
-                          ) : (
-                            <span className="text-slate-400 text-[11px]">Standard</span>
-                          )}
-                        </td>
-
-                        {/* 7. Action Buttons */}
+                        {/* 6. Action Buttons */}
                         <td className="py-3.5 px-4 text-right">
                           <div className="flex items-center justify-end gap-1.5">
                             {/* Live Storefront Link */}
