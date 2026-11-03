@@ -63,7 +63,7 @@ export interface AdminOrder {
   total: number;
   paymentMethod: 'Cash on Delivery';
   status: OrderStatus;
-  courierName?: 'Steadfast' | 'Pathao' | 'RedX' | 'Paperfly' | string;
+  courierName?: 'Steadfast' | string;
   courierTrackingId?: string;
   steadfast?: SteadfastConsignment;
   fraudScore?: SteadfastFraudData;

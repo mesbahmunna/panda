@@ -168,8 +168,8 @@ const SEED_ORDERS: AdminOrder[] = [
     total: 520,
     paymentMethod: 'Cash on Delivery',
     status: 'in_courier',
-    courierName: 'Pathao',
-    courierTrackingId: 'PTH-8839210',
+    courierName: 'Steadfast',
+    courierTrackingId: 'STDF-8839210',
     orderDate: 'Nov 02, 01:10 PM',
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString()
   },

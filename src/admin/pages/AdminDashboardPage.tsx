@@ -160,7 +160,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
             <div className="text-xs text-slate-500 mt-2 flex items-center justify-between">
               <span>Expected: ৳{inCourierOrders.reduce((s, o) => s + o.total, 0).toLocaleString()}</span>
-              <span className="text-slate-400">Steadfast/Pathao</span>
+              <span className="text-slate-400">Steadfast Courier</span>
             </div>
           </div>
 

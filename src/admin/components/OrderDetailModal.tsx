@@ -488,18 +488,12 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
                   <label className="block text-xs font-semibold text-slate-700 mb-1">
                     Courier Partner:
                   </label>
-                  <select
-                    value={courierName}
-                    onChange={(e) => setCourierName(e.target.value)}
-                    className="w-full text-xs font-medium py-2 px-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-blue-500"
-                  >
-                    <option value="Steadfast">Steadfast Courier</option>
-                    <option value="Pathao">Pathao Courier</option>
-                    <option value="RedX">RedX Delivery</option>
-                    <option value="Paperfly">Paperfly</option>
-                    <option value="Sundarban">Sundarban Courier</option>
-                    <option value="SA Paribahan">SA Paribahan</option>
-                  </select>
+                  <div className="w-full text-xs font-bold py-2 px-3 bg-slate-100 border border-slate-200 rounded-xl text-slate-800 flex items-center justify-between">
+                    <span>Steadfast Courier</span>
+                    <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded-md">
+                      Exclusive Partner
+                    </span>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1">
