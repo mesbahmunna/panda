@@ -1,6 +1,73 @@
 import { Product } from '../types/product';
+import blanketBrown from '../assets/products/baby-sleeping-blanket/brown.jpeg';
+import blanketPink from '../assets/products/baby-sleeping-blanket/pink.jpeg';
+import blanketBlue from '../assets/products/baby-sleeping-blanket/blue.jpeg';
+import blanketKhaki from '../assets/products/baby-sleeping-blanket/khaki.jpeg';
 
 export const products: Product[] = [
+  {
+    id: 'prod-sleeping-blanket',
+    name: 'বেবি স্লিপিং ব্ল্যাঙ্কেট - Baby Sleeping Blanket Swaddle Wrap',
+    slug: 'baby-sleeping-blanket-swaddle-wrap',
+    category: 'Baby Clothing',
+    categorySlug: 'baby-clothing',
+    price: 450,
+    originalPrice: 650,
+    discountPercent: 31,
+    images: [
+      blanketBrown,
+      blanketPink,
+      blanketBlue,
+      blanketKhaki
+    ],
+    thumbnail: blanketBrown,
+    shortDescription: 'শীতে আপনার শিশুর জন্য আরাম ও উষ্ণতার নিশ্চয়তা। চায়না থেকে আমদানিকৃত নরম ও মোলায়েম কাপড়ে তৈরি বেবি স্লিপিং ব্ল্যাঙ্কেট।',
+    description: `আপনার প্রিয় সোনামণিকে শীতের ঠান্ডা আবহাওয়া থেকে সুরক্ষিত এবং উষ্ণ রাখতে নিয়ে এলো চায়না থেকে আমদানিকৃত প্রিমিয়াম কোয়ালিটির বেবি স্লিপিং ব্ল্যাঙ্কেট। নরম, মোলায়েম এবং তুলতুলে কাপড়ে তৈরি যা শিশুর কোমল ও সংবেদনশীল ত্বকের জন্য সম্পূর্ণ নিরাপদ।
+
+সুন্দর কার্টুন র্যাবিট ডিজাইন এবং আরামদায়ক সোয়াডেল মোড়ক শিশুকে মায়ের কোলের মতো পরম উষ্ণতা ও প্রশান্তির অনুভূতি দেয়, যা শিশুকে নিশ্চিন্তে ঘুমাতে সাহায্য করে।
+
+• শীতে রাখে আরামদায়ক গরম
+• নরম ও মোলায়েম প্রিমিয়াম ফেব্রিক
+• শিশুর ত্বকের জন্য শতভাগ নিরাপদ ও অ্যালার্জি-মুক্ত
+• সহজে ধোয়া যায় (মেশিন বা হাতে ওয়াশ করা উপযোগী)
+• চায়না থেকে সরাসরি আমদানিকৃত কোয়ালিটি নিশ্চয়তা`,
+    features: [
+      'শীতের দিনে শিশুকে পরম আরাম ও উষ্ণতায় সুরক্ষিত রাখে',
+      'প্রিমিয়াম নরম ও মোলায়েম তুলতুলে ফ্লিচ ফেব্রিক',
+      'শিশুর সংবেদনশীল ত্বকের জন্য ১০০% নিরাপদ ও পরিবেশবান্ধব',
+      'চতুর খরগোশ কার্টুন এমব্রয়ডারি ও 3D পুতুল পা ডিজাইন',
+      'মেশিন ও হ্যান্ড ওয়াশ উপযোগী - সহজে পরিষ্কার করা যায়',
+      'চায়না থেকে সরাসরি আমদানিকৃত প্রিমিয়াম এক্সপোর্ট কোয়ালিটি'
+    ],
+    specifications: {
+      'পণ্যের নাম': 'বেবি স্লিপিং ব্ল্যাঙ্কেট (Baby Sleeping Blanket)',
+      'উপাদান (Material)': 'Ultra-Soft Coral Fleece / Premium Velvet Plush',
+      'বয়স (Age Range)': 'Newborn to Infant (সোয়াডেল র্যাপ উপযোগী)',
+      'সিজন (Season)': 'Winter & All-Season AC Room',
+      'রঙ (Colors)': 'চকলেট ব্রাউন, সফট পিঙ্ক, স্কাই ব্লু, ওয়ার্ম খাকি',
+      'ওয়াশ কেয়ার': 'মেশিন ওয়াশ ও হ্যান্ড ওয়াশ উপযোগী',
+      'উৎপত্তি (Origin)': 'Imported Quality (চায়না থেকে আমদানিকৃত)'
+    },
+    isBestSeller: true,
+    isTrending: true,
+    isNewArrival: true,
+    badge: 'HOT DEAL',
+    variationGroup: {
+      name: 'Select Color',
+      options: [
+        { id: 'c-brown', name: 'Chocolate Brown', imageIndex: 0 },
+        { id: 'c-pink', name: 'Soft Pink', imageIndex: 1 },
+        { id: 'c-blue', name: 'Sky Blue', imageIndex: 2 },
+        { id: 'c-khaki', name: 'Warm Khaki', imageIndex: 3 }
+      ]
+    },
+    bundleTiers: [
+      { id: 'b-1', pieces: 1, title: '1 Pcs', price: 450, originalPrice: 650, badge: 'Standard' },
+      { id: 'b-2', pieces: 2, title: '2 Pcs', price: 800, originalPrice: 1300, badge: 'Save ৳100' },
+      { id: 'b-3', pieces: 3, title: '3 Pcs', price: 1150, originalPrice: 1950, badge: 'Save ৳200' },
+      { id: 'b-4', pieces: 4, title: '4 Pcs', price: 1500, originalPrice: 2600, badge: 'Save ৳300' }
+    ]
+  },
   {
     id: 'prod-1',
     name: 'Smart Baby Electric Nail Trimmer with LED Light (6 Grinding Heads)',

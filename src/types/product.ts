@@ -9,8 +9,9 @@ export interface ProductBundleTier {
 
 export interface ProductVariationOption {
   id: string;
-  name: string; // e.g. "1 Year", "2 Year", "3 Year"
+  name: string; // e.g. "1 Year", "2 Year", "3 Year" or "Chocolate Brown"
   price?: number;
+  imageIndex?: number;
 }
 
 export interface ProductVariationGroup {

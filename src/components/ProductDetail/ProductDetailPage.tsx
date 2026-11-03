@@ -241,7 +241,12 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                         <button
                           key={opt.id}
                           type="button"
-                          onClick={() => setSelectedVariation(opt.name)}
+                          onClick={() => {
+                            setSelectedVariation(opt.name);
+                            if (opt.imageIndex !== undefined) {
+                              setActiveImageIndex(opt.imageIndex);
+                            }
+                          }}
                           className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border transition-all flex items-center gap-1.5 ${
                             isSelected
                               ? 'bg-[#5844ED] text-white border-[#5844ED] shadow-md shadow-indigo-500/25 scale-[1.02]'
