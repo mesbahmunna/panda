@@ -16,5 +16,17 @@ export default defineConfig({
         changeOrigin: true,
       }
     }
+  },
+  preview: {
+    proxy: {
+      '/baby/api': {
+        target: 'http://localhost',
+        changeOrigin: true,
+      },
+      '/api': {
+        target: 'http://localhost/baby',
+        changeOrigin: true,
+      }
+    }
   }
 })

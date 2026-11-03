@@ -2,11 +2,24 @@ import { AdminOrder, SteadfastConsignment, SteadfastFraudData } from '../types/a
 import { getAdminSettings } from './settingsStorage';
 
 // Endpoints to attempt for the PHP proxy bridge
-const PROXY_ENDPOINTS = [
-  '/baby/api/steadfast.php',
-  'http://localhost/baby/api/steadfast.php',
-  '/api/steadfast.php'
-];
+const getProxyEndpoints = (): string[] => {
+  if (typeof window !== 'undefined') {
+    const isVitePort = window.location.port === '5173' || window.location.port === '3000' || window.location.port === '5174';
+    if (isVitePort) {
+      return [
+        'http://localhost/baby/api/steadfast.php',
+        '/baby/api/steadfast.php',
+        '/api/steadfast.php'
+      ];
+    }
+  }
+  return [
+    '/baby/api/steadfast.php',
+    'api/steadfast.php',
+    '/api/steadfast.php',
+    'http://localhost/baby/api/steadfast.php'
+  ];
+};
 
 /**
  * Strips characters banned by Steadfast: { } ; < > $
@@ -67,7 +80,7 @@ async function callProxy<T = any>(
 
   const queryString = params.toString();
 
-  for (const baseEndpoint of PROXY_ENDPOINTS) {
+  for (const baseEndpoint of getProxyEndpoints()) {
     try {
       const url = `${baseEndpoint}?${queryString}`;
       const headers: Record<string, string> = {
@@ -84,6 +97,11 @@ async function callProxy<T = any>(
         headers,
         body: body ? JSON.stringify(body) : undefined
       });
+
+      // If 404 on static/dev server, try next fallback endpoint (e.g. Apache PHP)
+      if (res.status === 404) {
+        continue;
+      }
 
       const json = await res.json().catch(() => null);
 
