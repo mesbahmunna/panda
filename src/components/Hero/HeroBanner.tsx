@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ShieldCheck, Truck, RotateCcw, Headphones, Sparkles, ArrowRight } from 'lucide-react';
+import heroBannerBlanket from '../../assets/hero-banner-blanket.jpg';
 
 interface HeroBannerProps {
   onShopNow: () => void;
@@ -12,17 +14,22 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
   onExploreFeeding,
   onExploreClothing,
 }) => {
+  const navigate = useNavigate();
+
   const slides = [
     {
       id: 1,
-      badge: '👶 Newborn Comfort Collection',
-      title: 'Gentle, Safe & Pure For Your Little Angel',
-      subtitle: '100% Organic Bamboo & Combed Cotton swaddles, rompers and nursery sets designed with love.',
-      discount: 'UP TO 45% OFF',
-      ctaText: 'Shop Baby Clothing',
-      image: 'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=1200&q=80',
-      action: onExploreClothing,
-      bgGradient: 'from-indigo-900/90 via-brand-900/80 to-transparent'
+      badge: '👶 Winter Warmth & Comfort',
+      title: 'বেবি স্লিপিং ব্ল্যাঙ্কেট - Baby Sleeping Swaddle',
+      subtitle: 'চায়না থেকে আমদানিকৃত নরম ও মোলায়েম কাপড়ে তৈরি। শীতে আপনার শিশুর পরম আরাম ও উষ্ণতার নিশ্চয়তা।',
+      discount: 'STARTING ৳450',
+      ctaText: 'Order Sleeping Blanket',
+      image: heroBannerBlanket,
+      action: () => {
+        navigate('/product/baby-sleeping-blanket-swaddle-wrap');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+      bgGradient: 'from-slate-950/85 via-slate-900/60 to-transparent'
     },
     {
       id: 2,
