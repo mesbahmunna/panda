@@ -9,7 +9,6 @@ import { Product } from '../types/product';
 import { HeroBanner } from '../components/Hero/HeroBanner';
 import { CategoryGrid } from '../components/Categories/CategoryGrid';
 import { ProductGridSection } from '../components/Product/ProductGridSection';
-import { PromoBanner } from '../components/Banners/PromoBanner';
 import { TrustFeatures } from '../components/Trust/TrustFeatures';
 import { ProductCard } from '../components/Product/ProductCard';
 
@@ -138,12 +137,6 @@ export const HomePage: React.FC<HomePageProps> = ({
             onSelectProduct={handleSelectProduct}
           />
 
-          {/* Inter-section Promotional Banner 1: Newborn Starter Kit */}
-          <PromoBanner
-            variant="starter-kit"
-            onCtaClick={scrollToBestSellers}
-          />
-
           {/* Featured Section: Trending Baby Products */}
           <ProductGridSection
             title="Trending Baby Products"
@@ -164,12 +157,6 @@ export const HomePage: React.FC<HomePageProps> = ({
             badgeColor="bg-emerald-50 text-emerald-700 border-emerald-200"
             products={products.filter((p) => p.isNewArrival)}
             onSelectProduct={handleSelectProduct}
-          />
-
-          {/* Inter-section Promotional Banner 2: Sensory Toys & Teethers */}
-          <PromoBanner
-            variant="playtime"
-            onCtaClick={() => onSelectCategory('baby-toys')}
           />
 
           {/* Featured Section: Just For You */}
