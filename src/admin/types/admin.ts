@@ -38,6 +38,11 @@ export interface AdminOrder {
   assignedStaffId?: string;
   assignedStaffName?: string;
   assignedAt?: string;
+  confirmedAt?: string;
+  cancelledAt?: string;
+  resolvedAt?: string;
+  clearedFromStaff?: boolean;
+  clearedFromStaffAt?: string;
   orderDate: string;
   createdAt: string; // ISO 8601 string
 }

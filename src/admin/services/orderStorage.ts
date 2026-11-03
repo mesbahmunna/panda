@@ -371,6 +371,7 @@ export const updateOrderStatus = (
   courierInfo?: { courierName?: string; trackingId?: string }
 ): void => {
   const orders = getOrders();
+  const nowIso = new Date().toISOString();
   const updatedOrders = orders.map((order) => {
     if (order.id === orderId || order.orderId === orderId) {
       if ((newStatus === 'confirmed' || newStatus === 'cancelled') && order.assignedStaffId) {
@@ -379,6 +380,9 @@ export const updateOrderStatus = (
       return {
         ...order,
         status: newStatus,
+        confirmedAt: newStatus === 'confirmed' ? nowIso : order.confirmedAt,
+        cancelledAt: newStatus === 'cancelled' ? nowIso : order.cancelledAt,
+        resolvedAt: (newStatus === 'confirmed' || newStatus === 'cancelled') ? nowIso : order.resolvedAt,
         courierName: courierInfo?.courierName !== undefined ? courierInfo.courierName : order.courierName,
         courierTrackingId: courierInfo?.trackingId !== undefined ? courierInfo.trackingId : order.courierTrackingId
       };
@@ -486,4 +490,83 @@ export const exportOrdersToCSV = (orders: AdminOrder[]): void => {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+};
+
+/**
+ * Check if a confirmed or cancelled order has passed the 11:50 PM Bangladesh Standard Time (UTC+6) daily shift cutoff.
+ * If true, it is automatically removed from the staff call center profile.
+ * IMPORTANT: Orders with status 'pending' NEVER expire and ALWAYS remain in the staff profile.
+ */
+export const shouldOrderBeRemovedFromStaff = (order: AdminOrder): boolean => {
+  // Pending orders MUST always remain in the staff queue
+  if (order.status === 'pending') {
+    return false;
+  }
+
+  // Only confirmed or cancelled orders are eligible for removal
+  if (order.status !== 'confirmed' && order.status !== 'cancelled') {
+    return false;
+  }
+
+  if (order.clearedFromStaff) {
+    return true;
+  }
+
+  try {
+    const refIso = order.resolvedAt || order.confirmedAt || order.cancelledAt || order.createdAt;
+    const refDate = new Date(refIso);
+
+    // Format resolution/order date in Bangladesh Time (Asia/Dhaka)
+    const bdParts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Asia/Dhaka',
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
+    }).formatToParts(refDate);
+
+    const refMap: { [key: string]: string } = {};
+    bdParts.forEach((p) => { refMap[p.type] = p.value; });
+
+    const year = refMap.year;
+    const month = refMap.month.padStart(2, '0');
+    const day = refMap.day.padStart(2, '0');
+
+    // Cutoff time is 11:50 PM (23:50:00) Bangladesh Time (UTC+6)
+    const cutoffUtcMs = new Date(`${year}-${month}-${day}T23:50:00+06:00`).getTime();
+    const nowUtcMs = Date.now();
+
+    return nowUtcMs >= cutoffUtcMs;
+  } catch (err) {
+    return false;
+  }
+};
+
+/**
+ * Automatically cleans up confirmed and cancelled orders from staff profiles that have passed 11:50 PM BST.
+ * Preserves them in admin records, while clearing them from staff daily desk.
+ */
+export const cleanupStaffOrdersCutoff = (): boolean => {
+  const orders = getOrders();
+  let changed = false;
+
+  const updatedOrders = orders.map((order) => {
+    if (order.status !== 'pending' && shouldOrderBeRemovedFromStaff(order) && !order.clearedFromStaff) {
+      changed = true;
+      return {
+        ...order,
+        clearedFromStaff: true,
+        clearedFromStaffAt: new Date().toISOString()
+      };
+    }
+    return order;
+  });
+
+  if (changed) {
+    try {
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(updatedOrders));
+      window.dispatchEvent(new CustomEvent('baby_orders_updated', { detail: updatedOrders }));
+    } catch {}
+  }
+
+  return changed;
 };

@@ -30,7 +30,12 @@ import {
   toggleStaffAvailableToday,
   isImpersonatingAdmin
 } from '../admin/services/staffStorage';
-import { getOrders, updateOrderStatus } from '../admin/services/orderStorage';
+import {
+  getOrders,
+  updateOrderStatus,
+  shouldOrderBeRemovedFromStaff,
+  cleanupStaffOrdersCutoff
+} from '../admin/services/orderStorage';
 import { ImpersonationBanner } from './components/ImpersonationBanner';
 import { StaffOrderEditModal } from './components/StaffOrderEditModal';
 import { soundManager, subscribeToNewOrderEvents, NewOrderNotificationDetail } from '../utils/audioAlert';
@@ -68,6 +73,8 @@ export const StaffDashboardPage: React.FC = () => {
   };
 
   useEffect(() => {
+    // 11:50 PM Bangladesh Time auto-cleanup check
+    cleanupStaffOrdersCutoff();
     loadData();
 
     const handleOrdersUpdate = () => loadData();
@@ -96,10 +103,20 @@ export const StaffDashboardPage: React.FC = () => {
       }
     });
 
+    // Check periodically for 11:50 PM Bangladesh Time cutoff
+    const cutoffInterval = setInterval(() => {
+      const changed = cleanupStaffOrdersCutoff();
+      if (changed) {
+        loadData();
+        showToast('🌙 11:50 PM Shift Reset: Confirmed & cancelled calls cleared. Pending calls remain.');
+      }
+    }, 20000);
+
     return () => {
       window.removeEventListener('baby_orders_updated', handleOrdersUpdate);
       window.removeEventListener('baby_staff_updated', handleStaffUpdate);
       window.removeEventListener('baby_sound_pref_changed', handleSoundPref);
+      clearInterval(cutoffInterval);
       unsubscribeAudio();
     };
   }, []);
@@ -142,14 +159,19 @@ export const StaffDashboardPage: React.FC = () => {
   };
 
   // Filter orders for the current staff member
-  // Note: if assignedStaffId matches or assignedStaffName matches, or fallback to all if unassigned and admin monitoring
-  const staffOrders = allOrders.filter((order) => {
-    if (!currentStaff) return false;
-    return (
-      order.assignedStaffId === currentStaff.id ||
-      order.assignedStaffName === currentStaff.name
-    );
-  });
+  // Confirmed and cancelled orders are automatically removed from staff profile at 11:50 PM Bangladesh Time.
+  // Pending orders ALWAYS remain!
+  const staffOrders = allOrders
+    .filter((order) => {
+      if (!currentStaff) return false;
+      return (
+        order.assignedStaffId === currentStaff.id ||
+        order.assignedStaffName === currentStaff.name
+      );
+    })
+    .filter((order) => {
+      return !shouldOrderBeRemovedFromStaff(order);
+    });
 
   // Tab filtering
   const filteredOrders = staffOrders.filter((order) => {
@@ -341,6 +363,17 @@ export const StaffDashboardPage: React.FC = () => {
             <p className="text-3xl font-black text-indigo-800 mt-2">{staffOrders.length}</p>
             <p className="text-[11px] text-indigo-600/80 mt-0.5">All customer orders</p>
           </div>
+        </div>
+
+        {/* Shift reset notice */}
+        <div className="flex items-center justify-between text-[11px] text-gray-500 bg-gray-50 px-3.5 py-1.5 rounded-xl border border-gray-200">
+          <div className="flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+            <span>
+              <strong className="text-gray-700">11:50 PM Daily Shift Policy:</strong> Confirmed and cancelled orders automatically clear from your desk at 11:50 PM BST. <strong className="text-amber-700 font-bold">Pending calls remain.</strong>
+            </span>
+          </div>
+          <span className="font-mono text-gray-400 hidden sm:inline">Asia/Dhaka</span>
         </div>
 
         {/* 4. Controls Bar: Tabs & Search */}
