@@ -5,6 +5,7 @@ import {
   ShoppingBag,
   Package,
   Folder,
+  Users,
   TrendingUp,
   Settings,
   ExternalLink,
@@ -58,6 +59,12 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
       to: '/admin/categories',
       label: 'Categories',
       icon: Folder,
+      badge: null
+    },
+    {
+      to: '/admin/staff',
+      label: 'Staff Team',
+      icon: Users,
       badge: null
     },
     {

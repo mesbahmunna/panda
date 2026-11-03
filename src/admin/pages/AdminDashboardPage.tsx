@@ -316,6 +316,11 @@ export const AdminDashboardPage: React.FC = () => {
                       <td className="py-3 px-4">
                         <div className="font-bold text-slate-900">{order.customerName}</div>
                         <div className="text-slate-500 text-[11px]">{order.phoneNumber}</div>
+                        {order.assignedStaffName && (
+                          <span className="text-[10px] text-indigo-700 font-semibold block mt-0.5">
+                            Agent: {order.assignedStaffName}
+                          </span>
+                        )}
                       </td>
                       <td className="py-3 px-4">
                         <div className="font-medium text-slate-800">{order.district}</div>

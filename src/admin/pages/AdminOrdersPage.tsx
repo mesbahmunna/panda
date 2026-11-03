@@ -274,6 +274,11 @@ export const AdminOrdersPage: React.FC = () => {
                             {order.orderId}
                           </button>
                           <span className="text-[10px] text-slate-400 mt-0.5 block">{order.orderDate}</span>
+                          {order.assignedStaffName && (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 px-1.5 py-0.5 rounded mt-1">
+                              👤 {order.assignedStaffName}
+                            </span>
+                          )}
                         </td>
 
                         {/* 2. Customer Name & Fast Phone */}

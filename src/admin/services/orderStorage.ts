@@ -1,4 +1,5 @@
 import { AdminOrder, OrderStatus } from '../types/admin';
+import { getNextStaffForDistribution, recordStaffOrderAction } from './staffStorage';
 
 const ORDERS_KEY = 'baby_admin_orders';
 
@@ -268,7 +269,29 @@ export const getOrders = (): AdminOrder[] => {
       localStorage.setItem(ORDERS_KEY, JSON.stringify(SEED_ORDERS));
       return SEED_ORDERS;
     }
-    return parsed;
+    // Backfill any existing legacy orders in localStorage with staff assignments
+    const staffMap = [
+      { id: 'staff-101', name: 'Tanzim Ahmed' },
+      { id: 'staff-102', name: 'Nusrat Jahan' },
+      { id: 'staff-103', name: 'Shakil Hossain' }
+    ];
+    let needsResave = false;
+    const mapped = parsed.map((o: AdminOrder, idx: number) => {
+      if (!o.assignedStaffId) {
+        needsResave = true;
+        const assigned = staffMap[idx % staffMap.length];
+        return {
+          ...o,
+          assignedStaffId: assigned.id,
+          assignedStaffName: assigned.name
+        };
+      }
+      return o;
+    });
+    if (needsResave) {
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(mapped));
+    }
+    return mapped;
   } catch (err) {
     console.error('Failed to parse admin orders', err);
     return SEED_ORDERS;
@@ -284,6 +307,9 @@ export const addOrder = (orderData: Partial<AdminOrder>): AdminOrder => {
   const orders = getOrders();
   const orderId = orderData.orderId || `BABY-${Math.floor(100000 + Math.random() * 900000)}`;
   
+  // Fair-share equal round-robin distribution to staff available today
+  const assignedStaff = orderData.assignedStaffId ? undefined : getNextStaffForDistribution();
+
   const newOrder: AdminOrder = {
     id: orderId,
     orderId,
@@ -303,6 +329,9 @@ export const addOrder = (orderData: Partial<AdminOrder>): AdminOrder => {
     status: orderData.status || 'pending',
     courierName: orderData.courierName,
     courierTrackingId: orderData.courierTrackingId,
+    assignedStaffId: orderData.assignedStaffId || (assignedStaff ? assignedStaff.id : undefined),
+    assignedStaffName: orderData.assignedStaffName || (assignedStaff ? assignedStaff.name : 'Unassigned'),
+    assignedAt: orderData.assignedAt || (assignedStaff ? new Date().toISOString() : undefined),
     orderDate: orderData.orderDate || new Date().toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'short',
@@ -332,6 +361,9 @@ export const updateOrderStatus = (
   const orders = getOrders();
   const updatedOrders = orders.map((order) => {
     if (order.id === orderId || order.orderId === orderId) {
+      if ((newStatus === 'confirmed' || newStatus === 'cancelled') && order.assignedStaffId) {
+        recordStaffOrderAction(order.assignedStaffId, newStatus);
+      }
       return {
         ...order,
         status: newStatus,
@@ -347,6 +379,29 @@ export const updateOrderStatus = (
     window.dispatchEvent(new CustomEvent('baby_orders_updated', { detail: updatedOrders }));
   } catch (err) {
     console.error('Failed to update order status', err);
+  }
+};
+
+export const updateOrderDetails = (
+  orderId: string,
+  updatedFields: Partial<AdminOrder>
+): void => {
+  const orders = getOrders();
+  const updatedOrders = orders.map((order) => {
+    if (order.id === orderId || order.orderId === orderId) {
+      return {
+        ...order,
+        ...updatedFields
+      };
+    }
+    return order;
+  });
+
+  try {
+    localStorage.setItem(ORDERS_KEY, JSON.stringify(updatedOrders));
+    window.dispatchEvent(new CustomEvent('baby_orders_updated', { detail: updatedOrders }));
+  } catch (err) {
+    console.error('Failed to update order details', err);
   }
 };
 

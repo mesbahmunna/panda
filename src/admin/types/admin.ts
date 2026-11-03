@@ -35,6 +35,9 @@ export interface AdminOrder {
   status: OrderStatus;
   courierName?: 'Steadfast' | 'Pathao' | 'RedX' | 'Paperfly' | string;
   courierTrackingId?: string;
+  assignedStaffId?: string;
+  assignedStaffName?: string;
+  assignedAt?: string;
   orderDate: string;
   createdAt: string; // ISO 8601 string
 }

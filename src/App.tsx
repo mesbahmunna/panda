@@ -27,8 +27,13 @@ import { AdminDashboardPage } from './admin/pages/AdminDashboardPage';
 import { AdminOrdersPage } from './admin/pages/AdminOrdersPage';
 import { AdminProductsPage } from './admin/pages/AdminProductsPage';
 import { AdminCategoriesPage } from './admin/pages/AdminCategoriesPage';
+import { AdminStaffPage } from './admin/pages/AdminStaffPage';
 import { AdminFinancePage } from './admin/pages/AdminFinancePage';
 import { AdminSettingsPage } from './admin/pages/AdminSettingsPage';
+
+// Staff Call Center Desk
+import { StaffGate } from './staff/StaffGate';
+import { StaffDashboardPage } from './staff/StaffDashboardPage';
 
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -72,6 +77,7 @@ const AppLayout: React.FC = () => {
   };
 
   const isAdminRoute = location.pathname.startsWith('/admin');
+  const isStaffRoute = location.pathname.startsWith('/staff');
 
   if (isAdminRoute) {
     return (
@@ -84,11 +90,26 @@ const AppLayout: React.FC = () => {
             <Route path="orders" element={<AdminOrdersPage />} />
             <Route path="products" element={<AdminProductsPage />} />
             <Route path="categories" element={<AdminCategoriesPage />} />
+            <Route path="staff" element={<AdminStaffPage />} />
             <Route path="finance" element={<AdminFinancePage />} />
             <Route path="settings" element={<AdminSettingsPage />} />
             <Route path="*" element={<Navigate to="dashboard" replace />} />
           </Route>
         </Routes>
+      </div>
+    );
+  }
+
+  if (isStaffRoute) {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#F4F6F9] text-[#252a34]">
+        <ScrollToTop />
+        <StaffGate>
+          <Routes>
+            <Route path="/staff" element={<StaffDashboardPage />} />
+            <Route path="*" element={<Navigate to="/staff" replace />} />
+          </Routes>
+        </StaffGate>
       </div>
     );
   }

@@ -149,6 +149,11 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({
               <div className="flex items-center gap-2 text-[#0b0952] font-bold text-base">
                 <User className="w-4 h-4 text-blue-600" />
                 {order.customerName}
+                {order.assignedStaffName && (
+                  <span className="text-[11px] font-bold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full ml-1">
+                    Agent: {order.assignedStaffName}
+                  </span>
+                )}
               </div>
               <div className="text-slate-600 text-xs mt-0.5 font-medium flex items-center gap-2">
                 <span>Phone: {order.phoneNumber}</span>
