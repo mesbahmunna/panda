@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import {
   Users,
   UserPlus,
@@ -25,9 +25,16 @@ import {
   setActiveStaffSession
 } from '../services/staffStorage';
 import { StaffModal } from '../components/StaffModal';
+import { AdminHeader } from '../components/AdminHeader';
+
+interface OutletContextType {
+  onOpenMobileMenu: () => void;
+  pendingCount: number;
+}
 
 export const AdminStaffPage: React.FC = () => {
   const navigate = useNavigate();
+  const { onOpenMobileMenu, pendingCount } = useOutletContext<OutletContextType>();
   const [staffList, setStaffList] = useState<StaffMember[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingStaff, setEditingStaff] = useState<StaffMember | null>(null);
@@ -82,37 +89,45 @@ export const AdminStaffPage: React.FC = () => {
   const totalAssigned = staffList.reduce((acc, s) => acc + (s.stats?.totalAssigned || 0), 0);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6">
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="fixed top-20 right-6 z-50 bg-[#0b0952] text-white px-5 py-3 rounded-xl shadow-xl flex items-center gap-3 border border-white/20 animate-fade-in text-sm font-medium">
-          <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-          <span>{toastMessage}</span>
-        </div>
-      )}
+    <div className="flex-1 flex flex-col">
+      <AdminHeader
+        title="Staff Call Center & Duty Management"
+        subtitle="Manage tele-sales agents, set daily shifts, and monitor live performance"
+        onOpenMobileMenu={onOpenMobileMenu}
+        pendingOrdersCount={pendingCount}
+      />
 
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-black text-gray-900 flex items-center gap-3">
-            <Users className="w-7 h-7 text-indigo-600" />
-            Staff Call Center & Duty Management
-          </h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Manage tele-sales agents, set today's on-duty shifts, and monitor live performance.
-          </p>
+      <main className="p-4 sm:p-6 lg:p-8 max-w-7xl space-y-6">
+        {/* Toast Notification */}
+        {toastMessage && (
+          <div className="fixed top-20 right-6 z-50 bg-[#0b0952] text-white px-5 py-3 rounded-xl shadow-xl flex items-center gap-3 border border-white/20 animate-fade-in text-sm font-medium">
+            <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+            <span>{toastMessage}</span>
+          </div>
+        )}
+
+        {/* Top Action Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 className="text-xl font-black text-gray-900 flex items-center gap-2.5">
+              <Users className="w-6 h-6 text-indigo-600" />
+              Tele-Sales Team & Duty Roster
+            </h2>
+            <p className="text-xs text-gray-500 mt-0.5">
+              Configure which agents receive orders today and monitor call performance.
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              setEditingStaff(null);
+              setIsModalOpen(true);
+            }}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all self-start sm:self-auto"
+          >
+            <UserPlus className="w-4 h-4" />
+            Add New Staff
+          </button>
         </div>
-        <button
-          onClick={() => {
-            setEditingStaff(null);
-            setIsModalOpen(true);
-          }}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all self-start sm:self-auto"
-        >
-          <UserPlus className="w-4 h-4" />
-          Add New Staff
-        </button>
-      </div>
 
       {/* Today's Shift & Round-Robin Routing Banner */}
       <div className="bg-gradient-to-r from-[#0b0952] to-indigo-900 rounded-2xl p-6 text-white shadow-xl border border-indigo-950">
@@ -404,6 +419,7 @@ export const AdminStaffPage: React.FC = () => {
           showToast(`Staff member "${saved.name}" saved successfully.`);
         }}
       />
+      </main>
     </div>
   );
 };

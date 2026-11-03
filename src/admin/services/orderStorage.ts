@@ -1,5 +1,6 @@
 import { AdminOrder, OrderStatus } from '../types/admin';
 import { getNextStaffForDistribution, recordStaffOrderAction } from './staffStorage';
+import { broadcastNewOrderEvent } from '../../utils/audioAlert';
 
 const ORDERS_KEY = 'baby_admin_orders';
 
@@ -346,6 +347,17 @@ export const addOrder = (orderData: Partial<AdminOrder>): AdminOrder => {
   try {
     localStorage.setItem(ORDERS_KEY, JSON.stringify(updatedOrders));
     window.dispatchEvent(new CustomEvent('baby_orders_updated', { detail: updatedOrders }));
+    
+    // Broadcast notification sound alert and event across admin and staff windows
+    broadcastNewOrderEvent({
+      orderId: newOrder.orderId,
+      customerName: newOrder.customerName,
+      phoneNumber: newOrder.phoneNumber,
+      total: newOrder.total,
+      assignedStaffId: newOrder.assignedStaffId,
+      assignedStaffName: newOrder.assignedStaffName,
+      district: newOrder.district
+    });
   } catch (err) {
     console.error('Failed to save new order', err);
   }

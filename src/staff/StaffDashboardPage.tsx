@@ -17,7 +17,9 @@ import {
   User,
   AlertCircle,
   ExternalLink,
-  ChevronDown
+  ChevronDown,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import { AdminOrder, OrderStatus } from '../admin/types/admin';
 import { StaffMember, StaffSession } from '../admin/types/staff';
@@ -31,6 +33,8 @@ import {
 import { getOrders, updateOrderStatus } from '../admin/services/orderStorage';
 import { ImpersonationBanner } from './components/ImpersonationBanner';
 import { StaffOrderEditModal } from './components/StaffOrderEditModal';
+import { soundManager, subscribeToNewOrderEvents, NewOrderNotificationDetail } from '../utils/audioAlert';
+import { NewOrderAlertBanner } from '../components/common/NewOrderAlertBanner';
 import logoImg from '../assets/logo.png';
 
 export const StaffDashboardPage: React.FC = () => {
@@ -43,6 +47,8 @@ export const StaffDashboardPage: React.FC = () => {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [cancelModalOrder, setCancelModalOrder] = useState<AdminOrder | null>(null);
   const [cancelReason, setCancelReason] = useState('Customer cancelled on phone');
+  const [isSoundOn, setIsSoundOn] = useState(() => soundManager.isEnabled());
+  const [staffNotification, setStaffNotification] = useState<NewOrderNotificationDetail | null>(null);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -66,15 +72,42 @@ export const StaffDashboardPage: React.FC = () => {
 
     const handleOrdersUpdate = () => loadData();
     const handleStaffUpdate = () => loadData();
+    const handleSoundPref = (e: Event) => {
+      const custom = e as CustomEvent<boolean>;
+      if (typeof custom.detail === 'boolean') {
+        setIsSoundOn(custom.detail);
+      }
+    };
 
     window.addEventListener('baby_orders_updated', handleOrdersUpdate);
     window.addEventListener('baby_staff_updated', handleStaffUpdate);
+    window.addEventListener('baby_sound_pref_changed', handleSoundPref);
+
+    // Audio chime & notification banner on new assigned lead
+    const unsubscribeAudio = subscribeToNewOrderEvents((detail) => {
+      loadData();
+      const s = getActiveStaffSession();
+      const currentId = s?.staffId;
+      const isForMe = !currentId || detail.assignedStaffId === currentId || s?.isImpersonatedByAdmin;
+
+      if (isForMe) {
+        soundManager.playStaffAssignedAlert();
+        setStaffNotification(detail);
+      }
+    });
 
     return () => {
       window.removeEventListener('baby_orders_updated', handleOrdersUpdate);
       window.removeEventListener('baby_staff_updated', handleStaffUpdate);
+      window.removeEventListener('baby_sound_pref_changed', handleSoundPref);
+      unsubscribeAudio();
     };
   }, []);
+
+  const handleToggleSound = () => {
+    const next = soundManager.toggle();
+    setIsSoundOn(next);
+  };
 
   const handleToggleDuty = () => {
     if (!currentStaff) return;
@@ -198,6 +231,20 @@ export const StaffDashboardPage: React.FC = () => {
                 </button>
               </div>
             )}
+
+            {/* Audio Alert Toggle */}
+            <button
+              type="button"
+              onClick={handleToggleSound}
+              className={`p-2 rounded-xl transition-all border ${
+                isSoundOn
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                  : 'bg-gray-100 text-gray-400 border-gray-200 hover:bg-gray-200'
+              }`}
+              title={isSoundOn ? 'Order Chime: ACTIVE (Click to mute)' : 'Order Chime: MUTED (Click to activate)'}
+            >
+              {isSoundOn ? <Volume2 className="w-5 h-5 text-emerald-600" /> : <VolumeX className="w-5 h-5" />}
+            </button>
 
             {/* Logout button */}
             <button
@@ -649,6 +696,13 @@ export const StaffDashboardPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Staff New Order Notification Audio & Visual Alert Banner */}
+      <NewOrderAlertBanner
+        notification={staffNotification}
+        onDismiss={() => setStaffNotification(null)}
+        role="staff"
+      />
     </div>
   );
 };

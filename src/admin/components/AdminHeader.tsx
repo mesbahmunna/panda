@@ -1,6 +1,7 @@
-import React from 'react';
-import { Menu, Bell, Shield, Calendar, Store } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Menu, Bell, Shield, Calendar, Store, Volume2, VolumeX } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { soundManager } from '../../utils/audioAlert';
 
 interface AdminHeaderProps {
   title: string;
@@ -15,6 +16,24 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
   onOpenMobileMenu,
   pendingOrdersCount = 0
 }) => {
+  const [isSoundOn, setIsSoundOn] = useState(() => soundManager.isEnabled());
+
+  useEffect(() => {
+    const handlePref = (e: Event) => {
+      const custom = e as CustomEvent<boolean>;
+      if (typeof custom.detail === 'boolean') {
+        setIsSoundOn(custom.detail);
+      }
+    };
+    window.addEventListener('baby_sound_pref_changed', handlePref);
+    return () => window.removeEventListener('baby_sound_pref_changed', handlePref);
+  }, []);
+
+  const handleToggleSound = () => {
+    const next = soundManager.toggle();
+    setIsSoundOn(next);
+  };
+
   const todayStr = new Date().toLocaleDateString('en-US', {
     weekday: 'short',
     month: 'short',
@@ -49,6 +68,30 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
           <Calendar className="w-3.5 h-3.5 text-slate-400" />
           <span>{todayStr}</span>
         </div>
+
+        {/* Audio Alert Toggle */}
+        <button
+          type="button"
+          onClick={handleToggleSound}
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold border transition-all ${
+            isSoundOn
+              ? 'bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-100 shadow-sm'
+              : 'bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200'
+          }`}
+          title={isSoundOn ? 'Order Audio Chime: ACTIVE (Click to mute)' : 'Order Audio Chime: MUTED (Click to activate)'}
+        >
+          {isSoundOn ? (
+            <>
+              <Volume2 className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="hidden sm:inline">Alert Sound ON</span>
+            </>
+          ) : (
+            <>
+              <VolumeX className="w-3.5 h-3.5 text-slate-400" />
+              <span className="hidden sm:inline">Muted</span>
+            </>
+          )}
+        </button>
 
         {/* Pending Orders Pill */}
         {pendingOrdersCount > 0 ? (

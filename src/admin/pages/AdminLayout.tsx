@@ -3,6 +3,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { AdminSidebar } from '../components/AdminSidebar';
 import { AdminGate } from '../components/AdminGate';
 import { getOrders } from '../services/orderStorage';
+import { soundManager, subscribeToNewOrderEvents, NewOrderNotificationDetail } from '../../utils/audioAlert';
+import { NewOrderAlertBanner } from '../../components/common/NewOrderAlertBanner';
 
 export const AdminLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(() => {
@@ -10,6 +12,7 @@ export const AdminLayout: React.FC = () => {
   });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [pendingCount, setPendingCount] = useState<number>(0);
+  const [latestNotification, setLatestNotification] = useState<NewOrderNotificationDetail | null>(null);
   const location = useLocation();
 
   const refreshPending = () => {
@@ -22,7 +25,18 @@ export const AdminLayout: React.FC = () => {
     refreshPending();
     const handleOrdersUpdated = () => refreshPending();
     window.addEventListener('baby_orders_updated', handleOrdersUpdated);
-    return () => window.removeEventListener('baby_orders_updated', handleOrdersUpdated);
+
+    // Audio chime & notification banner on new incoming customer orders
+    const unsubscribeAudio = subscribeToNewOrderEvents((detail) => {
+      soundManager.playNewOrderAlert();
+      setLatestNotification(detail);
+      refreshPending();
+    });
+
+    return () => {
+      window.removeEventListener('baby_orders_updated', handleOrdersUpdated);
+      unsubscribeAudio();
+    };
   }, []);
 
   // Close mobile sidebar on route change
@@ -67,6 +81,13 @@ export const AdminLayout: React.FC = () => {
         >
           <Outlet context={{ onOpenMobileMenu: () => setMobileOpen(true), pendingCount }} />
         </div>
+
+        {/* Global New Order Notification Audio & Visual Alert Banner */}
+        <NewOrderAlertBanner
+          notification={latestNotification}
+          onDismiss={() => setLatestNotification(null)}
+          role="admin"
+        />
       </div>
     </AdminGate>
   );
