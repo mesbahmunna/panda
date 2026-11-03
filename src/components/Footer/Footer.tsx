@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MapPin, ShieldCheck } from 'lucide-react';
+import { PhoneCall, Mail, ShieldCheck, Truck, RotateCcw } from 'lucide-react';
 import { Logo } from '../common/Logo';
 import { categories } from '../../data/categories';
 import footerPattern from '../../assets/footer-pattern.jpg';
@@ -34,146 +34,127 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
   const openTerms = () => {
     onOpenPolicy(
       'Terms & Conditions',
-      'All products listed on BabyBazar are genuine and baby-safe. Prices are in Bangladeshi Taka (BDT ৳) and include applicable taxes. We reserve the right to verify high-value orders via a quick verification phone call before dispatch.'
+      'All products listed on Baby Panda are genuine and baby-safe. Prices are in Bangladeshi Taka (BDT ৳) and include applicable taxes. We reserve the right to verify orders via a quick verification call before dispatch.'
     );
   };
 
   return (
     <footer
-      className="relative text-slate-300 text-xs pt-12 pb-24 md:pb-8 border-t border-indigo-950 overflow-hidden bg-[#241066]"
+      className="relative text-slate-200 text-xs pt-10 pb-24 md:pb-8 border-t border-white/10 overflow-hidden bg-[#241066]"
       style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(16, 8, 55, 0.82), rgba(11, 9, 82, 0.90)), url(${footerPattern})`,
+        backgroundImage: `linear-gradient(to bottom, rgba(20, 10, 58, 0.35), rgba(15, 8, 48, 0.50)), url(${footerPattern})`,
         backgroundRepeat: 'repeat',
-        backgroundSize: 'auto, 500px auto',
+        backgroundSize: 'auto, 380px auto',
       }}
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4">
         
-        {/* Main Footer Columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-12 text-left">
-          
-          {/* Column 1: Brand Info */}
-          <div className="lg:col-span-2">
-            <Logo variant="light" className="mb-4" />
-            <p className="text-xs text-slate-300 leading-relaxed max-w-sm mb-5">
-              Bangladesh’s most trusted online store for premium baby products, mother care essentials, and gentle nursery gear. We bring joy and safety to every step of your parenting journey with 100% Cash on Delivery nationwide.
+        {/* Top Minimal Highlights Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-white/15">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <Logo variant="light" />
+            <span className="hidden sm:inline text-white/30">|</span>
+            <p className="text-xs text-slate-300 font-medium">
+              Carefully curated baby essentials, delivered across Bangladesh.
             </p>
-            
-            <div className="space-y-2.5 text-xs text-slate-300">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-brand-400 shrink-0 mt-0.5" />
-                <span>House 42, Road 11, Block D, Banani / New Market City Complex, Dhaka-1205</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-brand-400 shrink-0" />
-                <span>Hotline: <strong className="text-white">+880 9617-100900</strong> / 01700-000000</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-brand-400 shrink-0" />
-                <span>support@babybazar.com.bd</span>
-              </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[11px] font-semibold text-slate-200">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-emerald-300">
+              <ShieldCheck className="w-3.5 h-3.5" /> 100% Cash on Delivery
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-amber-300">
+              <Truck className="w-3.5 h-3.5" /> Nationwide Shipping
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-purple-200">
+              <RotateCcw className="w-3.5 h-3.5" /> 7-Day Easy Return
+            </span>
+          </div>
+        </div>
+
+        {/* Minimal 3-Column Navigation & Contact Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-10 text-left">
+          
+          {/* Col 1: Quick Categories */}
+          <div className="md:col-span-5">
+            <h4 className="text-xs font-black uppercase tracking-wider text-white mb-3.5">
+              Popular Categories
+            </h4>
+            <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-xs">
+              {categories.slice(0, 8).map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => onSelectCategory(cat.slug)}
+                  className="text-left text-slate-300 hover:text-white transition-colors truncate"
+                >
+                  {cat.name}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Column 2: Shop By Category */}
-          <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-indigo-900 pb-2">
-              Shop By Category
+          {/* Col 2: Policies */}
+          <div className="md:col-span-3">
+            <h4 className="text-xs font-black uppercase tracking-wider text-white mb-3.5">
+              Customer Care
             </h4>
-            <ul className="space-y-2 text-xs">
-              {categories.slice(0, 6).map((cat) => (
-                <li key={cat.id}>
-                  <button
-                    onClick={() => onSelectCategory(cat.slug)}
-                    className="hover:text-brand-300 transition-colors flex items-center gap-1.5"
-                  >
-                    <span className="text-brand-400">›</span>
-                    <span>{cat.name}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 3: Company & Policies */}
-          <div id="footer-faq">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-indigo-900 pb-2">
-              Customer Policies
-            </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2 text-xs text-slate-300">
               <li>
-                <button onClick={openShippingPolicy} className="hover:text-brand-300 transition-colors flex items-center gap-1.5">
-                  <span className="text-brand-400">›</span>
-                  <span>Shipping Policy</span>
+                <button onClick={openShippingPolicy} className="hover:text-white transition-colors">
+                  Shipping &amp; Delivery Info
                 </button>
               </li>
               <li>
-                <button onClick={openReturnPolicy} className="hover:text-brand-300 transition-colors flex items-center gap-1.5">
-                  <span className="text-brand-400">›</span>
-                  <span>Return &amp; Refund Policy</span>
+                <button onClick={openReturnPolicy} className="hover:text-white transition-colors">
+                  Return &amp; Replacement Policy
                 </button>
               </li>
               <li>
-                <button onClick={openPrivacyPolicy} className="hover:text-brand-300 transition-colors flex items-center gap-1.5">
-                  <span className="text-brand-400">›</span>
-                  <span>Privacy Policy</span>
+                <button onClick={openPrivacyPolicy} className="hover:text-white transition-colors">
+                  Privacy Policy
                 </button>
               </li>
               <li>
-                <button onClick={openTerms} className="hover:text-brand-300 transition-colors flex items-center gap-1.5">
-                  <span className="text-brand-400">›</span>
-                  <span>Terms &amp; Conditions</span>
+                <button onClick={openTerms} className="hover:text-white transition-colors">
+                  Terms &amp; Conditions
                 </button>
-              </li>
-              <li>
-                <a href="#best-sellers-section" className="hover:text-brand-300 transition-colors flex items-center gap-1.5">
-                  <span className="text-brand-400">›</span>
-                  <span>Best Selling Products</span>
-                </a>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Trust & Payment Notice */}
-          <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-indigo-900 pb-2">
-              Payment &amp; Trust
+          {/* Col 3: Helpline / Quick Contact */}
+          <div className="md:col-span-4 bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/15">
+            <h4 className="text-xs font-black uppercase tracking-wider text-white mb-2">
+              Order Hotline &amp; Support
             </h4>
-            <div className="bg-white/5 rounded-xl p-3.5 border border-white/10 space-y-2.5">
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs">
-                <ShieldCheck className="w-4 h-4 shrink-0" />
-                <span>100% Cash on Delivery</span>
-              </div>
-              <p className="text-[11px] text-slate-300 leading-normal">
-                Check and inspect your baby items at your doorstep before paying the delivery agent. No credit card or advance mobile banking fee required!
-              </p>
-              <div className="pt-2 border-t border-white/10 text-[11px] text-amber-300 font-medium">
-                ⚡ Dhaka: 24-48 Hours | All Districts: 2-4 Days
-              </div>
+            <p className="text-[11px] text-slate-300 mb-3">
+              Need help choosing the right size or tracking your COD order?
+            </p>
+            
+            <a
+              href="tel:+8809617100900"
+              className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-black text-sm tracking-wide shadow-md transition-all active:scale-95 mb-2.5"
+            >
+              <PhoneCall className="w-4 h-4" />
+              <span>+880 9617-100900</span>
+            </a>
+
+            <div className="flex items-center gap-2 text-[11px] text-slate-300">
+              <Mail className="w-3.5 h-3.5 text-brand-300 shrink-0" />
+              <span>support@babypanda.com.bd</span>
             </div>
           </div>
 
         </div>
 
-        {/* Bottom Bar: Copyright & Social Links */}
-        <div className="pt-6 border-t border-indigo-950 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        {/* Minimal Bottom Bar */}
+        <div className="pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-300">
           <div>
-            <span>Copyright &copy; 2026 <strong>Baby Panda</strong>. All rights reserved.</span>
+            <span>&copy; {new Date().getFullYear()} <strong>Baby Panda</strong>. All rights reserved.</span>
           </div>
 
-          <div className="flex items-center gap-4">
-            <span className="text-slate-500">Follow Us:</span>
-            <div className="flex items-center gap-3">
-              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-7 h-7 rounded-full bg-white/10 hover:bg-brand-500 hover:text-white flex items-center justify-center transition-colors">
-                f
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-7 h-7 rounded-full bg-white/10 hover:bg-brand-500 hover:text-white flex items-center justify-center transition-colors">
-                ig
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-7 h-7 rounded-full bg-white/10 hover:bg-brand-500 hover:text-white flex items-center justify-center transition-colors">
-                yt
-              </a>
-            </div>
+          <div className="flex items-center gap-2 text-[11px] text-slate-300">
+            <span>Cash on Delivery Available in all 64 Districts</span>
           </div>
         </div>
 
