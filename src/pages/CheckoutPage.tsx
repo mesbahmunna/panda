@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Truck,
@@ -38,7 +38,12 @@ export const CheckoutPage: React.FC = () => {
     applyCoupon,
     total,
     submitOrder,
+    setIsCartOpen,
   } = useCart();
+
+  useEffect(() => {
+    setIsCartOpen(false);
+  }, [setIsCartOpen]);
 
   const [formData, setFormData] = useState({
     customerName: '',

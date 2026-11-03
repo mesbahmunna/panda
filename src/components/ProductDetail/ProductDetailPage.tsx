@@ -27,7 +27,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   onBackToHome,
 }) => {
   const navigate = useNavigate();
-  const { addToCart, buyNow } = useCart();
+  const { addToCart, setIsCartOpen } = useCart();
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -73,7 +73,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   }, [product.id]);
 
   const handleOrderNow = () => {
-    addToCart(product, quantity, selectedVariation, selectedBundle);
+    addToCart(product, quantity, selectedVariation, selectedBundle, false);
+    setIsCartOpen(false);
     navigate('/checkout');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -369,7 +370,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
                   {/* Add to Cart: 70% width */}
                   <button
-                    onClick={() => addToCart(product, quantity, selectedVariation, selectedBundle)}
+                    onClick={() => addToCart(product, quantity, selectedVariation, selectedBundle, true)}
                     className="w-[70%] sm:w-[72%] h-12 sm:h-13 bg-[#5844ED] hover:bg-[#4936d9] active:scale-98 text-white font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 transition-all"
                   >
                     <ShoppingCart className="w-5 h-5 text-white shrink-0" />

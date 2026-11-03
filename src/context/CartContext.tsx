@@ -8,7 +8,8 @@ interface CartContextType {
     product: Product,
     quantity?: number,
     selectedVariation?: string,
-    selectedBundle?: ProductBundleTier
+    selectedBundle?: ProductBundleTier,
+    openDrawer?: boolean
   ) => void;
   removeFromCart: (cartItemId: string) => void;
   updateQuantity: (cartItemId: string, quantity: number) => void;
@@ -93,7 +94,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     product: Product,
     quantity: number = 1,
     selectedVariation?: string,
-    selectedBundle?: ProductBundleTier
+    selectedBundle?: ProductBundleTier,
+    openDrawer: boolean = true
   ) => {
     const unitPrice = selectedBundle ? selectedBundle.price : product.price;
     const cartItemId = `${product.id}__${selectedVariation || 'none'}__${selectedBundle?.id || 'none'}`;
@@ -121,7 +123,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       ];
     });
-    setIsCartOpen(true);
+
+    if (openDrawer) {
+      setIsCartOpen(true);
+    } else {
+      setIsCartOpen(false);
+    }
   };
 
   const buyNow = (
@@ -130,7 +137,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     selectedVariation?: string,
     selectedBundle?: ProductBundleTier
   ) => {
-    addToCart(product, quantity, selectedVariation, selectedBundle);
+    addToCart(product, quantity, selectedVariation, selectedBundle, false);
     setIsCartOpen(false);
     setIsCheckoutOpen(true);
   };

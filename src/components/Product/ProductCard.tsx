@@ -15,7 +15,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onSelect,
 }) => {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { addToCart, setIsCartOpen } = useCart();
 
   const hasOptions = Boolean(
     product.variationGroup || (product.bundleTiers && product.bundleTiers.length > 0)
@@ -27,7 +27,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       navigate(`/product/${product.slug}`);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      addToCart(product, 1);
+      addToCart(product, 1, undefined, undefined, true);
     }
   };
 
@@ -38,8 +38,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       navigate(`/product/${product.slug}`);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      // Simple product: Instant 1-click Cash on Delivery order
-      addToCart(product, 1);
+      // Instant order without opening sidecart
+      addToCart(product, 1, undefined, undefined, false);
+      setIsCartOpen(false);
       navigate('/checkout');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
