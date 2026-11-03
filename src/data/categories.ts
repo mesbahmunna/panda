@@ -1,6 +1,6 @@
 import { Category } from '../types/product';
 
-export const categories: Category[] = [
+export const initialCategories: Category[] = [
   {
     id: 'cat-clothing',
     name: 'Baby Clothing',
@@ -66,3 +66,23 @@ export const categories: Category[] = [
     description: 'Electric breast pumps, maternity pillows & postpartum care kits'
   }
 ];
+
+export const getStoredCategories = (): Category[] => {
+  try {
+    const raw = typeof window !== 'undefined' ? localStorage.getItem('baby_admin_categories') : null;
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch {}
+  return initialCategories;
+};
+
+export const categories: Category[] = getStoredCategories();
+
+export const getCategoryBySlug = (slug: string): Category | undefined => {
+  const current = getStoredCategories();
+  return current.find((c) => c.slug === slug);
+};

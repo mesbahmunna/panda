@@ -18,7 +18,7 @@ import {
   Link as LinkIcon
 } from 'lucide-react';
 import { Product, ProductBundleTier, ProductVariationOption } from '../../types/product';
-import { categories } from '../../data/categories';
+import { getStoredCategories } from '../../data/categories';
 import { uploadImageFile } from '../services/imageUpload';
 
 interface ProductFormModalProps {
@@ -33,9 +33,10 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
   onSave
 }) => {
   const isEditing = !!product;
+  const categoryList = getStoredCategories();
 
   const [name, setName] = useState(product?.name || '');
-  const [category, setCategory] = useState(product?.category || categories[0]?.name || 'Baby Clothing');
+  const [category, setCategory] = useState(product?.category || categoryList[0]?.name || 'Baby Clothing');
   const [price, setPrice] = useState<number>(product?.price || 450);
   const [originalPrice, setOriginalPrice] = useState<number>(product?.originalPrice || 650);
   const [badge, setBadge] = useState<string>(product?.badge || '');
@@ -247,7 +248,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
       return;
     }
 
-    const matchedCat = categories.find((c) => c.name === category);
+    const matchedCat = categoryList.find((c) => c.name === category);
     const categorySlug = matchedCat ? matchedCat.slug : category.toLowerCase().replace(/\s+/g, '-');
 
     const finalGallery = galleryImages.length > 0 ? galleryImages : [thumbnail];
@@ -377,7 +378,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
                   onChange={(e) => setCategory(e.target.value)}
                   className="w-full text-sm py-2.5 px-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-[#0b0952]"
                 >
-                  {categories.map((c) => (
+                  {categoryList.map((c) => (
                     <option key={c.id} value={c.name}>
                       {c.name}
                     </option>

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { categories } from '../../data/categories';
+import { getStoredCategories } from '../../data/categories';
 
 interface CategoryGridProps {
   selectedCategory: string | null;
@@ -11,6 +11,13 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
   selectedCategory,
   onSelectCategory,
 }) => {
+  const [categoryList, setCategoryList] = useState(() => getStoredCategories());
+
+  useEffect(() => {
+    const handleUpdate = () => setCategoryList(getStoredCategories());
+    window.addEventListener('baby_categories_updated', handleUpdate);
+    return () => window.removeEventListener('baby_categories_updated', handleUpdate);
+  }, []);
   return (
     <section className="max-w-7xl mx-auto px-4 py-8">
       {/* Section Header */}
@@ -37,7 +44,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
 
       {/* Grid of 8 categories */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
-        {categories.map((cat) => {
+        {categoryList.map((cat) => {
           const isSelected = selectedCategory === cat.slug;
           return (
             <div

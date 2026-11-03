@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Sparkles, ChevronRight } from 'lucide-react';
-import { categories } from '../../data/categories';
+import { getStoredCategories } from '../../data/categories';
 
 interface CategoriesDrawerProps {
   isOpen: boolean;
@@ -15,6 +15,14 @@ export const CategoriesDrawer: React.FC<CategoriesDrawerProps> = ({
   selectedCategory,
   onSelectCategory,
 }) => {
+  const [categoryList, setCategoryList] = useState(() => getStoredCategories());
+
+  useEffect(() => {
+    const handleUpdate = () => setCategoryList(getStoredCategories());
+    window.addEventListener('baby_categories_updated', handleUpdate);
+    return () => window.removeEventListener('baby_categories_updated', handleUpdate);
+  }, []);
+
   if (!isOpen) return null;
 
   return (
@@ -47,7 +55,7 @@ export const CategoriesDrawer: React.FC<CategoriesDrawerProps> = ({
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </div>
 
-            {categories.map((cat) => (
+            {categoryList.map((cat) => (
               <div
                 key={cat.id}
                 onClick={() => {

@@ -26,6 +26,7 @@ import { AdminLayout } from './admin/pages/AdminLayout';
 import { AdminDashboardPage } from './admin/pages/AdminDashboardPage';
 import { AdminOrdersPage } from './admin/pages/AdminOrdersPage';
 import { AdminProductsPage } from './admin/pages/AdminProductsPage';
+import { AdminCategoriesPage } from './admin/pages/AdminCategoriesPage';
 import { AdminFinancePage } from './admin/pages/AdminFinancePage';
 import { AdminSettingsPage } from './admin/pages/AdminSettingsPage';
 
@@ -82,6 +83,7 @@ const AppLayout: React.FC = () => {
             <Route path="dashboard" element={<AdminDashboardPage />} />
             <Route path="orders" element={<AdminOrdersPage />} />
             <Route path="products" element={<AdminProductsPage />} />
+            <Route path="categories" element={<AdminCategoriesPage />} />
             <Route path="finance" element={<AdminFinancePage />} />
             <Route path="settings" element={<AdminSettingsPage />} />
             <Route path="*" element={<Navigate to="dashboard" replace />} />

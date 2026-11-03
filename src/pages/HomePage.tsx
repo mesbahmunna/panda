@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Trophy, TrendingUp, Sparkles, Heart, ThumbsUp, X } from 'lucide-react';
 import { products } from '../data/products';
-import { categories } from '../data/categories';
+import { getStoredCategories } from '../data/categories';
 import { Product } from '../types/product';
 
 // Components
@@ -33,12 +33,20 @@ export const HomePage: React.FC<HomePageProps> = ({
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const [categoryList, setCategoryList] = useState(() => getStoredCategories());
+
+  useEffect(() => {
+    const handleUpdate = () => setCategoryList(getStoredCategories());
+    window.addEventListener('baby_categories_updated', handleUpdate);
+    return () => window.removeEventListener('baby_categories_updated', handleUpdate);
+  }, []);
+
   // Filtered Products for category view
   const categoryProducts = selectedCategory
     ? products.filter((p) => p.categorySlug === selectedCategory)
     : [];
 
-  const currentCategoryObj = categories.find((c) => c.slug === selectedCategory);
+  const currentCategoryObj = categoryList.find((c) => c.slug === selectedCategory);
 
   return (
     <div>

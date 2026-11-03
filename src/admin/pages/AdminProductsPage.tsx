@@ -24,7 +24,7 @@ import {
   resetProductsToDefault
 } from '../services/productStorage';
 import { Product } from '../../types/product';
-import { categories } from '../../data/categories';
+import { getStoredCategories } from '../../data/categories';
 import { ProductFormModal } from '../components/ProductFormModal';
 
 interface OutletContextType {
@@ -35,6 +35,7 @@ interface OutletContextType {
 export const AdminProductsPage: React.FC = () => {
   const { onOpenMobileMenu, pendingCount } = useOutletContext<OutletContextType>();
   const [products, setProducts] = useState<Product[]>(() => getAdminProducts());
+  const [categories, setCategories] = useState(() => getStoredCategories());
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   
@@ -44,12 +45,17 @@ export const AdminProductsPage: React.FC = () => {
 
   const refreshProducts = () => {
     setProducts(getAdminProducts());
+    setCategories(getStoredCategories());
   };
 
   useEffect(() => {
     refreshProducts();
     window.addEventListener('baby_products_updated', refreshProducts);
-    return () => window.removeEventListener('baby_products_updated', refreshProducts);
+    window.addEventListener('baby_categories_updated', refreshProducts);
+    return () => {
+      window.removeEventListener('baby_products_updated', refreshProducts);
+      window.removeEventListener('baby_categories_updated', refreshProducts);
+    };
   }, []);
 
   const handleOpenAdd = () => {

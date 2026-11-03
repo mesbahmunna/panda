@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ChevronRight, ArrowLeft, Sparkles, Truck, ShieldCheck } from 'lucide-react';
-import { categories } from '../data/categories';
+import { getStoredCategories } from '../data/categories';
 import { products } from '../data/products';
 import { Product } from '../types/product';
 import { ProductCard } from '../components/Product/ProductCard';
@@ -9,12 +9,19 @@ import { ProductCard } from '../components/Product/ProductCard';
 export const CategoryPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const [categoryList, setCategoryList] = useState(() => getStoredCategories());
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [slug]);
 
-  const currentCategory = categories.find((c) => c.slug === slug);
+  useEffect(() => {
+    const handleUpdate = () => setCategoryList(getStoredCategories());
+    window.addEventListener('baby_categories_updated', handleUpdate);
+    return () => window.removeEventListener('baby_categories_updated', handleUpdate);
+  }, []);
+
+  const currentCategory = categoryList.find((c) => c.slug === slug);
   const categoryProducts = slug
     ? products.filter((p) => p.categorySlug === slug)
     : [];

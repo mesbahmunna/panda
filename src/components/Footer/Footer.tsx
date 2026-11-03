@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, ShieldCheck } from 'lucide-react';
 import { Logo } from '../common/Logo';
-import { categories } from '../../data/categories';
+import { getStoredCategories } from '../../data/categories';
 import footerPattern from '../../assets/footer-pattern.jpg';
 
 interface FooterProps {
@@ -11,6 +11,13 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }) => {
+  const [categoryList, setCategoryList] = useState(() => getStoredCategories());
+
+  useEffect(() => {
+    const handleUpdate = () => setCategoryList(getStoredCategories());
+    window.addEventListener('baby_categories_updated', handleUpdate);
+    return () => window.removeEventListener('baby_categories_updated', handleUpdate);
+  }, []);
   const openShippingPolicy = () => {
     onOpenPolicy(
       'Shipping & Delivery Policy',
@@ -82,7 +89,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
               Shop By Category
             </h4>
             <ul className="space-y-2 text-xs">
-              {categories.slice(0, 6).map((cat) => (
+              {categoryList.slice(0, 6).map((cat) => (
                 <li key={cat.id}>
                   <button
                     onClick={() => onSelectCategory(cat.slug)}

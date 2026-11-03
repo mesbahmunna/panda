@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, ChevronDown, Sparkles } from 'lucide-react';
-import { categories } from '../../data/categories';
+import { getStoredCategories } from '../../data/categories';
 
 interface CategoryNavProps {
   selectedCategory: string | null;
@@ -12,6 +12,13 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
   onSelectCategory,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [categoryList, setCategoryList] = useState(() => getStoredCategories());
+
+  useEffect(() => {
+    const handleUpdate = () => setCategoryList(getStoredCategories());
+    window.addEventListener('baby_categories_updated', handleUpdate);
+    return () => window.removeEventListener('baby_categories_updated', handleUpdate);
+  }, []);
 
   return (
     <div className="bg-[#080638] border-b border-indigo-950/80 hidden md:block text-slate-200">
@@ -50,7 +57,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
                 </div>
               </div>
 
-              {categories.map((cat) => (
+              {categoryList.map((cat) => (
                 <div
                   key={cat.id}
                   onClick={() => {
@@ -91,7 +98,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
             Home
           </button>
 
-          {categories.map((cat) => (
+          {categoryList.map((cat) => (
             <button
               key={cat.id}
               onClick={() => onSelectCategory(cat.slug)}
