@@ -39,8 +39,17 @@ export const AdminDashboardPage: React.FC = () => {
 
   useEffect(() => {
     refreshData();
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'baby_admin_orders') {
+        refreshData();
+      }
+    };
     window.addEventListener('baby_orders_updated', refreshData);
-    return () => window.removeEventListener('baby_orders_updated', refreshData);
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('baby_orders_updated', refreshData);
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   // Compute metrics

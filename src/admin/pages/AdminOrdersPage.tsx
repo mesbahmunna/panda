@@ -47,8 +47,17 @@ export const AdminOrdersPage: React.FC = () => {
 
   useEffect(() => {
     refreshOrders();
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'baby_admin_orders') {
+        refreshOrders();
+      }
+    };
     window.addEventListener('baby_orders_updated', refreshOrders);
-    return () => window.removeEventListener('baby_orders_updated', refreshOrders);
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('baby_orders_updated', refreshOrders);
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   // Sync tab with URL query parameter if present

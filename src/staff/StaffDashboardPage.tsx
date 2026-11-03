@@ -86,16 +86,27 @@ export const StaffDashboardPage: React.FC = () => {
       }
     };
 
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'baby_admin_orders' || e.key === 'baby_staff_members') {
+        loadData();
+      }
+    };
+
     window.addEventListener('baby_orders_updated', handleOrdersUpdate);
     window.addEventListener('baby_staff_updated', handleStaffUpdate);
     window.addEventListener('baby_sound_pref_changed', handleSoundPref);
+    window.addEventListener('storage', handleStorageChange);
 
     // Audio chime & notification banner on new assigned lead
     const unsubscribeAudio = subscribeToNewOrderEvents((detail) => {
       loadData();
       const s = getActiveStaffSession();
       const currentId = s?.staffId;
-      const isForMe = !currentId || detail.assignedStaffId === currentId || s?.isImpersonatedByAdmin;
+      const isForMe =
+        !currentId ||
+        detail.assignedStaffId === currentId ||
+        detail.assignedStaffName === s?.staffName ||
+        s?.isImpersonatedByAdmin;
 
       if (isForMe) {
         soundManager.playStaffAssignedAlert();
@@ -116,6 +127,7 @@ export const StaffDashboardPage: React.FC = () => {
       window.removeEventListener('baby_orders_updated', handleOrdersUpdate);
       window.removeEventListener('baby_staff_updated', handleStaffUpdate);
       window.removeEventListener('baby_sound_pref_changed', handleSoundPref);
+      window.removeEventListener('storage', handleStorageChange);
       clearInterval(cutoffInterval);
       unsubscribeAudio();
     };

@@ -24,7 +24,13 @@ export const AdminLayout: React.FC = () => {
   useEffect(() => {
     refreshPending();
     const handleOrdersUpdated = () => refreshPending();
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'baby_admin_orders') {
+        refreshPending();
+      }
+    };
     window.addEventListener('baby_orders_updated', handleOrdersUpdated);
+    window.addEventListener('storage', handleStorageChange);
 
     // Audio chime & notification banner on new incoming customer orders
     const unsubscribeAudio = subscribeToNewOrderEvents((detail) => {
@@ -35,6 +41,7 @@ export const AdminLayout: React.FC = () => {
 
     return () => {
       window.removeEventListener('baby_orders_updated', handleOrdersUpdated);
+      window.removeEventListener('storage', handleStorageChange);
       unsubscribeAudio();
     };
   }, []);
