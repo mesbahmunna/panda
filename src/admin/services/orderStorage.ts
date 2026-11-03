@@ -397,10 +397,13 @@ export const updateOrderStatus = (
 export const updateOrderDetails = (
   orderId: string,
   updatedFields: Partial<AdminOrder>
-): void => {
+): AdminOrder[] => {
   const orders = getOrders();
+  const cleanTarget = String(orderId || '').trim().toLowerCase();
   const updatedOrders = orders.map((order) => {
-    if (order.id === orderId || order.orderId === orderId) {
+    const oId = String(order.id || '').trim().toLowerCase();
+    const oOrderId = String(order.orderId || '').trim().toLowerCase();
+    if (oId === cleanTarget || oOrderId === cleanTarget) {
       return {
         ...order,
         ...updatedFields
@@ -415,6 +418,7 @@ export const updateOrderDetails = (
   } catch (err) {
     console.error('Failed to update order details', err);
   }
+  return updatedOrders;
 };
 
 export const deleteOrder = (orderId: string): void => {

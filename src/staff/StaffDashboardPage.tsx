@@ -433,201 +433,159 @@ export const StaffDashboardPage: React.FC = () => {
               return (
                 <div
                   key={order.id}
-                  className={`bg-white rounded-2xl border transition-all shadow-sm overflow-hidden ${
+                  className={`bg-white rounded-xl border transition-all shadow-sm hover:shadow-md p-4 space-y-3 ${
                     order.status === 'pending'
-                      ? 'border-amber-300 ring-1 ring-amber-200'
+                      ? 'border-amber-300 ring-1 ring-amber-100'
                       : 'border-gray-200'
                   }`}
                 >
-                  {/* Card Header */}
-                  <div className="px-5 py-3.5 bg-gray-50/80 border-b border-gray-100 flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-sm font-black text-indigo-950">
+                  {/* Top: Order ID, Time, Delivery Zone, Status & Total COD */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-2.5">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-mono text-sm font-black text-gray-900">
                         {order.orderId}
                       </span>
-                      <span className="text-xs text-gray-400">•</span>
-                      <span className="text-xs text-gray-500 flex items-center gap-1 font-medium">
-                        <Clock className="w-3.5 h-3.5 text-gray-400" />
-                        {order.orderDate}
-                      </span>
-                      <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700">
+                      <span className="text-gray-300">•</span>
+                      <span className="text-xs text-gray-500 font-medium">{order.orderDate}</span>
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
                         {order.deliveryZone === 'inside_dhaka' ? 'Dhaka City (৳70)' : 'Outside Dhaka (৳130)'}
                       </span>
                     </div>
 
-                    {/* Status Pill */}
-                    <div>
+                    <div className="flex items-center gap-3">
                       {order.status === 'pending' && (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 animate-pulse">
-                          <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                          Pending Phone Call
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping"></span>
+                          Pending Call
                         </span>
                       )}
                       {order.status === 'confirmed' && (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                          Order Confirmed
+                          Confirmed
                         </span>
                       )}
                       {order.status === 'cancelled' && (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800">
                           <XCircle className="w-3.5 h-3.5 text-rose-600" />
                           Cancelled
                         </span>
                       )}
+
+                      <div className="font-mono text-base font-black text-indigo-950 flex items-center gap-1">
+                        <span className="text-xs font-normal text-gray-500">COD:</span>
+                        <span>৳{order.total}</span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Card Body: Customer details & Items */}
-                  <div className="p-5 grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    {/* Customer Info Column (5 cols) */}
-                    <div className="lg:col-span-5 space-y-3 border-b lg:border-b-0 lg:border-r border-gray-100 pb-4 lg:pb-0 lg:pr-6">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h4 className="font-extrabold text-base text-gray-900 leading-tight">
-                            {order.customerName}
-                          </h4>
-                          <p className="font-mono text-sm font-bold text-indigo-700 mt-0.5">
-                            {order.phoneNumber}
-                          </p>
+                  {/* Middle: Customer Details & Ordered Items Summary */}
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-3 text-xs">
+                    {/* Customer Info (5 cols) */}
+                    <div className="md:col-span-5 space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-extrabold text-sm text-gray-900">{order.customerName}</span>
+                        <span className="font-mono text-xs font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded">
+                          {order.phoneNumber}
+                        </span>
+                      </div>
+                      <div className="text-gray-600 flex items-start gap-1">
+                        <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0 mt-0.5" />
+                        <span className="leading-snug truncate">
+                          {order.address}, {order.upazila ? `${order.upazila}, ` : ''}
+                          <strong>{order.district}</strong>
+                        </span>
+                      </div>
+                      {order.notes && (
+                        <div className="text-[11px] text-amber-900 bg-amber-50 border border-amber-200/60 px-2 py-1 rounded-lg font-medium">
+                          💬 {order.notes}
                         </div>
-                      </div>
-
-                      {/* 1-Click Communication Bar */}
-                      <div className="flex items-center gap-2 pt-1">
-                        <a
-                          href={`tel:${cleanPhone}`}
-                          className="flex-1 inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-3 rounded-xl text-xs shadow-md shadow-emerald-600/20 transition-all transform hover:scale-[1.02]"
-                        >
-                          <Phone className="w-4 h-4" />
-                          <span>Call Customer</span>
-                        </a>
-
-                        <a
-                          href={`https://wa.me/${waPhone}?text=${waMessage}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold py-2.5 px-3 rounded-xl text-xs shadow-md shadow-emerald-500/20 transition-all transform hover:scale-[1.02]"
-                        >
-                          <MessageSquare className="w-4 h-4" />
-                          <span>WhatsApp</span>
-                        </a>
-                      </div>
-
-                      {/* Delivery Address */}
-                      <div className="text-xs text-gray-600 space-y-1 bg-gray-50 p-3 rounded-xl border border-gray-100">
-                        <div className="flex items-start gap-1.5 text-gray-700 font-medium">
-                          <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0 mt-0.5" />
-                          <span>
-                            {order.address}, {order.upazila ? `${order.upazila}, ` : ''}
-                            <strong className="text-gray-900">{order.district}</strong>
-                          </span>
-                        </div>
-                        {order.notes && (
-                          <p className="text-[11px] text-amber-800 bg-amber-50 p-1.5 rounded font-medium mt-1">
-                            💬 Memo: {order.notes}
-                          </p>
-                        )}
-                      </div>
+                      )}
                     </div>
 
-                    {/* Order Items & Calculations (7 cols) */}
-                    <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
-                      {/* Items List */}
-                      <div className="space-y-2">
-                        {order.items.map((item, idx) => (
-                          <div
-                            key={idx}
-                            className="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-gray-50/70 border border-gray-100"
-                          >
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <img
-                                src={item.product.thumbnail}
-                                alt={item.product.name}
-                                className="w-11 h-11 rounded-lg object-cover border border-gray-200 shrink-0"
-                              />
-                              <div className="min-w-0">
-                                <p className="text-xs font-bold text-gray-900 truncate">
-                                  {item.product.name}
-                                </p>
-                                <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                                  {item.selectedVariation && (
-                                    <span className="text-[10px] bg-indigo-100 text-indigo-800 px-1.5 py-0.5 rounded font-semibold">
-                                      {item.selectedVariation}
-                                    </span>
-                                  )}
-                                  {item.selectedBundle ? (
-                                    <span className="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">
-                                      {item.selectedBundle.title}
-                                    </span>
-                                  ) : (
-                                    <span className="text-[10px] text-gray-500 font-medium">
-                                      Qty: {item.quantity}
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="text-right shrink-0">
-                              <span className="text-xs font-black text-gray-900">
-                                ৳{item.unitPrice * item.quantity}
+                    {/* Ordered Items (7 cols) */}
+                    <div className="md:col-span-7 bg-gray-50/80 p-2.5 rounded-xl border border-gray-100 space-y-1.5 justify-center flex flex-col">
+                      {order.items.map((item, idx) => (
+                        <div key={idx} className="flex items-center justify-between text-xs gap-2">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span className="font-bold text-gray-800 truncate">{item.product.name}</span>
+                            {item.selectedVariation && (
+                              <span className="text-[10px] bg-white border border-gray-200 text-indigo-700 font-semibold px-1.5 py-0.5 rounded shrink-0">
+                                {item.selectedVariation}
                               </span>
-                            </div>
+                            )}
+                            {item.selectedBundle && (
+                              <span className="text-[10px] bg-white border border-amber-300 text-amber-800 font-bold px-1.5 py-0.5 rounded shrink-0">
+                                {item.selectedBundle.title}
+                              </span>
+                            )}
                           </div>
-                        ))}
-                      </div>
-
-                      {/* Pricing Bar */}
-                      <div className="flex items-center justify-between pt-2 border-t border-gray-100 text-xs">
-                        <div className="text-gray-500 space-x-2">
-                          <span>Subtotal: ৳{order.subtotal}</span>
-                          <span>•</span>
-                          <span>Delivery: ৳{order.deliveryFee}</span>
+                          <span className="font-mono font-bold text-gray-800 shrink-0 ml-auto">
+                            Qty {item.quantity} × ৳{item.unitPrice} = <strong>৳{item.unitPrice * item.quantity}</strong>
+                          </span>
                         </div>
-                        <div className="text-sm font-black text-[#0b0952] flex items-center gap-1">
-                          <span>Total COD:</span>
-                          <span className="text-base text-emerald-600">৳{order.total}</span>
-                        </div>
+                      ))}
+                      <div className="text-[11px] text-gray-400 pt-1 border-t border-gray-200/60 flex justify-between">
+                        <span>Delivery: ৳{order.deliveryFee}</span>
+                        <span>Subtotal: ৳{order.subtotal}</span>
                       </div>
+                    </div>
+                  </div>
 
-                      {/* Staff Action Buttons: Edit Order, Confirm, Cancel */}
-                      <div className="flex flex-wrap items-center justify-end gap-2 pt-2">
-                        {/* 1. Edit Order (on call) */}
+                  {/* Bottom: Fast Action Bar */}
+                  <div className="flex items-center justify-between pt-2 border-t border-gray-100 gap-2 flex-wrap">
+                    {/* Call & WhatsApp */}
+                    <div className="flex items-center gap-2">
+                      <a
+                        href={`tel:${cleanPhone}`}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition-colors"
+                      >
+                        <Phone className="w-3.5 h-3.5" />
+                        <span>Call Customer</span>
+                      </a>
+                      <a
+                        href={`https://wa.me/${waPhone}?text=${waMessage}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-xs shadow-sm transition-colors"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        <span>WhatsApp</span>
+                      </a>
+                    </div>
+
+                    {/* Order Controls */}
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setEditingOrder(order)}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-300 hover:border-indigo-400 bg-white hover:bg-indigo-50/50 text-gray-700 hover:text-indigo-700 text-xs font-bold transition-all shadow-sm"
+                        title="Edit quantity, variation or bundle tier"
+                      >
+                        <Edit3 className="w-3.5 h-3.5 text-indigo-600" />
+                        <span>Edit Details</span>
+                      </button>
+
+                      {order.status !== 'cancelled' && (
                         <button
                           type="button"
-                          onClick={() => setEditingOrder(order)}
-                          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-gray-300 hover:border-indigo-400 bg-white hover:bg-indigo-50/50 text-gray-700 hover:text-indigo-700 text-xs font-bold transition-all shadow-sm"
-                          title="Change quantity, color variation or bundle package if customer requests during call"
+                          onClick={() => handleOpenCancel(order)}
+                          className="px-2.5 py-1.5 rounded-lg text-rose-600 hover:bg-rose-50 text-xs font-semibold transition-colors"
                         >
-                          <Edit3 className="w-3.5 h-3.5 text-indigo-600" />
-                          <span>Edit Order (on call)</span>
+                          Cancel
                         </button>
+                      )}
 
-                        {/* 2. Cancel Order */}
-                        {order.status !== 'cancelled' && (
-                          <button
-                            type="button"
-                            onClick={() => handleOpenCancel(order)}
-                            className="inline-flex items-center gap-1 px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 text-xs font-bold transition-colors"
-                          >
-                            <XCircle className="w-3.5 h-3.5" />
-                            <span>Cancel</span>
-                          </button>
-                        )}
-
-                        {/* 3. Confirm Order */}
-                        {order.status !== 'confirmed' && (
-                          <button
-                            type="button"
-                            onClick={() => handleConfirmOrder(order)}
-                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-md shadow-emerald-600/20 transition-all transform hover:scale-[1.02]"
-                          >
-                            <CheckCircle2 className="w-4 h-4" />
-                            <span>Confirm Order</span>
-                          </button>
-                        )}
-                      </div>
+                      {order.status !== 'confirmed' && (
+                        <button
+                          type="button"
+                          onClick={() => handleConfirmOrder(order)}
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#0b0952] hover:bg-indigo-950 text-white text-xs font-bold transition-all shadow-sm"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>Confirm</span>
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -643,8 +601,11 @@ export const StaffDashboardPage: React.FC = () => {
         isOpen={Boolean(editingOrder)}
         onClose={() => setEditingOrder(null)}
         onSaved={(updated) => {
+          setAllOrders((prev) =>
+            prev.map((o) => (o.id === updated.id || o.orderId === updated.orderId ? updated : o))
+          );
           loadData();
-          showToast(`Order #${updated.orderId} updated successfully.`);
+          showToast(`✅ Order #${updated.orderId} updated successfully.`);
         }}
       />
 
