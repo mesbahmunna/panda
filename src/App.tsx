@@ -107,6 +107,7 @@ const AppLayout: React.FC = () => {
         <StaffGate>
           <Routes>
             <Route path="/staff" element={<StaffDashboardPage />} />
+            <Route path="/staff/*" element={<StaffDashboardPage />} />
             <Route path="*" element={<Navigate to="/staff" replace />} />
           </Routes>
         </StaffGate>
