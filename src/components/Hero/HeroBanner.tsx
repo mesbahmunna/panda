@@ -177,51 +177,83 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
           {/* Card 1: Feeding set promo */}
           <div
             onClick={onExploreFeeding || (() => navigate('/category/baby-feeding'))}
-            className="flex-1 relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-card group cursor-pointer bg-gradient-to-br from-amber-50 to-orange-50/50 border border-amber-100/80 p-5 sm:p-6 flex flex-col justify-between min-h-[175px] hover:shadow-card-hover transition-all"
+            className="flex-1 relative rounded-3xl overflow-hidden group cursor-pointer bg-gradient-to-br from-[#FFF8F1] via-[#FFF3E8] to-[#FFE8D6] border border-orange-200/80 p-5 sm:p-6 flex flex-col justify-between min-h-[185px] shadow-[0_4px_20px_-4px_rgba(249,115,22,0.08)] hover:shadow-[0_12px_28px_-6px_rgba(249,115,22,0.20)] hover:-translate-y-0.5 transition-all duration-300"
           >
-            <div className="relative z-10 max-w-[65%] text-left">
-              <span className="text-[11px] font-bold text-amber-700 bg-amber-200/80 px-2 py-0.5 rounded-md uppercase tracking-wider">
-                হট ফিডিং অফার
-              </span>
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-2 leading-snug group-hover:text-brand-600 transition-colors">
+            {/* Ambient Background Glow */}
+            <div className="absolute -top-10 -right-10 w-36 h-36 bg-orange-300/30 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 max-w-[62%] sm:max-w-[65%] text-left">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-black uppercase tracking-wider shadow-xs shadow-orange-500/25">
+                <span>🔥 হট ফিডিং অফার</span>
+              </div>
+
+              <h3 className="text-base sm:text-[17px] font-black text-slate-900 mt-2.5 leading-snug group-hover:text-orange-600 transition-colors">
                 সিলিকন সাকশন ডাইনিং ফিডিং সেট
               </h3>
-              <p className="text-xs text-slate-600 mt-1">শুরু মাত্র ৳ ৭৮০ থেকে</p>
-              <div className="mt-3 flex items-center gap-1 text-xs font-bold text-brand-600">
+
+              <div className="mt-1.5 flex items-center gap-2">
+                <span className="text-xs font-bold text-orange-700 bg-orange-100/90 px-2 py-0.5 rounded-md">
+                  শুরু মাত্র ৳৭৮০
+                </span>
+                <span className="text-[11px] text-slate-500 font-medium hidden sm:inline">১০০% নিরাপদ</span>
+              </div>
+
+              <div className="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white group-hover:bg-orange-500 text-slate-800 group-hover:text-white font-bold text-xs shadow-xs border border-orange-200/80 group-hover:border-transparent transition-all duration-300">
                 <span>অর্ডার করুন</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
-            <img
-              src="https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=400"
-              alt="Baby Feeding"
-              className="absolute right-0 bottom-0 w-36 h-36 object-cover rounded-tl-3xl transform group-hover:scale-105 transition-transform"
-            />
+
+            {/* Framed Glowing Image */}
+            <div className="absolute -right-2 -bottom-2 w-36 h-36 sm:w-40 sm:h-40">
+              <div className="absolute inset-0 bg-gradient-to-tr from-orange-400/25 to-transparent rounded-full blur-xl pointer-events-none" />
+              <img
+                src="https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Baby Feeding"
+                className="w-full h-full object-cover rounded-tl-3xl rounded-br-2xl border-4 border-white shadow-md transform group-hover:scale-105 group-hover:-rotate-1 transition-all duration-500"
+              />
+            </div>
           </div>
 
           {/* Card 2: Baby Carrier promo */}
           <div
             onClick={onShopNow || (() => navigate('/category/baby-clothing'))}
-            className="flex-1 relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-card group cursor-pointer bg-gradient-to-br from-indigo-50 to-purple-50/50 border border-indigo-100/80 p-5 sm:p-6 flex flex-col justify-between min-h-[175px] hover:shadow-card-hover transition-all"
+            className="flex-1 relative rounded-3xl overflow-hidden group cursor-pointer bg-gradient-to-br from-[#F5F3FF] via-[#EEF2FF] to-[#FCE7F3]/75 border border-indigo-200/80 p-5 sm:p-6 flex flex-col justify-between min-h-[185px] shadow-[0_4px_20px_-4px_rgba(99,102,241,0.08)] hover:shadow-[0_12px_28px_-6px_rgba(99,102,241,0.20)] hover:-translate-y-0.5 transition-all duration-300"
           >
-            <div className="relative z-10 max-w-[65%] text-left">
-              <span className="text-[11px] font-bold text-brand-700 bg-brand-200/70 px-2 py-0.5 rounded-md uppercase tracking-wider">
-                মায়ের সেরা পছন্দ
-              </span>
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-2 leading-snug group-hover:text-brand-600 transition-colors">
+            {/* Ambient Background Glow */}
+            <div className="absolute -top-10 -right-10 w-36 h-36 bg-indigo-300/30 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 max-w-[62%] sm:max-w-[65%] text-left">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-[10px] font-black uppercase tracking-wider shadow-xs shadow-indigo-500/25">
+                <span>⭐ মায়ের সেরা পছন্দ</span>
+              </div>
+
+              <h3 className="text-base sm:text-[17px] font-black text-slate-900 mt-2.5 leading-snug group-hover:text-indigo-600 transition-colors">
                 ৬-ইন-১ এরগনোমিক বেবি ক্যারিয়ার
               </h3>
-              <p className="text-xs text-slate-600 mt-1">ফ্ল্যাট ৩৭% স্পেশাল ছাড়</p>
-              <div className="mt-3 flex items-center gap-1 text-xs font-bold text-brand-600">
+
+              <div className="mt-1.5 flex items-center gap-2">
+                <span className="text-xs font-bold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded-md">
+                  ফ্ল্যাট ৩৭% স্পেশাল ছাড়
+                </span>
+                <span className="text-[11px] text-slate-500 font-medium hidden sm:inline">ব্যথামুক্ত</span>
+              </div>
+
+              <div className="mt-3.5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white group-hover:bg-indigo-600 text-slate-800 group-hover:text-white font-bold text-xs shadow-xs border border-indigo-200/80 group-hover:border-transparent transition-all duration-300">
                 <span>ক্যারিয়ার কিনুন</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
-            <img
-              src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=400&q=80"
-              alt="Baby Carrier"
-              className="absolute right-0 bottom-0 w-36 h-36 object-cover rounded-tl-3xl transform group-hover:scale-105 transition-transform"
-            />
+
+            {/* Framed Glowing Image */}
+            <div className="absolute -right-2 -bottom-2 w-36 h-36 sm:w-40 sm:h-40">
+              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-400/25 to-transparent rounded-full blur-xl pointer-events-none" />
+              <img
+                src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=400&q=80"
+                alt="Baby Carrier"
+                className="w-full h-full object-cover rounded-tl-3xl rounded-br-2xl border-4 border-white shadow-md transform group-hover:scale-105 group-hover:-rotate-1 transition-all duration-500"
+              />
+            </div>
           </div>
 
         </div>
