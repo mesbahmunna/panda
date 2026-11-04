@@ -76,7 +76,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                   setShowResults(true);
                 }}
                 onFocus={() => setShowResults(true)}
-                placeholder="Search baby clothes, feeding sets, toys..."
+                placeholder="শিশুর পোশাক, ফিডিং সেট, খেলনা বা যত্ন খুঁজুন..."
                 className="w-full pl-9 pr-9 py-2 text-xs rounded-xl bg-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-400 text-slate-800 placeholder:text-slate-400"
               />
               {searchQuery && (
@@ -100,7 +100,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
               }}
               className="px-2.5 py-1.5 text-xs font-bold text-slate-200 hover:text-white rounded-lg shrink-0"
             >
-              Cancel
+              বাতিল
             </button>
           </div>
         ) : (
@@ -126,7 +126,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                     setShowResults(true);
                   }}
                   onFocus={() => setShowResults(true)}
-                  placeholder="Search for baby clothes, feeding sets, toys, bath care..."
+                  placeholder="শিশুর পোশাক, ফিডার, খেলনা, গোসল ও যত্নের সামগ্রী খুঁজুন..."
                   className="w-full pl-4 pr-24 py-2.5 rounded-xl bg-white border border-transparent text-sm text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-400 shadow-sm transition-all placeholder:text-slate-400"
                 />
                 {searchQuery && (
@@ -149,8 +149,8 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
               {showResults && searchQuery.trim() !== '' && (
                 <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl shadow-floating border border-slate-100 overflow-hidden z-50">
                   <div className="p-2 border-b border-slate-100 flex items-center justify-between text-xs text-slate-500 px-3 bg-slate-50">
-                    <span>Found {searchResults.length} matching products</span>
-                    <span className="text-[11px] text-brand-600 font-medium">Instant Preview</span>
+                    <span>{searchResults.length} টি পণ্য পাওয়া গেছে</span>
+                    <span className="text-[11px] text-brand-600 font-medium">তাৎক্ষণিক ফলাফল</span>
                   </div>
 
                   {searchResults.length > 0 ? (
@@ -184,7 +184,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                     </div>
                   ) : (
                     <div className="p-6 text-center text-slate-500 text-sm">
-                      No baby products found matching &quot;{searchQuery}&quot;.
+                      &quot;{searchQuery}&quot; এর সাথে মিলে এমন কোনো পণ্য পাওয়া যায়নি।
                     </div>
                   )}
                 </div>
@@ -200,7 +200,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                 onClick={() => setIsMobileSearchOpen(true)}
                 className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center transition-all md:hidden shrink-0 border border-white/10"
                 aria-label="Search products"
-                title="Search"
+                title="সার্চ করুন"
               >
                 <Search className="w-4 h-4 text-white" />
               </button>
@@ -214,7 +214,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                   <PhoneCall className="w-4 h-4" />
                 </div>
                 <div className="leading-tight">
-                  <span className="block text-[11px] font-medium text-slate-300">Order Inquiry</span>
+                  <span className="block text-[11px] font-medium text-slate-300">অর্ডার সহায়তা</span>
                   <span className="text-xs font-bold text-white tracking-tight">+880 9617-100900</span>
                 </div>
               </a>
@@ -234,7 +234,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                   )}
                 </div>
                 <div className="hidden sm:flex flex-col text-left leading-none">
-                  <span className="text-[10px] uppercase font-semibold text-brand-200">Cart</span>
+                  <span className="text-[10px] uppercase font-semibold text-brand-200">কার্ট</span>
                   <span className="text-xs font-bold mt-0.5 text-white">৳ {subtotal.toLocaleString()}</span>
                 </div>
               </button>
@@ -247,7 +247,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
         {isMobileSearchOpen && showResults && searchQuery.trim() !== '' && (
           <div className="absolute left-3 right-3 top-full mt-1.5 bg-white rounded-2xl shadow-floating border border-slate-100 overflow-hidden z-50 md:hidden">
             <div className="p-2 border-b border-slate-100 flex items-center justify-between text-xs text-slate-500 px-3 bg-slate-50">
-              <span>Found {searchResults.length} matching products</span>
+              <span>{searchResults.length} টি পণ্য পাওয়া গেছে</span>
             </div>
             {searchResults.length > 0 ? (
               <div className="max-h-80 overflow-y-auto divide-y divide-slate-50">
@@ -276,7 +276,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
               </div>
             ) : (
               <div className="p-5 text-center text-slate-500 text-xs">
-                No baby products found matching &quot;{searchQuery}&quot;.
+                &quot;{searchQuery}&quot; এর সাথে মিলে এমন কোনো পণ্য পাওয়া যায়নি।
               </div>
             )}
           </div>

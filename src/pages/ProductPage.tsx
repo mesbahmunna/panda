@@ -17,16 +17,16 @@ export const ProductPage: React.FC = () => {
         <div className="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mb-4">
           <Search className="w-8 h-8" />
         </div>
-        <h2 className="text-2xl font-black text-slate-900 mb-2">Product Not Found</h2>
+        <h2 className="text-2xl font-black text-slate-900 mb-2">পণ্যটি খুঁজে পাওয়া যায়নি</h2>
         <p className="text-sm text-slate-500 max-w-md mb-6">
-          The baby product you are looking for may have been moved or is currently unavailable.
+          আপনি যে পণ্যটি খুঁজছেন তা স্থানান্তরিত হয়েছে অথবা এই মুহূর্তে উপলব্ধ নেই।
         </p>
         <button
           onClick={() => navigate('/')}
           className="px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white font-bold text-sm rounded-xl transition-colors flex items-center gap-2"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Back to All Products</span>
+          <span>সব পণ্য দেখুন</span>
         </button>
       </div>
     );

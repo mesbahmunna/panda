@@ -119,7 +119,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             onClick={onBackToHome}
             className="hover:text-brand-600 transition-colors font-medium"
           >
-            Home
+            হোম
           </button>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
           <span className="text-slate-600 font-medium">{product.category}</span>
@@ -148,7 +148,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 {/* Badges on image */}
                 {product.discountPercent > 0 && (
                   <div className="absolute top-3 left-3 bg-babyCoral text-white text-xs font-black px-2.5 py-1 rounded-lg shadow-md">
-                    -{product.discountPercent}% OFF
+                    -{product.discountPercent}% ছাড়
                   </div>
                 )}
               </div>
@@ -186,10 +186,10 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     <button
                       onClick={handleShare}
                       className="text-slate-400 hover:text-brand-600 p-1 flex items-center gap-1 text-xs"
-                      title="Share Product"
+                      title="শেয়ার করুন"
                     >
                       <Share2 className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">{copiedShare ? 'Copied Link!' : 'Share'}</span>
+                      <span className="hidden sm:inline">{copiedShare ? 'লিংক কপি হয়েছে!' : 'শেয়ার'}</span>
                     </button>
                   </div>
                 </div>
@@ -211,13 +211,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       ৳ {currentOriginalPrice.toLocaleString()}
                     </span>
                     <span className="text-xs font-extrabold text-babyCoral bg-rose-50 px-2 py-0.5 rounded-lg border border-rose-200">
-                      Save ৳ {currentSavings.toLocaleString()} ({discountPct}% OFF)
+                      ৳ {currentSavings.toLocaleString()} সাশ্রয় ({discountPct}% ছাড়)
                     </span>
                   </>
                 )}
                 {selectedBundle && (
                   <span className="text-xs font-extrabold text-brand-600 bg-brand-50 px-2.5 py-1 rounded-lg border border-brand-200/60 ml-auto">
-                    {selectedBundle.title} Pack
+                    {selectedBundle.title} প্যাক
                   </span>
                 )}
               </div>
@@ -268,7 +268,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   <div className="flex items-center justify-between text-xs sm:text-sm font-extrabold text-slate-900">
                     <span className="flex items-center gap-1.5">
                       <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
-                      <span>Choose Bundle:</span>
+                      <span>স্পেশাল অফার প্যাক সিলেক্ট করুন:</span>
                     </span>
                     {selectedBundle && (
                       <span className="text-slate-900 font-extrabold">
@@ -317,7 +317,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                             </span>
                             {savings > 0 && (
                               <span className="text-[10px] sm:text-[11px] font-bold text-rose-600">
-                                (Save ৳{savings.toLocaleString()})
+                                (সাশ্রয় ৳{savings.toLocaleString()})
                               </span>
                             )}
                           </div>
@@ -357,7 +357,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     <button
                       onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                       className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/25 hover:bg-white/35 active:scale-95 text-white font-black text-lg flex items-center justify-center transition-all"
-                      aria-label="Decrease quantity"
+                      aria-label="পরিমাণ কমান"
                     >
                       -
                     </button>
@@ -367,7 +367,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     <button
                       onClick={() => setQuantity((q) => q + 1)}
                       className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white hover:bg-slate-50 active:scale-95 text-[#5844ED] font-black text-lg flex items-center justify-center shadow-xs transition-all"
-                      aria-label="Increase quantity"
+                      aria-label="পরিমাণ বাড়ান"
                     >
                       +
                     </button>
@@ -379,7 +379,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     className="w-[70%] sm:w-[72%] h-12 sm:h-13 bg-[#5844ED] hover:bg-[#4936d9] active:scale-98 text-white font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 transition-all"
                   >
                     <ShoppingCart className="w-5 h-5 text-white shrink-0" />
-                    <span>Add to Cart</span>
+                    <span>কার্টে যোগ করুন</span>
                   </button>
 
                 </div>
@@ -389,7 +389,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   onClick={handleOrderNow}
                   className="w-full h-12 sm:h-13 bg-[#080638] hover:bg-[#0c094f] active:scale-98 text-white font-black text-sm sm:text-base tracking-wider uppercase rounded-xl shadow-xl shadow-indigo-950/40 flex items-center justify-center transition-all btn-shiny"
                 >
-                  <span>ORDER NOW</span>
+                  <span>এখনই অর্ডার করুন</span>
                 </button>
 
               </div>
@@ -400,7 +400,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   <div className="flex items-center gap-2 text-center sm:text-left">
                     <Phone className="w-4 h-4 text-[#5844ED] shrink-0" />
                     <span className="font-bold text-slate-800 text-xs sm:text-sm">
-                      Order via call or whatsapp (24/7)
+                      সরাসরি অর্ডার করতে কল বা হোয়াটসঅ্যাপ করুন (২৪/৭)
                     </span>
                   </div>
                   <a
@@ -428,7 +428,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             >
               <div className="flex items-center gap-2.5">
                 <span className="w-2 h-2 rounded-full bg-brand-500" />
-                <span>Description &amp; Highlights</span>
+                <span>পণ্যের বিবরণ ও বৈশিষ্ট্য</span>
               </div>
               <ChevronDown
                 className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${
@@ -441,7 +441,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 <p className="whitespace-pre-line">{product.description}</p>
                 {product.features.length > 0 && (
                   <div className="pt-2 border-t border-slate-100">
-                    <h4 className="font-bold text-slate-900 mb-2">Key Highlights:</h4>
+                    <h4 className="font-bold text-slate-900 mb-2">প্রধান আকর্ষণসমূহ:</h4>
                     <div className="space-y-1.5">
                       {product.features.map((f, i) => (
                         <div key={i} className="flex items-start gap-2 bg-slate-50 p-2 rounded-lg">
@@ -464,7 +464,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             >
               <div className="flex items-center gap-2.5">
                 <span className="w-2 h-2 rounded-full bg-indigo-500" />
-                <span>Specifications &amp; Materials</span>
+                <span>স্পেসিফিকেশন ও বিবরণ</span>
               </div>
               <ChevronDown
                 className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${
@@ -497,7 +497,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             >
               <div className="flex items-center gap-2.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                <span>Cash on Delivery Policy</span>
+                <span>ক্যাশ অন ডেলিভারি নিয়মাবলী</span>
               </div>
               <ChevronDown
                 className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${
@@ -508,12 +508,12 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             {openAccordions.shipping && (
               <div className="p-4 pt-1 border-t border-slate-100 text-left text-xs text-slate-700 leading-relaxed space-y-2">
                 <p>
-                  At BabyBazar, we operate strictly on a <strong>100% Cash on Delivery (COD)</strong> system across all 64 districts in Bangladesh.
+                  Baby Panda-তে আমরা বাংলাদেশের সকল ৬৪ জেলায় <strong>১০০% ক্যাশ অন ডেলিভারি (COD)</strong> সুবিধা প্রদান করি। পার্সেল হাতে পেয়ে নিশ্চিত হয়ে মূল্য পরিশোধ করুন।
                 </p>
                 <div className="p-3 rounded-xl bg-brand-50 border border-brand-100 space-y-1.5 text-[11px]">
-                  <p><strong>• Inside Dhaka:</strong> ৳70 delivery fee (24-48 hours).</p>
-                  <p><strong>• Outside Dhaka:</strong> ৳130 delivery fee (2-4 days).</p>
-                  <p><strong>• Inspection:</strong> Open and verify your parcel with the delivery rider before paying.</p>
+                  <p><strong>• ঢাকার ভেতরে:</strong> ৳৭০ ডেলিভারি চার্জ (২৪-৪৮ ঘণ্টার মধ্যে ডেলিভারি)।</p>
+                  <p><strong>• ঢাকার বাইরে:</strong> ৳১৩০ ডেলিভারি চার্জ (২-৪ দিনের মধ্যে ডেলিভারি)।</p>
+                  <p><strong>• পার্সেল চেক:</strong> ডেলিভারি রাইডারের সামনে পার্সেল খুলে দেখে মূল্য পরিশোধ করবেন।</p>
                 </div>
               </div>
             )}
@@ -527,7 +527,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             >
               <div className="flex items-center gap-2.5">
                 <span className="w-2 h-2 rounded-full bg-amber-500" />
-                <span>7-Day Return &amp; Exchange</span>
+                <span>৭ দিনের রিটার্ন ও এক্সচেঞ্জ</span>
               </div>
               <ChevronDown
                 className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${
@@ -538,7 +538,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             {openAccordions.returns && (
               <div className="p-4 pt-1 border-t border-slate-100 text-left text-xs text-slate-700 leading-relaxed space-y-1.5">
                 <p>
-                  If you receive a defective or incorrect item, notify our hotline within 7 days. We provide free doorstep return pickup and instant replacement.
+                  যদি কোনো কারণে ত্রুটিপূর্ণ বা ভুল পণ্য পেয়ে থাকেন, তবে পার্সেল পাওয়ার ৭ দিনের মধ্যে আমাদের হটলাইনে কল করুন। আমরা সম্পূর্ণ বিনামূল্যে পণ্য পরিবর্তন করে নতুন পণ্য পৌঁছে দেব।
                 </p>
               </div>
             )}
@@ -559,7 +559,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              Description &amp; Highlights
+              পণ্যের বিবরণ ও বৈশিষ্ট্য
             </button>
 
             <button
@@ -570,7 +570,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              Specifications &amp; Materials
+              স্পেসিফিকেশন ও বিবরণ
             </button>
 
             <button
@@ -581,7 +581,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              Cash on Delivery Policy
+              ক্যাশ অন ডেলিভারি পলিসি
             </button>
 
             <button
@@ -592,7 +592,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   : 'border-transparent text-slate-600 hover:text-slate-900'
               }`}
             >
-              7-Day Return &amp; Exchange
+              ৭ দিনের রিটার্ন ও এক্সচেঞ্জ
             </button>
           </div>
 
@@ -603,7 +603,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             {activeTab === 'desc' && (
               <div className="space-y-6 max-w-4xl">
                 <div>
-                  <h3 className="text-base font-bold text-slate-900 mb-2">About This Baby Product</h3>
+                  <h3 className="text-base font-bold text-slate-900 mb-2">পণ্যটির বিস্তারিত বিবরণ</h3>
                   <p className="text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line">
                     {product.description}
                   </p>
@@ -611,7 +611,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
                 {product.features.length > 0 && (
                   <div className="pt-4 border-t border-slate-100">
-                    <h4 className="text-sm font-bold text-slate-900 mb-3">Key Features &amp; Benefits:</h4>
+                    <h4 className="text-sm font-bold text-slate-900 mb-3">মূল বৈশিষ্ট্য ও সুবিধাসমূহ:</h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {product.features.map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100">
@@ -628,7 +628,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             {/* 2. Specifications Tab */}
             {activeTab === 'specs' && (
               <div className="max-w-3xl">
-                <h3 className="text-base font-bold text-slate-900 mb-4">Technical Specifications</h3>
+                <h3 className="text-base font-bold text-slate-900 mb-4">প্রযুক্তিগত স্পেসিফিকেশন</h3>
                 <div className="border border-slate-200 rounded-2xl overflow-hidden divide-y divide-slate-200">
                   {Object.entries(product.specifications).map(([key, val], idx) => (
                     <div
@@ -648,14 +648,14 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             {/* 3. Shipping Tab */}
             {activeTab === 'shipping' && (
               <div className="space-y-4 max-w-3xl text-xs sm:text-sm text-slate-700 leading-relaxed">
-                <h3 className="text-base font-bold text-slate-900">Doorstep Cash on Delivery Across Bangladesh</h3>
+                <h3 className="text-base font-bold text-slate-900">সমগ্র বাংলাদেশে হোম ডেলিভারিতে ক্যাশ অন ডেলিভারি</h3>
                 <p>
-                  At BabyBazar, we operate strictly on a <strong>100% Cash on Delivery (COD)</strong> system. You only pay after you receive and inspect your parcel.
+                  Baby Panda-তে আমরা সম্পূর্ণ <strong>১০০% ক্যাশ অন ডেলিভারি (COD)</strong> ভিত্তিতে সার্ভিস প্রদান করি। পার্সেল হাতে পেয়ে নিশ্চিত হয়ে টাকা পরিশোধ করুন।
                 </p>
                 <div className="p-4 rounded-2xl bg-brand-50 border border-brand-100 space-y-2 text-xs">
-                  <p><strong>• Inside Dhaka City:</strong> ৳70 delivery fee. Delivered within 24 to 48 hours.</p>
-                  <p><strong>• Outside Dhaka (All 63 Districts):</strong> ৳130 delivery fee via trusted express courier. Delivered to your doorstep within 2 to 4 business days.</p>
-                  <p><strong>• Order Verification:</strong> You will receive a quick verification phone call after ordering to confirm address and details.</p>
+                  <p><strong>• ঢাকা সিটির ভেতরে:</strong> ৳৭০ ডেলিভারি চার্জ। ২৪ থেকে ৪৮ ঘণ্টার মধ্যে ডেলিভারি।</p>
+                  <p><strong>• ঢাকার বাইরে (সকল ৬৩ জেলা):</strong> ৳১৩০ ডেলিভারি চার্জ। ২ থেকে ৪ কার্যদিবসের মধ্যে নির্ভরযোগ্য কুরিয়ারে হোম ডেলিভারি।</p>
+                  <p><strong>• অর্ডার ভেরিফিকেশন:</strong> অর্ডার করার পর আমাদের কাস্টমার প্রতিনিধি কল দিয়ে আপনার ঠিকানা ও তথ্য নিশ্চিত করবেন।</p>
                 </div>
               </div>
             )}
@@ -663,14 +663,14 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             {/* 4. Returns Tab */}
             {activeTab === 'returns' && (
               <div className="space-y-4 max-w-3xl text-xs sm:text-sm text-slate-700 leading-relaxed">
-                <h3 className="text-base font-bold text-slate-900">7-Day Easy Replacement Guarantee</h3>
+                <h3 className="text-base font-bold text-slate-900">৭ দিনের সহজ পণ্য প্রতিস্থাপন গ্যারান্টি</h3>
                 <p>
-                  We inspect all baby items before packaging. However, if your order arrives damaged, defective, or does not match the product description:
+                  আমরা প্রতিটি পণ্য নিখুঁতভাবে চেক করে প্যাকেজিং করি। তবুও পার্সেল পাওয়ার পর কোনো ত্রুটি দেখা গেলে:
                 </p>
                 <ul className="list-disc pl-5 space-y-1.5 text-xs">
-                  <li>Please notify our support hotline within 7 days of receiving the parcel.</li>
-                  <li>Our courier partner will pick up the item from your home for free.</li>
-                  <li>We will immediately dispatch a fresh replacement unit or issue a full cash refund.</li>
+                  <li>পার্সেল গ্রহণের ৭ দিনের মধ্যে আমাদের কাস্টমার হটলাইনে জানান।</li>
+                  <li>আমাদের কুরিয়ার পার্টনার বিনামূল্যে আপনার বাসা থেকে ত্রুটিযুক্ত পণ্য সংগ্রহ করবে।</li>
+                  <li>আমরা অবিলম্বে নতুন ইনট্যাক্ট পণ্য পাঠিয়ে দেব অথবা আপনার টাকা ফেরত প্রদান করব।</li>
                 </ul>
               </div>
             )}
@@ -682,13 +682,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         <div className="mb-12 px-4 sm:px-0">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Related Baby Products
+              সম্পর্কিত অন্যান্য পণ্য
             </h2>
             <button
               onClick={onBackToHome}
               className="text-xs font-bold text-brand-600 hover:underline"
             >
-              Browse All Products &rsaquo;
+              সব পণ্য দেখুন &rsaquo;
             </button>
           </div>
 
@@ -707,7 +707,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         <div className="px-4 sm:px-0">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Recommended For You
+              আপনার জন্য আরও পছন্দ হতে পারে
             </h2>
           </div>
 

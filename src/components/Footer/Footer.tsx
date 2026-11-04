@@ -20,29 +20,29 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
   }, []);
   const openShippingPolicy = () => {
     onOpenPolicy(
-      'Shipping & Delivery Policy',
-      'We deliver nationwide across all 64 districts in Bangladesh using trusted courier services. Inside Dhaka delivery is ৳70 within 24-48 hours. Outside Dhaka delivery is ৳130 within 2-4 business days. All orders are strictly Cash on Delivery: you inspect your parcel at your doorstep before paying the delivery rider.'
+      'ডেলিভারি ও শিপিং পলিসি',
+      'আমরা সমগ্র বাংলাদেশের ৬৪ জেলায় নির্ভরযোগ্য কুরিয়ারের মাধ্যমে হোম ডেলিভারি প্রদান করি। ঢাকার ভেতরে ডেলিভারি চার্জ মাত্র ৳৭০ (২৪-৪৮ ঘণ্টার মধ্যে ডেলিভারি) এবং ঢাকার বাইরে ৳১৩০ (২-৪ কার্যদিবস)। আমাদের সব অর্ডার ১০০% ক্যাশ অন ডেলিভারি: ডেলিভারি রাইডারের সামনে পার্সেল খুলে চেক করে টাকা পরিশোধ করবেন।'
     );
   };
 
   const openReturnPolicy = () => {
     onOpenPolicy(
-      'Return & Refund Policy',
-      'We offer a 7-day hassle-free replacement guarantee. If you receive a damaged, defective, or incorrect baby product, simply notify our parenting hotline at +880 9617-100900. Our team will arrange an instant free pickup and replacement.'
+      'রিটার্ন ও রিফান্ড পলিসি',
+      'আমাদের প্রতিটি পণ্যে রয়েছে ৭ দিনের সহজ প্রতিস্থাপন নিশ্চয়তা। যদি পণ্যটিতে কোনো সমস্যা বা ত্রুটি থাকে, আমাদের হটলাইন +880 9617-100900 নম্বরে জানান। আমরা সম্পূর্ণ বিনামূল্যে পণ্য রিটার্ন নিয়ে নতুন পণ্য বদলে দেব।'
     );
   };
 
   const openPrivacyPolicy = () => {
     onOpenPolicy(
-      'Privacy Policy',
-      'Your privacy is sacred to us. We only collect your name, phone number, and delivery address to process your Cash on Delivery orders. We never share, sell, or rent your personal data to third parties.'
+      'প্রাইভেসি পলিসি',
+      'আপনার ব্যক্তিগত তথ্যের গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ। আমরা কেবল আপনার ক্যাশ অন ডেলিভারি অর্ডার সম্পন্ন করতে নাম, মোবাইল নম্বর এবং ঠিকানা সংগ্রহ করি। আমরা কখনোই কোনো তৃতীয় পক্ষের সাথে আপনার তথ্য শেয়ার বা বিক্রয় করি না।'
     );
   };
 
   const openTerms = () => {
     onOpenPolicy(
-      'Terms & Conditions',
-      'All products listed on Baby Panda are genuine and baby-safe. Prices are in Bangladeshi Taka (BDT ৳) and include applicable taxes. We reserve the right to verify high-value orders via a quick verification phone call before dispatch.'
+      'শর্তাবলী ও নিয়মাবলী',
+      'Baby Panda-তে প্রদর্শিত সকল পণ্য ১০০% আসল ও শিশুদের জন্য সম্পূর্ণ নিরাপদ। পণ্যের মূল্য বাংলাদেশি টাকায় (৳) নির্ধারিত। প্রতিটি অর্ডারের সত্যতা নিশ্চিত করতে পাঠানোর আগে আমরা ফোন কল দিয়ে থাকি।'
     );
   };
 
@@ -64,17 +64,17 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
           <div className="lg:col-span-2">
             <Logo variant="light" className="mb-4" />
             <p className="text-xs text-slate-200 leading-relaxed max-w-sm mb-5 drop-shadow-xs">
-              Bangladesh’s most trusted online store for premium baby products, mother care essentials, and gentle nursery gear. We bring joy and safety to every step of your parenting journey with 100% Cash on Delivery nationwide.
+              বাংলাদেশে শিশুদের প্রিমিয়াম পণ্য, যত্ন সামগ্রী ও প্রয়োজনীয় পোশাকের সবচেয়ে বিশ্বস্ত অনলাইন শপ। সমগ্র বাংলাদেশে ১০০% ক্যাশ অন ডেলিভারি সুবিধাসহ নিশ্চিন্ত কেনাকাটার অভিজ্ঞতা।
             </p>
             
             <div className="space-y-2.5 text-xs text-slate-200">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-brand-300 shrink-0 mt-0.5" />
-                <span>House 42, Road 11, Block D, Banani / New Market City Complex, Dhaka-1205</span>
+                <span>হাউস ৪২, রোড ১১, ব্লক ডি, বনানী / নিউ মার্কেট সিটি কমপ্লেক্স, ঢাকা-১২০৫</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-brand-300 shrink-0" />
-                <span>Hotline: <strong className="text-white">+880 9617-100900</strong> / 01700-000000</span>
+                <span>হটলাইন: <strong className="text-white">+880 9617-100900</strong> / 01700-000000</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-brand-300 shrink-0" />
@@ -86,7 +86,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
           {/* Column 2: Shop By Category */}
           <div>
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-white/20 pb-2">
-              Shop By Category
+              ক্যাটাগরিসমূহ
             </h4>
             <ul className="space-y-2 text-xs">
               {categoryList.slice(0, 6).map((cat) => (
@@ -106,37 +106,37 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
           {/* Column 3: Company & Policies */}
           <div id="footer-faq">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-white/20 pb-2">
-              Customer Policies
+              কাস্টমার পলিসি
             </h4>
             <ul className="space-y-2 text-xs text-slate-200">
               <li>
                 <button onClick={openShippingPolicy} className="hover:text-brand-300 transition-colors flex items-center gap-1.5">
                   <span className="text-brand-300">›</span>
-                  <span>Shipping Policy</span>
+                  <span>ডেলিভারি পলিসি</span>
                 </button>
               </li>
               <li>
                 <button onClick={openReturnPolicy} className="hover:text-brand-300 transition-colors flex items-center gap-1.5">
                   <span className="text-brand-300">›</span>
-                  <span>Return &amp; Refund Policy</span>
+                  <span>রিটার্ন ও রিফান্ড পলিসি</span>
                 </button>
               </li>
               <li>
                 <button onClick={openPrivacyPolicy} className="hover:text-brand-300 transition-colors flex items-center gap-1.5">
                   <span className="text-brand-300">›</span>
-                  <span>Privacy Policy</span>
+                  <span>প্রাইভেসি পলিসি</span>
                 </button>
               </li>
               <li>
                 <button onClick={openTerms} className="hover:text-brand-300 transition-colors flex items-center gap-1.5">
                   <span className="text-brand-300">›</span>
-                  <span>Terms &amp; Conditions</span>
+                  <span>শর্তাবলী ও নিয়মাবলী</span>
                 </button>
               </li>
               <li>
                 <a href="#best-sellers-section" className="hover:text-brand-300 transition-colors flex items-center gap-1.5">
                   <span className="text-brand-300">›</span>
-                  <span>Best Selling Products</span>
+                  <span>বেস্ট সেলার পণ্যসমূহ</span>
                 </a>
               </li>
             </ul>
@@ -145,18 +145,18 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
           {/* Column 4: Trust & Payment Notice */}
           <div>
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-white/20 pb-2">
-              Payment &amp; Trust
+              পেমেন্ট ও নিরাপত্তা
             </h4>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3.5 border border-white/15 space-y-2.5">
               <div className="flex items-center gap-2 text-emerald-300 font-bold text-xs">
                 <ShieldCheck className="w-4 h-4 shrink-0" />
-                <span>100% Cash on Delivery</span>
+                <span>১০০% ক্যাশ অন ডেলিভারি</span>
               </div>
               <p className="text-[11px] text-slate-200 leading-normal">
-                Check and inspect your baby items at your doorstep before paying the delivery agent. No credit card or advance mobile banking fee required!
+                ডেলিভারি ম্যানের থেকে পার্সেল বুঝে পেয়ে দেখে তারপর মূল্য পরিশোধ করুন। কোনো ক্রেডিট কার্ড বা অগ্রিম পেমেন্টের প্রয়োজন নেই!
               </p>
               <div className="pt-2 border-t border-white/10 text-[11px] text-amber-300 font-medium">
-                ⚡ Dhaka: 24-48 Hours | All Districts: 2-4 Days
+                ⚡ ঢাকা: ২৪-৪৮ ঘণ্টা | সারা দেশ: ২-৪ কার্যদিবস
               </div>
             </div>
           </div>
@@ -166,14 +166,14 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
         {/* Bottom Bar: Copyright & Social Links */}
         <div className="pt-6 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300">
           <div>
-            <span>Copyright &copy; 2026 <strong>Baby Panda</strong>. All rights reserved.</span>
+            <span>কপিরাইট &copy; ২০২৬ <strong>Baby Panda</strong>। সর্বস্বত্ব সংরক্ষিত।</span>
             <Link to="/admin" className="ml-3 text-white/30 hover:text-amber-300 transition-colors text-[11px] underline">
               Admin Portal
             </Link>
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="text-slate-300">Follow Us:</span>
+            <span className="text-slate-300">আমাদের ফলো করুন:</span>
             <div className="flex items-center gap-3">
               <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-7 h-7 rounded-full bg-white/15 hover:bg-brand-500 hover:text-white flex items-center justify-center transition-colors">
                 f

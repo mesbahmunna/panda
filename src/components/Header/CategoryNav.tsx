@@ -63,7 +63,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
             className="flex items-center gap-2.5 px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-colors shadow-sm text-xs md:text-sm"
           >
             <Menu className="w-4 h-4" />
-            <span>All Categories</span>
+            <span>সকল ক্যাটাগরি</span>
             <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
           </button>
 
@@ -84,7 +84,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
               >
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-brand-500" />
-                  <span>All Products</span>
+                  <span>সব পণ্য</span>
                 </div>
               </div>
 
@@ -128,7 +128,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
                 : 'text-slate-300 hover:text-white hover:bg-white/10'
             }`}
           >
-            Home
+            হোম
           </button>
 
           {categoryList.map((cat) => (
@@ -148,7 +148,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
 
         {/* Helpline right badge */}
         <div className="hidden xl:flex items-center gap-2 shrink-0 py-2 text-xs font-semibold text-slate-300">
-          <span>Hotline:</span>
+          <span>হটলাইন:</span>
           <span className="text-amber-400 font-bold tracking-wide">+880 9617-100900</span>
         </div>
 

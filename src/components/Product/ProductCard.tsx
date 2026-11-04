@@ -110,8 +110,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <button
             type="button"
             onClick={handleAddToCart}
-            title={hasOptions ? "Choose Options & Add to Cart" : "Add to Cart"}
-            aria-label="Add to Cart"
+            title={hasOptions ? "অপশন নির্বাচন করে কার্টে যোগ করুন" : "কার্টে যোগ করুন"}
+            aria-label="কার্টে যোগ করুন"
             className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 hover:bg-[#5844ED]/10 text-slate-700 hover:text-[#5844ED] active:scale-95 flex items-center justify-center shrink-0 border border-slate-200/80 transition-all shadow-xs group/btn"
           >
             <ShoppingBag className="w-4 h-4 text-[#5844ED] group-hover/btn:scale-110 transition-transform" />
@@ -123,7 +123,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             onClick={handleOrderNow}
             className="flex-1 h-9 sm:h-10 px-2 sm:px-3 rounded-xl bg-[#5844ED] hover:bg-[#4936d9] active:scale-98 text-white font-bold text-xs sm:text-sm flex items-center justify-center shadow-md shadow-indigo-500/20 transition-all whitespace-nowrap"
           >
-            <span>Order Now</span>
+            <span>অর্ডার করুন</span>
           </button>
         </div>
       </div>

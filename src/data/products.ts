@@ -1,4 +1,5 @@
 import { Product } from '../types/product';
+import { getCategoryDisplayName } from './categories';
 import blanketBrown from '../assets/products/baby-sleeping-blanket/brown.jpeg';
 import blanketPink from '../assets/products/baby-sleeping-blanket/pink.jpeg';
 import blanketBlue from '../assets/products/baby-sleeping-blanket/blue.jpeg';
@@ -53,24 +54,24 @@ const initialProductsList: Product[] = [
     isNewArrival: true,
     badge: 'HOT DEAL',
     variationGroup: {
-      name: 'Select Color',
+      name: 'কালার নির্বাচন করুন',
       options: [
-        { id: 'c-brown', name: 'Chocolate Brown', imageIndex: 0 },
-        { id: 'c-pink', name: 'Soft Pink', imageIndex: 1 },
-        { id: 'c-blue', name: 'Sky Blue', imageIndex: 2 },
-        { id: 'c-khaki', name: 'Warm Khaki', imageIndex: 3 }
+        { id: 'c-brown', name: 'চকলেট ব্রাউন', imageIndex: 0 },
+        { id: 'c-pink', name: 'সফট পিঙ্ক', imageIndex: 1 },
+        { id: 'c-blue', name: 'স্কাই ব্লু', imageIndex: 2 },
+        { id: 'c-khaki', name: 'ওয়ার্ম খাকি', imageIndex: 3 }
       ]
     },
     bundleTiers: [
-      { id: 'b-1', pieces: 1, title: '1 Pcs', price: 450, originalPrice: 650, badge: 'Standard' },
-      { id: 'b-2', pieces: 2, title: '2 Pcs', price: 800, originalPrice: 1300, badge: 'Save ৳100' },
-      { id: 'b-3', pieces: 3, title: '3 Pcs', price: 1150, originalPrice: 1950, badge: 'Save ৳200' },
-      { id: 'b-4', pieces: 4, title: '4 Pcs', price: 1500, originalPrice: 2600, badge: 'Save ৳300' }
+      { id: 'b-1', pieces: 1, title: '১ পিস', price: 450, originalPrice: 650, badge: 'স্ট্যান্ডার্ড' },
+      { id: 'b-2', pieces: 2, title: '২ পিস কম্বো', price: 800, originalPrice: 1300, badge: '৳১০০ ছাড়' },
+      { id: 'b-3', pieces: 3, title: '৩ পিস কম্বো', price: 1150, originalPrice: 1950, badge: '৳২০০ ছাড়' },
+      { id: 'b-4', pieces: 4, title: '৪ পিস ফ্যামিলি প্যাক', price: 1500, originalPrice: 2600, badge: '৳৩০০ ছাড়' }
     ]
   },
   {
     id: 'prod-1',
-    name: 'Smart Baby Electric Nail Trimmer with LED Light (6 Grinding Heads)',
+    name: 'স্মার্ট বেবি ইলেকট্রিক নেইল ট্রিমার উইথ এলইডি লাইট (৬টি গ্রাইন্ডিং হেড)',
     slug: 'smart-baby-electric-nail-trimmer-led',
     category: 'Baby Care',
     categorySlug: 'baby-care',
@@ -84,26 +85,24 @@ const initialProductsList: Product[] = [
       'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Whisper-quiet baby nail filer with soft LED night light. Safely trims delicate baby nails without cutting sensitive cuticles.',
-    description: `The Smart Baby Electric Nail Trimmer is an essential parenting gadget designed to eliminate the anxiety of clipping tiny, soft baby fingernails. Equipped with a whisper-quiet motor (less than 35dB) and a built-in soft front LED light, you can easily groom your baby's nails even while they sleep peacefully without waking them.
+    shortDescription: 'শব্দহীন বেবি নেইল ট্রিমার ও সফট এলইডি লাইট। শিশুর নরম নখ নিখুঁতভাবে ট্রিম করে ত্বকে কোনো আঘাত ছাড়াই।',
+    description: `স্মার্ট বেবি ইলেকট্রিক নেইল ট্রিমার শিশুর নখ কাটার ভীতি দূর করতে একটি আধুনিক ডিভাইস। মাত্র ৩৫ ডেসিবেলের কম শব্দহীন মোটর এবং ফ্রন্ট এলইডি লাইট থাকায় শিশু ঘুমিয়ে থাকা অবস্থাতেও নিরাপদে নখ ট্রিম করা যায়।
 
-Includes 6 cushioned color-coded grinding heads designed for different baby development stages from newborn (0-3 months) up to toddlers, plus adult attachment heads for mommy and daddy! Dual-speed rotation settings and bidirectional rotation ensure clean, snag-free edges every single time.`,
+এতে রয়েছে ৬টি কুশনযুক্ত গ্রাইন্ডিং হেড যা নবজাতক থেকে শুরু করে টডলার এবং বড়দের নখ ট্রিম করার জন্যও উপযোগী। দ্বিমুখী রোটেশন ও ২-স্পিড কন্ট্রোল নখকে মসৃণ ও ঝুঁকিমুক্ত রাখে।`,
     features: [
-      'Whisper-quiet motor (<35dB) won’t wake sleeping babies',
-      'Built-in soft LED light for precise night trimming',
-      '6 cushioned sandpaper heads tailored for 0m to adult',
-      'Dual speed & bidirectional 360° rotation switch',
-      'Ergonomic, lightweight slip-resistant grip',
-      'Operates on 2 AA batteries with safety auto-stop sensor'
+      'আল্ট্রা-সাইলেন্ট মোটর (<35dB) ঘুমের কোনো ব্যাঘাত ঘটায় না',
+      'রাতে সহজে ব্যবহারের জন্য বিল্ট-ইন সফট এলইডি লাইট',
+      '৬টি রঙিন কুশন হেড (নবজাতক থেকে বড়দের ব্যবহারের উপযোগী)',
+      '৩৬০ ডিগ্রি দ্বিমুখী রোটেশন ও ২-স্পিড কন্ট্রোল সুইচ',
+      'হালকা ও আরামদায়ক অ্যান্টি-স্লিপ গ্রিপ ডিজাইন',
+      '২টি এএ ব্যাটারিতে চালিত এবং অটো-স্টপ সেফটি সেন্সর'
     ],
     specifications: {
-      'Material': 'Non-toxic ABS Plastic & Medical-Grade Silicone',
-      'Age Range': '0 Months to 3+ Years (Includes Adult Attachments)',
-      'Noise Level': 'Under 35 dB (Ultra Silent)',
-      'Power Source': '2x AA Batteries (Not Included)',
-      'Dimensions': '13.2 cm x 4.2 cm',
-      'Certification': 'CE, RoHS, FDA Approved Materials',
-      'Country of Origin': 'Imported Quality Grade'
+      'উপাদান': 'নন-টক্সিক এবিএস প্লাস্টিক ও মেডিকেল গ্রেড সিলিকন',
+      'বয়সসীমা': '০ মাস থেকে ৩+ বছর (বড়দের হেড সহ)',
+      'শব্দের মাত্রা': '৩৫ ডেসিবেলের নিচে (অত্যন্ত শান্ত)',
+      'পাওয়ার': '২টি AA ব্যাটারি',
+      'সার্টিফিকেশন': 'CE, RoHS, FDA অনুমোদিত মান'
     },
     isBestSeller: true,
     isTrending: true,
@@ -111,7 +110,7 @@ Includes 6 cushioned color-coded grinding heads designed for different baby deve
   },
   {
     id: 'prod-2',
-    name: 'Food-Grade Silicone Suction Feeding Set - 8 Pcs Complete Weaning Kit',
+    name: 'ফুড-গ্রেড সিলিকন সাকশন বেবি ফিডিং সেট (৮ পিস কমপ্লিট কিট)',
     slug: 'silicone-suction-baby-feeding-set-8pcs',
     category: 'Baby Feeding',
     categorySlug: 'baby-feeding',
@@ -125,25 +124,24 @@ Includes 6 cushioned color-coded grinding heads designed for different baby deve
       'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=600',
-    shortDescription: '100% Food-grade silicone divided suction plate, spill-proof suction bowl, soft spoon & fork set, adjustable bib and snack cup.',
-    description: `Make your baby's weaning journey mess-free and delightful with our Complete 8-Piece Food-Grade Silicone Baby Feeding Set. Engineered with ultra-strong suction bases on both the divided plate and the deep bowl, curious little hands won't be able to flip or fling their food across the dining table or high chair.
+    shortDescription: '১০০% ফুড-গ্রেড সিলিকন ডিভাইডেড প্লেট, বাটি, সফট চামচ-কাঁটাচামচ, অ্যাডজাস্টেবল বিব এবং ওয়াটার কাপ।',
+    description: `শিশুর নিজে নিজে খাবার খাওয়ার অভ্যাস গড়ে তুলতে ৮ পিসের সম্পূর্ণ সিলিকন ফিডিং সেট। শক্তিশালী সাকশন বেসের কারণে প্লেট বা বাটি টেবিল থেকে পড়ে যায় না বা উল্টে যায় না।
 
-Crafted from 100% premium Platinum Silicone that is completely BPA, PVC, Phthalate, and Lead-free. Microwave safe, freezer friendly, and dishwasher safe for effortless cleaning for busy parents.`,
+১০০% প্ল্যাটিনাম ফুড-গ্রেড সিলিকন দ্বারা তৈরি, যা বিপিএ, পিভিসি এবং ক্ষতিকর রাসায়নিক মুক্ত। মাইক্রোওয়েভ, ফ্রিজার এবং ডিশওয়াশার নিরাপদ।`,
     features: [
-      'Super-grip suction base sticks firmly to highchair trays and tables',
-      '100% Platinum food-grade silicone (BPA, PVC & Phthalate free)',
-      'Microwave safe up to 220°C and freezer safe down to -40°C',
-      'Deep catcher bib with 4 adjustable neck buttons',
-      'Gentle silicone spoon and fork protect tender gums',
-      'Includes spill-proof collapsible snack cup with dust lid'
+      'শক্তিশালী সাকশন গ্রিপ যা টেবিল বা হাই-চেয়ারে শক্তভাবে আটকে থাকে',
+      '১০০% ফুড-গ্রেড প্ল্যাটিনাম সিলিকন (BPA ও টক্সিন মুক্ত)',
+      'মাইনাস ৪০°C থেকে ২২০°C পর্যন্ত তাপমাত্রা সহনশীল',
+      'গভীর খাবার ক্যাচার বিব ও ৪-ধাপে অ্যাডজাস্টেবল সাইজ',
+      'কোমল চামচ ও কাঁটাচামচ যা শিশুর মাড়ির জন্য সম্পূর্ণ নিরাপদ',
+      'স্পিল-প্রুফ ফোল্ডিং স্ন্যাক কাপ ও ঢাকনা অন্তর্ভুক্ত'
     ],
     specifications: {
-      'Material': '100% Platinum Food-Grade Silicone & Natural Beechwood',
-      'Age Range': '6 Months to 4 Years',
-      'Heat Resistance': '-40°C to 220°C',
-      'Cleaning': 'Dishwasher Safe / Boil Sterilizable',
-      'Items in Pack': '8 Pieces (Plate, Bowl, Bib, Spoon, Fork, Sippy Cup, Snack Lid)',
-      'Safety Standards': 'LFGB & FDA Certified Food Contact Safe'
+      'উপাদান': '১০০% প্ল্যাটিনাম ফুড-গ্রেড সিলিকন ও বিচউড',
+      'বয়সসীমা': '৬ মাস থেকে ৪ বছর',
+      'তাপমাত্রা সহনশীলতা': '-৪০°C থেকে ২২০°C',
+      'পরিষ্কার পদ্ধতি': 'হাতে বা ডিশওয়াশারে সহজে ধোয়া যায় / ফুটানো নিরাপদ',
+      'আইটেম সংখ্যা': '৮টি পিস (প্লেট, বাটি, বিব, চামচ, কাঁটাচামচ, সিপ্পি কাপ, ঢাকনা)'
     },
     isBestSeller: true,
     isTrending: true,
@@ -151,7 +149,7 @@ Crafted from 100% premium Platinum Silicone that is completely BPA, PVC, Phthala
   },
   {
     id: 'prod-3',
-    name: '100% Organic Bamboo Cotton Baby Romper & Sleepsuit Set',
+    name: '১০০% অর্গানিক ব্যাম্বু কটন বেবি রম্পার ও স্লিপস্যুট সেট',
     slug: 'organic-bamboo-baby-swaddle-pack-of-3',
     category: 'Baby Clothing',
     categorySlug: 'baby-clothing',
@@ -164,43 +162,43 @@ Crafted from 100% premium Platinum Silicone that is completely BPA, PVC, Phthala
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Silky smooth, ultra-breathable organic bamboo cotton suit. Gentle on delicate baby skin with both age variations and money-saving bundle packs.',
-    description: `Wrap your precious child in clouds of unmatched comfort with our luxurious Organic Bamboo Cotton Baby Suit. The proprietary bamboo-cotton blend offers superior thermoregulation, keeping toddlers cool during hot summer days and cozy during air-conditioned nights.
+    shortDescription: 'অতি নরম ও আরামদায়ক ব্যাম্বু কটন সুট। শিশুর ত্বকের জন্য ১০০% নিরাপদ ও অ্যালার্জি-মুক্ত।',
+    description: `আপনার প্রিয় সন্তানের জন্য নিয়ে এলো প্রিমিয়াম অর্গানিক ব্যাম্বু কটন বেবি সুট। গরমের দিনে শরীর ঠান্ডা রাখে এবং এসি রুমে পরম উষ্ণতা দেয়।
 
-Available in age-calibrated sizing (1 Year, 2 Year, 3 Year) and money-saving quantity bundle packs (1 Pcs, 2 Pcs, 4 Pcs, 8 Pcs) designed for maximum savings!`,
+বয়সভিত্তিক মাপ (১ বছর, ২ বছর, ৩ বছর) এবং আকর্ষণীয় বান্ডেল অফারে পাওয়া যাচ্ছে।`,
     features: [
-      '70% silky Bamboo Rayon + 30% Certified Organic Cotton',
-      'Soft 2-way safety zipper with neck chin protection guard',
-      'Pre-washed softness that gets softer with every laundry cycle',
-      'Breathable hypoallergenic weave prevents rashes and overheating',
-      'Non-toxic organic dye prints safe for chewing'
+      '৭০% সিল্কি ব্যাম্বু রেয়ন + ৩০% অর্গানিক কটন ব্লেন্ড',
+      'টু-ওয়ে সেফটি জিপার ও চিবুক প্রটেক্টর গার্ড',
+      'বারবার ওয়াশ করলেও ফেব্রিকের মসৃণতা অক্ষুণ্ণ থাকে',
+      'শ্বাস-প্রশ্বাস উপযোগী ফেব্রিক র‍্যাশ ও ঘামাচি রোধ করে',
+      'নন-টক্সিক অর্গানিক ডাই ও প্রিমিয়াম ফিনিশ'
     ],
     specifications: {
-      'Fabric': '70% Bamboo Rayon, 30% Organic Cotton Muslin',
-      'Available Sizes': '1 Year, 2 Year, 3 Year',
-      'Care': 'Machine wash cold on gentle cycle, tumble dry low'
+      'ফেব্রিক': '৭০% ব্যাম্বু রেয়ন, ৩০% অর্গানিক কটন মাসলিন',
+      'উপলব্ধ সাইজ': '১ বছর, ২ বছর, ৩ বছর',
+      'ওয়াশ কেয়ার': 'মেশিন ওয়াশ ও নরমাল ওয়াশ উপযোগী'
     },
     isBestSeller: true,
     isRecommended: true,
     badge: 'BUNDLE & SIZES',
     variationGroup: {
-      name: 'Select Age',
+      name: 'বয়স নির্বাচন করুন',
       options: [
-        { id: 'v-1y', name: '1 Year' },
-        { id: 'v-2y', name: '2 Year' },
-        { id: 'v-3y', name: '3 Year' }
+        { id: 'v-1y', name: '১ বছর' },
+        { id: 'v-2y', name: '২ বছর' },
+        { id: 'v-3y', name: '৩ বছর' }
       ]
     },
     bundleTiers: [
-      { id: 'b-1', pieces: 1, title: '1 Pcs', price: 450, originalPrice: 650, badge: 'Standard' },
-      { id: 'b-2', pieces: 2, title: '2 Pcs', price: 850, originalPrice: 1300, badge: 'Save ৳50' },
-      { id: 'b-4', pieces: 4, title: '4 Pcs', price: 1600, originalPrice: 2600, badge: 'Most Popular' },
-      { id: 'b-8', pieces: 8, title: '8 Pcs', price: 3000, originalPrice: 5200, badge: 'Super Saver' }
+      { id: 'b-1', pieces: 1, title: '১ পিস', price: 450, originalPrice: 650, badge: 'স্ট্যান্ডার্ড' },
+      { id: 'b-2', pieces: 2, title: '২ পিস প্যাক', price: 850, originalPrice: 1300, badge: '৳৫০ ছাড়' },
+      { id: 'b-4', pieces: 4, title: '৪ পিস প্যাক', price: 1600, originalPrice: 2600, badge: 'জনপ্রিয়' },
+      { id: 'b-8', pieces: 8, title: '৮ পিস মেগা প্যাক', price: 3000, originalPrice: 5200, badge: 'সুপার সেভার' }
     ]
   },
   {
     id: 'prod-4',
-    name: 'Portable USB Rechargeable White Noise Machine & Nursery Night Light',
+    name: 'পোর্টেবল রিচার্জেবল হোয়াইট নয়েজ মেশিন ও বেবি নাইট লাইট',
     slug: 'portable-baby-white-noise-sound-machine',
     category: 'Baby Care',
     categorySlug: 'baby-care',
@@ -213,30 +211,29 @@ Available in age-calibrated sizing (1 Year, 2 Year, 3 Year) and money-saving qua
       'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=800'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=600&q=80',
-    shortDescription: '24 soothing sounds including womb heartbeat, rain & lullabies. Built-in warm ambient night light with sleep timer & clip-on loop.',
-    description: `Help your infant drift into deep, restorative sleep anywhere with this compact White Noise Sound Machine. Clinically shown to mimic the maternal womb acoustic environment, it masks jarring household noises like doorbells, barking dogs, and street traffic.
+    shortDescription: '২৪টি প্রশান্তিময় সুর ও মায়ের গর্ভের মৃদু আওয়াজ। শিশুর গভীর ও নিশ্চিন্ত ঘুমের জন্য উপযোগী।',
+    description: `শিশুকে দ্রুত এবং গভীর ঘুমে আচ্ছন্ন করতে বিশেষ হোয়াইট নয়েজ সাউন্ড মেশিন। বাইরের অপ্রীতিকর শব্দ যেমন গাড়ির হর্ন বা দরজার আওয়াজ দূর করে একটি শান্ত পরিবেশ তৈরি করে।
 
-Features 24 calming sounds: 7 white noises, 7 fan sounds, and 10 relaxing nature and lullaby tracks. The warm dimmable night light is perfect for midnight feeds without disturbing your baby's sleep hormones.`,
+২৪টি সুরের মধ্যে রয়েছে হোয়াইট নয়েজ, ফ্যান সাউন্ড, বৃষ্টির রিমঝিম শব্দ এবং মিষ্টি ঘুমপাড়ানি গান। সাথে রয়েছে হালকা নাইট লাইট।`,
     features: [
-      '24 non-looping high-fidelity soothing sound profiles',
-      'Rhythmic maternal heartbeat & shusher recordings',
-      'Warm dimmable night light (breathing light mode available)',
-      'Automatic shutoff timer: 30, 60, or 90 minutes or continuous',
-      'Built-in 1200mAh battery delivers up to 16 hours on one charge',
-      'Includes silicone hanging strap for strollers and cribs'
+      '২৪টি হাই-ফিডেলিটি শান্তিময় সাউন্ড প্রোফাইল',
+      'মায়ের গর্ভের হার্টবিট ও সুদিং রেকর্ডিং',
+      'চোখের ক্ষতি করে না এমন নরম ওয়ার্ম নাইট লাইট',
+      'অটোমেটিক টাইমার: ৩০, ৬০, ৯০ মিনিট বা একটানা প্লে',
+      '১২০০ মিলিঅ্যাম্পিয়ার রিচার্জেবল ব্যাটারি (১৬ ঘণ্টা পর্যন্ত ব্যাকআপ)',
+      'স্ট্রোলার বা বেবি কটের সাথে ঝোলানোর সিলিকন স্ট্র্যাপ'
     ],
     specifications: {
-      'Sound Modes': '24 High-Fidelity Audio Tracks',
-      'Battery': '1200mAh Lithium Rechargeable (Type-C USB)',
-      'Battery Life': '12 - 16 Hours Continuous Play',
-      'Timer Options': '30m / 60m / 90m / Continuous',
-      'Light Colors': 'Warm Yellow Dimmable & Breathing Glow'
+      'সাউন্ড মোড': '২৪টি শান্তিময় অডিও ট্র্যাক',
+      'ব্যাটারি': '১২০০mAh রিচার্জেবল লিথিয়াম (Type-C USB)',
+      'ব্যাটারি লাইফ': '১২ - ১৬ ঘণ্টা একটানা প্লেব্যাক',
+      'টাইমার অপশন': '৩০ মি. / ৬০ মি. / ৯০ মি. / একটানা'
     },
     isRecommended: true
   },
   {
     id: 'prod-5',
-    name: 'Ergonomic 6-in-1 All-Season Baby Hipseat Carrier with Lumbar Support',
+    name: '৬-ইন-১ এরগনোমিক বেবি হিপসিট ক্যারিয়ার উইথ লাম্বার সাপোর্ট',
     slug: 'ergonomic-baby-hipseat-carrier-lumbar-support',
     category: 'Baby Accessories',
     categorySlug: 'baby-accessories',
@@ -249,24 +246,23 @@ Features 24 calming sounds: 7 white noises, 7 fan sounds, and 10 relaxing nature
       'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Doctor-recommended ergonomic M-position carrier with cushioned memory-foam hip seat. Reduces back and shoulder strain for parents.',
-    description: `Carry your growing baby comfortably for hours without aching back, shoulder, or hip strain! Our 6-in-1 Ergonomic Baby Carrier features a medical-grade slanted hipseat (30-degree incline) that keeps your baby's hips and spine positioned in the healthy pediatric recommended "M-shape".
+    shortDescription: 'ডাক্তারদের প্রস্তাবিত এম-পজিশন হিপসিট। শিশুর সুরক্ষার পাশাপাশি বাবা-মায়ের কোমর ও কাঁধের ব্যথা কমায়।',
+    description: `ঘণ্টার পর ঘণ্টা শিশুকে কোলে নিয়ে ঘোরার পরও কোমর বা কাঁধে কোনো ব্যথা হবে না! আন্তর্জাতিক হিপ ডিসপ্লাসিয়া ইনস্টিটিউটের মান অনুযায়ী ৩০ ডিগ্রি ইনক্লাইন সিট যা শিশুর মেরুদণ্ডকে সঠিক অবস্থানে রাখে।
 
-Can be used in 6 versatile configurations: inward facing, front outward, back carry, or standalone hipseat for quick hip carries at home. Breathable 3D honeycomb air-mesh keeps both parent and baby sweat-free in humid climates.`,
+৬টি ভিন্ন মোডে ব্যবহার করা যায়: বুকের সাথে, সামনের দিকে মুখ করে, পিঠে নিয়ে অথবা শুধু হিপসিট হিসেবে। বাতাস চলাচলের জন্য থ্রিডি ব্রিদেবল মেশ প্যানেল রয়েছে।`,
     features: [
-      '30° angled hip seat distributes weight away from lumbar spine',
-      'International Hip Dysplasia Institute (IHDI) compliant M-position',
-      '6 versatile carrying configurations for newborn to 36 months',
-      'Breathable 3D mesh roll-up panel for all-weather ventilation',
-      'Extra-wide padded waistband (fits waist sizes up to 48 inches)',
-      'Side zippered pocket for phone, keys, feeding bottle & wipes'
+      '৩০° অ্যাঙ্গেল হিপসিট যা মেরুদণ্ডের ওপর বাড়তি চাপ পড়তে দেয় না',
+      'শিশু চিকিৎসকদের প্রস্তাবিত স্বাস্থ্যকর "M-Shape" পজিশন',
+      '৬টি বহুমুখী ক্যারিং মোড (নবজাতক থেকে ৩৬ মাস পর্যন্ত)',
+      'বাতাস চলাচলের জন্য ব্রিদেবল থ্রিডি মেশ রোল-আপ প্যানেল',
+      'এক্সট্রা-ওয়াইড প্যাডেড ওয়েস্টব্যান্ড (৪৮ ইঞ্চি পর্যন্ত কোমর উপযোগী)',
+      'মোবাইল, চাবি ও ফিডার রাখার সাইড জিপার পকেট'
     ],
     specifications: {
-      'Weight Capacity': '3.5 kg to 20 kg (Newborn to 36 Months)',
-      'Waistband Range': '65 cm to 118 cm (25.5 to 46.5 inches)',
-      'Fabric': '100% Cotton & Breathable 3D Polyester Mesh',
-      'Seat Core': 'EPP High Density Anti-Shock Core',
-      'Safety Buckles': 'Heavy Duty Dual-Locking Safety Clasp'
+      'ওজন ধারণ ক্ষমতা': '৩.৫ কেজি থেকে ২০ কেজি (নবজাতক থেকে ৩৬ মাস)',
+      'কোমরের পরিধি': '৬৫ সেমি থেকে ১১৮ সেমি (২৫.৫ থেকে ৪৬.৫ ইঞ্চি)',
+      'ফেব্রিক': '১০০% কটন ও ব্রিদেবল থ্রিডি পলিয়েস্টার মেশ',
+      'সিট কোর': 'EPP হাই ডেনসিটি অ্যান্টি-শক কোর'
     },
     isBestSeller: true,
     isRecommended: true,
@@ -274,7 +270,7 @@ Can be used in 6 versatile configurations: inward facing, front outward, back ca
   },
   {
     id: 'prod-6',
-    name: 'Multi-Function Waterproof Diaper Backpack with Foldable Bassinet Bed',
+    name: 'মাল্টিফাংশন ওয়াটারপ্রুফ ডায়াপার ব্যাকপ্যাক ও ফোল্ডেবল বেবি বেড',
     slug: 'multi-function-diaper-backpack-crib-bed',
     category: 'Baby Accessories',
     categorySlug: 'baby-accessories',
@@ -287,28 +283,27 @@ Can be used in 6 versatile configurations: inward facing, front outward, back ca
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Spacious diaper bag that effortlessly transforms into an expandable baby changing crib and shaded nap bed anywhere you go.',
-    description: `Never worry about unhygienic public changing tables or naptime on the road again. This innovative 3-in-1 Diaper Backpack features a built-in expandable crib bed with breathable mesh sides and a soft shaded sun canopy.
+    shortDescription: 'প্রয়োজনীয় সবকিছু রাখার জন্য ১৬টি পকেট এবং যেকোনো জায়গায় শিশুর ডায়াপার পরিবর্তন ও ঘুমের জন্য বহনযোগ্য বেড।',
+    description: `ভ্রমণ কিংবা বাইরে যাওয়ার সময় শিশুর সব জিনিসপত্র গুছিয়ে রাখা এবং অনায়াসে একটি আরামদায়ক বেডে পরিণত করার জন্য উদ্ভাবনী ব্যাকপ্যাক।
 
-Boasts 16 organized compartments including 3 composite insulated bottle pockets that keep warm milk ready for up to 4 hours. Oxford waterproof fabric wipes clean instantly with a damp cloth.`,
+১৬টি সুবিন্যস্ত পকেট রয়েছে যার মধ্যে ৩টি ইনসুলেটেড পকেট যা দুধ ৪ ঘণ্টা পর্যন্ত গরম রাখে। ওয়াটারপ্রুফ অক্সফোর্ড ফেব্রিক যা ভেজা কাপড় দিয়ে সহজেই মুছে ফেলা যায়।`,
     features: [
-      'Quick unfold travel crib with breathable mesh and mattress pad',
-      '3 thermal insulated bottle pockets fit wide-neck feeding bottles',
-      '16 organized pockets for diapers, clothes, wipes & laptop/tablet',
-      'High-density 900D waterproof Oxford fabric with anti-tear zippers',
-      'Stroller buckle straps & external USB charging pass-through port'
+      'সহজে খোলা যায় এমন ট্রাভেল ক্রিব বেড ও নরম ম্যাট্রেস প্যাড',
+      '৩টি থার্মাল ইনসুলেটেড ফিডিং বোতল পকেট',
+      'ডায়াপার, জামাকাপড় ও প্রয়োজনীয় জিনিসের জন্য ১৬টি পকেট',
+      'উচ্চ ঘনত্বের ৯০০ডি ওয়াটারপ্রুফ অক্সফোর্ড ফেব্রিক',
+      'স্ট্রোলার বাকল স্ট্র্যাপ ও এক্সটারনাল ইউএসবি চার্জিং পোর্ট'
     ],
     specifications: {
-      'Material': '900D Waterproof Oxford Fabric + Thermal Aluminum Foil',
-      'Capacity': '35 Liters',
-      'Bed Dimensions': '70 cm x 30 cm when expanded',
-      'Included': 'Backpack, Padded Mattress Pad, 2 Stroller Straps'
+      'উপাদান': '৯০০ডি ওয়াটারপ্রুফ অক্সফোর্ড ফেব্রিক ও অ্যালুমিনিয়াম ফয়েল',
+      'ধারণক্ষমতা': '৩৫ লিটার',
+      'বেডের পরিমাপ': '৭০ সেমি x ৩০ সেমি (খোলার পর)'
     },
     isBestSeller: true
   },
   {
     id: 'prod-7',
-    name: 'Anti-Colic Natural Glass Feeding Bottle with Soft Silicone Nipple (240ml)',
+    name: 'অ্যান্টি-কলিক ন্যাচারাল গ্লাস বেবি ফিডিং বোতল (২৪০ মিলি)',
     slug: 'anti-colic-natural-glass-baby-feeding-bottle-240ml',
     category: 'Baby Feeding',
     categorySlug: 'baby-feeding',
@@ -320,29 +315,28 @@ Boasts 16 organized compartments including 3 composite insulated bottle pockets 
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=600',
-    shortDescription: 'Thermal shock resistant borosilicate glass with breast-like silicone teat and dual anti-colic ventilation valves.',
-    description: `Crafted from pure pharmaceutical-grade borosilicate glass, this feeding bottle is scratch-resistant, odour-resistant, and can transition directly from refrigerator to hot bottle warmer without cracking.
+    shortDescription: 'তাপ সহনশীল বোরোসিলিকেট গ্লাস ও নরম সিলিকন নিপল। শিশুর গ্যাস ও পেট ফাঁপার সমস্যা প্রতিরোধ করে।',
+    description: `উচ্চমানের বোরোসিলিকেট গ্লাসে তৈরি এই ফিডিং বোতলটি স্ক্র্যাচ-প্রতিরোধী ও দুর্গন্ধমুক্ত। ফ্রিজ থেকে সরাসরি গরম পানিতে নিলেও এটি ফেটে যায় না।
 
-The ultra-soft spiral silicone teat mimics the natural flex and feel of breastfeeding, facilitating seamless breast-to-bottle transitions while the dual anti-colic valves vent air away from baby's tummy to prevent painful gas and burps.`,
+মায়ের বুকের দুধ পানের মতোই কোমল ফ্লেক্সিবল নিপল এবং ডুয়েল অ্যান্টি-কলিক ভেন্ট সিস্টেম শিশুর পেটে বাতাস ঢোকা বন্ধ করে গ্যাস ও অস্বস্তি থেকে রক্ষা করে।`,
     features: [
-      '100% Medical-grade thermal shock proof borosilicate glass',
-      'Breast-shaped flexible silicone nipple promotes natural latch',
-      'Dual anti-colic air valve reduces gas, spit-up and reflux',
-      'Clear, embossed milliliter and ounce measurement markings',
-      'Protective food-grade silicone sleeve included for grip & drop protection'
+      '১০০% মেডিকেল গ্রেড থার্মাল শক প্রুফ বোরোসিলিকেট গ্লাস',
+      'বুকের মতো প্রাকৃতিক ফ্লেক্সিবল সিলিকন নিপল',
+      'ডুয়েল অ্যান্টি-কলিক এয়ার ভালভ যা গ্যাস ও বমি ভাব রোধ করে',
+      'স্পষ্ট ও স্থায়ী মিলিমিটার এবং আউন্স দাগাঙ্কিত মাপ',
+      'ধরে রাখার সুবিধা ও সুরক্ষার জন্য ফুড-গ্রেড সিলিকন হাতা অন্তর্ভুক্ত'
     ],
     specifications: {
-      'Capacity': '240 ml (8.1 oz)',
-      'Glass Type': 'High Borosilicate Glass (Heat resistant to 600°C)',
-      'Nipple Flow': 'Medium Flow (Ideal for 3M+)',
-      'Compatibility': 'Fits standard wide-neck sterilizers & warmers'
+      'ধারণক্ষমতা': '২৪০ মিলি (৮.১ আউন্স)',
+      'গ্লাসের ধরন': 'হাই বোরোসিলিকেট গ্লাস (৬০০°C তাপ সহনশীল)',
+      'নিপল ফ্লো': 'মিডিয়াম ফ্লো (৩ মাস+ শিশুর জন্য উপযোগী)'
     },
     isBestSeller: true,
     isRecommended: true
   },
   {
     id: 'prod-8',
-    name: 'Gentle Organic Head-to-Toe Baby Wash & Calming Lavender Shampoo (400ml)',
+    name: 'জেন্টল অর্গানিক হেড-টু-টো বেবি ওয়াশ ও ল্যাভেন্ডার শ্যাম্পু (৪০০ মিলি)',
     slug: 'organic-gentle-baby-wash-shampoo-400ml',
     category: 'Baby Bath & Hygiene',
     categorySlug: 'baby-bath-hygiene',
@@ -354,28 +348,27 @@ The ultra-soft spiral silicone teat mimics the natural flex and feel of breastfe
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1641913337604-7b040a87fc88?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Tear-free, sulfate-free formula with organic aloe vera, calendula, and French lavender. Pediatrician and dermatologist approved.',
-    description: `Gently cleanse and nourish your infant's skin and fine hair with this hypoallergenic, tear-free baby wash. Enriched with natural plant botanicals including calming chamomile, organic oat kernel extract, and sweet almond oil.
+    shortDescription: 'টিয়ার-ফ্রি ও সালফেট-মুক্ত ফর্মুলা। শিশুর কোমল ত্বক ও চুলের গভীর যত্নে চিকিৎসকদের পরীক্ষিত।',
+    description: `শিশুর সংবেদনশীল ত্বক ও চুল কোমলভাবে পরিষ্কার করতে হাইপোঅ্যালার্জেনিক ও টিয়ার-ফ্রি বেবি ওয়াশ। এতে রয়েছে অর্গানিক ক্যামোমাইল, ওট কার্নেল ও সুইট আমন্ড অয়েল।
 
-Maintains the delicate natural skin barrier without stripping away essential moisture. Free of sulfates, parabens, phthalates, synthetic dyes, and artificial perfumes.`,
+ত্বকের প্রাকৃতিক আর্দ্রতা বজায় রাখে এবং কোনো ধরনের ক্ষতিকর সালফেট, প্যারাবেন কিংবা কৃত্রিম সুগন্ধি নেই।`,
     features: [
-      '100% Tear-free proven gentle formula',
-      'Infused with organic chamomile and calming wild lavender',
-      'pH 5.5 balanced to protect fragile newborn skin barrier',
-      'Pump dispenser with safety lock for single-handed bath time ease',
-      'Hypoallergenic & clinically pediatrician tested'
+      '১০০% টিয়ার-ফ্রি ফর্মুলা যা চোখে জ্বালাপোড়া করে না',
+      'অর্গানিক ক্যামোমাইল ও শান্তিময় বুনো ল্যাভেন্ডার সমৃদ্ধ',
+      'pH ৫.৫ ব্যালান্সড যা নবজাতকের কোমল ত্বক সুরক্ষিত রাখে',
+      'এক হাতে ব্যবহারের উপযোগী সেফটি লকযুক্ত পাম্প ডিসপেন্সার',
+      'শিশুরোগ বিশেষজ্ঞ ও চর্মরোগ বিশেষজ্ঞদের দ্বারা চিকিৎসাগতভাবে পরীক্ষিত'
     ],
     specifications: {
-      'Volume': '400 ml',
-      'Formula': 'Sulfate-Free, Paraben-Free, Cruelty-Free',
-      'Skin Suitability': 'Sensitive, Dry & Eczema-Prone Newborn Skin',
-      'Expiry': '24 Months from Manufacturing Date'
+      'পরিমাণ': '৪০০ মিলি',
+      'ফর্মুলা': 'সালফেট-মুক্ত, প্যারাবেন-মুক্ত ও ক্ষতিকর কেমিক্যাল মুক্ত',
+      'ত্বকের উপযোগিতা': 'সংবেদনশীল, শুষ্ক ও একজিমা প্রবণ ত্বকের জন্য উপযোগী'
     },
     isBestSeller: true
   },
   {
     id: 'prod-9',
-    name: 'Montessori Wooden Sensory Busy Board & Activity Cube (8-in-1)',
+    name: 'মন্টেসরি উডেন সেন্সরি বিজি বোর্ড ও অ্যাক্টিভিটি কিউব (৮-ইন-১)',
     slug: 'montessori-wooden-sensory-busy-board-cube',
     category: 'Baby Toys',
     categorySlug: 'baby-toys',
@@ -387,28 +380,28 @@ Maintains the delicate natural skin barrier without stripping away essential moi
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Develops fine motor skills, hand-eye coordination, and cognitive problem-solving with 8 tactile interactive locks and gears.',
-    description: `Inspired by authentic Montessori sensory learning methods, this handcrafted Wooden Activity Cube captivates toddler attention for hours without electronic screens!
+    shortDescription: '৮টি আকর্ষণীয় ইন্টারঅ্যাক্টিভ অ্যাক্টিভিটি যা শিশুর মেধা, মনোযোগ ও হাতের পেশির সঠিক বিকাশ ঘটায়।',
+    description: `মন্টেসরি শিখন পদ্ধতির আলোকে তৈরি এই কাঠের অ্যাক্টিভিটি কিউব শিশুকে মোবাইল ও টিভি স্ক্রিন থেকে দূরে রেখে দীর্ঘক্ষণ আনন্দময় খেলায় ব্যস্ত রাখে।
 
-Features spring latches, revolving gears, interactive fingertip switches, analog clock dials, shoelace threading board, and mini spinner beads. Crafted from smooth basswood with rounded child-safe bevels and eco-friendly water-based paint.`,
+এতে রয়েছে স্প্রিং ল্যাচ, ঘূর্ণায়মান গিয়ার, অ্যানালগ ঘড়ির কাঁটা, জুতার ফিতা বাঁধার বোর্ড এবং স্পিনার বিডস। মসৃণ বিচউড ও পরিবেশবান্ধব রঙে তৈরি।`,
     features: [
-      '8 engaging tactile activities in one compact wooden cube',
-      'Smooth hand-polished corners, zero splinters or sharp edges',
-      'Encourages logical thinking and hand dexterity',
-      'Compact travel size ideal for car rides and restaurant dining'
+      'একটি কমপ্যাক্ট কাঠের কিউবে ৮টি ভিন্ন ট্যাকটাইল অ্যাক্টিভিটি',
+      'মসৃণভাবে পলিশ করা কোনো ধারালো কোণা বা স্প্লিন্টার নেই',
+      'যুক্তিসঙ্গত চিন্তা ও সূক্ষ্ম মোটর দক্ষতার দ্রুত বিকাশ ঘটায়',
+      'ভ্রমণ বা রেস্তোরাঁয় নিয়ে যাওয়ার মতো কমপ্যাক্ট সাইজ'
     ],
     specifications: {
-      'Material': 'Natural Beechwood & Rust-Resistant Metal Hardware',
-      'Age Range': '10 Months to 4 Years',
-      'Dimensions': '15 cm x 15 cm x 15 cm',
-      'Weight': '650 grams'
+      'উপাদান': 'প্রাকৃতিক বিচউড ও মরিচারোধক মেটাল হার্ডওয়্যার',
+      'বয়সসীমা': '১০ মাস থেকে ৪ বছর',
+      'আকার': '১৫ সেমি x ১৫ সেমি x ১৫ সেমি',
+      'ওজন': '৬৫০ গ্রাম'
     },
     isTrending: true,
     badge: 'TRENDING'
   },
   {
     id: 'prod-10',
-    name: 'Foldable Non-Slip Baby Bath Tub with Smart Digital Temperature Sensor',
+    name: 'স্মার্ট ডিজিটাল টেম্পারেচার সেন্সর ফোল্ডিং বেবি বাথটাব',
     slug: 'foldable-baby-bath-tub-smart-temperature-sensor',
     category: 'Baby Bath & Hygiene',
     categorySlug: 'baby-bath-hygiene',
@@ -420,29 +413,29 @@ Features spring latches, revolving gears, interactive fingertip switches, analog
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1641913337604-7b040a87fc88?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Space-saving collapsible tub with real-time water temperature digital readout and soft suspended newborn bath cushion.',
-    description: `Ensure your baby’s bath water is always at the safe, comfortable temperature (37°C-38°C) with the integrated real-time digital thermometer! The tub folds flat down to just 9cm thickness for effortless storage in compact apartments.
+    shortDescription: 'রিয়েল-টাইম পানির তাপমাত্রা প্রদর্শনকারী ফোল্ডিং বাথটাব এবং নবজাতকের ভাসমান আরামদায়ক কুশন।',
+    description: `বাথটাবের বিল্ট-ইন ডিজিটাল থার্মোমিটারের সাহায্যে পানির তাপমাত্রা সবসময় সঠিক (৩৭°C-৩৮°C) রাখা সম্ভব। ব্যবহারের পর ভাঁজ করে মাত্র ৯ সেন্টিমিটার পুরুত্বে রাখা যায়।
 
-Includes a soft floating bath cushion that cradles newborn babies securely above the water level, protecting delicate ears and neck.`,
+সাথে রয়েছে নরম ফ্লোটিং বাথ কুশন যা নবজাতককে নিরাপদে পানির উপরে ধরে রাখে এবং শিশুর কান ও ঘাড়ে পানি ঢুকতে দেয় না।`,
     features: [
-      'Built-in waterproof digital thermometer prevents hot water scalds',
-      'Collapses to 9cm flat with built-in wall-hook hanging hole',
-      'Includes padded ergonomic newborn floating bath cushion',
-      'Non-slip rubber feet and reinforced safety bracket lock',
-      'Quick drain plug with heat-sensitive color indicator'
+      'ওয়াটারপ্রুফ রিয়েল-টাইম ডিজিটাল থার্মোমিটার',
+      'ভাঁজ করে মাত্র ৯ সেমি ফ্ল্যাট করা যায় ও ওয়ালে ঝোলানোর সুবিধা',
+      'নবজাতকের জন্য আরামদায়ক প্যাডেড ফ্লোটিং বাথ কুশন অন্তর্ভুক্ত',
+      'অ্যান্টি-স্লিপ রাবার বটম ও রিইনফোর্সড সেফটি ব্র্যাকেট লক',
+      'তাপ সংবেদনশীল দ্রুত পানি নিষ্কাশনের ড্রেন প্লাগ'
     ],
     specifications: {
-      'Material': 'Eco-Friendly PP + TPE Flexible Rubber',
-      'Expanded Size': '82 cm x 50 cm x 22 cm',
-      'Folded Height': '9 cm',
-      'Age Range': '0 to 36 Months'
+      'উপাদান': 'পরিবেশবান্ধব পিপি + টিপিই ফ্লেক্সিবল রাবার',
+      'খোলার পর আকার': '৮২ সেমি x ৫০ সেমি x ২২ সেমি',
+      'ভাঁজ করা উচ্চতা': '৯ সেমি',
+      'বয়সসীমা': '০ থেকে ৩৬ মাস'
     },
     isTrending: true,
     badge: 'TRENDING'
   },
   {
     id: 'prod-11',
-    name: 'Electric Double Wearable Hands-Free Breast Pump with Smart LED Screen',
+    name: 'হ্যান্ডস-ফ্রি ইলেকট্রিক ডাবল ওয়্যারেবল ব্রেস্ট পাম্প (স্মার্ট এলইডি)',
     slug: 'electric-double-wearable-breast-pump-hands-free',
     category: 'Mother & Baby Essentials',
     categorySlug: 'mother-baby-essentials',
@@ -454,30 +447,29 @@ Includes a soft floating bath cushion that cradles newborn babies securely above
       'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=800'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Ultra-quiet invisible in-bra wireless breast pump. 3 modes and 9 suction levels for pain-free, discrete pumping anywhere.',
-    description: `Designed for busy, modern mothers! Slip this ultra-lightweight breast pump directly into your standard nursing bra and pump hands-free while working, driving, or relaxing.
+    shortDescription: 'শব্দহীন, হালকা ও পোশাকের ভেতরে ব্যবহারের উপযোগী। দুধ অপচয় ছাড়াই দ্রুত ও আরামদায়ক এক্সপ্রেশন।',
+    description: `আধুনিক কর্মজীবী ও ব্যস্ত মায়েদের জন্য ডিজাইন করা ওয়্যারলেস ব্রেস্ট পাম্প। কোনো তারের ঝামেলা নেই, নার্সিং ব্রায়ের ভেতরে সহজেই পরে কাজ করা বা বিশ্রাম নেওয়া যায়।
 
-Features 3 physiological pumping modes (Massage, Expression, and Mixed Bionic) with 9 adjustable vacuum strengths. Anti-backflow silicone membrane prevents milk contamination and leakage.`,
+৩টি মোড (ম্যাসাজ, এক্সপ্রেশন ও মিক্সড) এবং ৯টি অ্যাডজাস্টেবল সাকশন লেভেল রয়েছে। অ্যান্টি-ব্যাকফ্লো সিলিকন সিস্টেম দুধের লিকেজ রোধ করে।`,
     features: [
-      'Completely wireless and fits discreetly inside standard nursing bras',
-      '3 pumping modes (Massage, Expression, Bionic) & 9 intensity levels',
-      'Anti-backflow sealed system ensures hygiene and prevents spillover',
-      'Whisper-quiet operation (<40 dB) allows discreet night pumping',
-      'Fast USB Type-C charging with 180ml capacity collection cup'
+      'সম্পূর্ণ ওয়্যারলেস ও স্ট্যান্ডার্ড ব্রা-এর ভেতর সহজে পরা যায়',
+      '৩টি ফিজিওলজিক্যাল মোড ও ৯টি ইনটেনসিটি লেভেল',
+      'অ্যান্টি-ব্যাকফ্লো সিলড সিস্টেম যা দুধের স্বাস্থ্যবিধি বজায় রাখে',
+      'শব্দহীন মোটর (<40 dB) রাতে ব্যবহারের জন্য অত্যন্ত শান্ত',
+      'দ্রুত ইউএসবি টাইপ-সি চার্জিং ও ১৮০ মিলি ক্যাপাসিটি কাপ'
     ],
     specifications: {
-      'Milk Capacity': '180 ml (6 oz) per pump',
-      'Modes': '3 Modes & 9 Levels',
-      'Battery': '1200mAh Lithium Rechargeable (Type-C USB)',
-      'Suction Range': 'Up to 280-300 mmHg',
-      'Flange Sizes': 'Includes 24mm & 27mm silicone inserts'
+      'ধারণক্ষমতা': '১৮০ মিলি (৬ আউন্স)',
+      'মোড': '৩টি মোড ও ৯টি লেভেল',
+      'ব্যাটারি': '১২০০mAh রিচার্জেবল লিথিয়াম (Type-C)',
+      'ফ্ল্যাঞ্জ সাইজ': '২৪মিমি ও ২৭মিমি সিলিকন ইনসার্ট অন্তর্ভুক্ত'
     },
     isTrending: true,
     badge: 'MOM ESSENTIAL'
   },
   {
     id: 'prod-12',
-    name: 'Child-Proof Magnetic Cabinet & Drawer Locks - 10 Locks + 2 Keys Set',
+    name: 'চাইল্ড-প্রুফ ম্যাগনেটিক ক্যাবিনেট ও ড্রয়ার লক (১০টি লক + ২টি চাবি)',
     slug: 'child-proof-magnetic-cabinet-locks-set',
     category: 'Baby Safety',
     categorySlug: 'baby-safety',
@@ -489,26 +481,25 @@ Features 3 physiological pumping modes (Massage, Expression, and Mixed Bionic) w
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1595347097560-69238724e7bd?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Invisible child safety locks installed inside cabinets with ultra-strong 3M adhesive. No drilling or furniture damage required.',
-    description: `Keep curious toddlers away from dangerous chemicals, knives, and fragile items with these invisible magnetic locks. Installed completely inside the cabinets or drawers, maintaining your furniture's aesthetic beauty without exterior latches.
+    shortDescription: 'ড্রিল ছাড়া ৩M আঠাযুক্ত অদৃশ্য সেফটি লক। ঘর ও রান্নাঘরের ঝুঁকিপূর্ণ জিনিস থেকে শিশুর শতভাগ সুরক্ষা।',
+    description: `ঘরে হাঁটতে শেখা ছোট্ট শিশুর সুরক্ষা নিশ্চিত করতে ম্যাগনেটিক ক্যাবিনেট লক সেট। ড্রয়ার বা ক্যাবিনেটের ভেতরে লাগানো হয় বলে বাইরে থেকে কোনো লক দেখা যায় না এবং আসবাবপত্রের সৌন্দর্য নষ্ট হয় না।
 
-Unlocks instantly with the powerful magnetic master key through wood up to 35mm thick. Includes normal open mode switch for when baby is asleep.`,
+বাইরে থেকে শক্তিশালী ম্যাগনেটিক চাবি স্পর্শ করলেই লক খুলে যায়।`,
     features: [
-      'Invisible from outside, preserving furniture elegance',
-      'Extreme hold genuine 3M adhesive tape (no screws or drilling)',
-      'Works through cabinet doors up to 35mm (1.4 inches) thick',
-      'Disengage toggle switch allows temporary unlocked access'
+      'বাইরে থেকে দেখা যায় না এমন ইনভিজিবল সিকিউরিটি লক',
+      'কোনো ড্রিল বা স্ক্রু লাগবে না - শক্তিশালী ৩M অ্যাডহেসিভ টেপ',
+      '৩৫ মিমি পর্যন্ত পুরু কাঠের দরজা ভেদ করে কাজ করে',
+      'প্রয়োজনে লক ডিঅ্যাক্টিভেট করে রাখার সুবিধাজনক সুইচ'
     ],
     specifications: {
-      'Set Includes': '10 Locks, 10 Catches, 2 Magnetic Keys, 1 Alignment Cradle',
-      'Installation': 'Tool-Free 3M Industrial Adhesive',
-      'Material': 'Reinforced ABS Plastic & Neodymium Magnets'
+      'প্যাকেজ অন্তর্ভুক্ত': '১০টি ম্যাগনেটিক লক, ২টি মাস্টার কি, ইন্সটলেশন গাইড',
+      'উপাদান': 'হাই-গ্রেড বিপিএ-মুক্ত এবিএস ও নিওডিমিয়াম ম্যাগনেট'
     },
-    isTrending: true
+    isNewArrival: true
   },
   {
     id: 'prod-13',
-    name: '100% Pure Organic Cotton Kimono Romper & Beanie Set',
+    name: '১০০% পিওর অর্গানিক কটন কিমোনো রমপার ও বিনি সেট',
     slug: 'organic-cotton-kimono-romper-beanie-set',
     category: 'Baby Clothing',
     categorySlug: 'baby-clothing',
@@ -520,35 +511,35 @@ Unlocks instantly with the powerful magnetic master key through wood up to 35mm 
       'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Side-snap wrap style kimono romper that avoids pulling clothing over delicate heads. Select preferred age size.',
-    description: `Dressing a baby has never been easier! The wrap-around Japanese kimono cut with nickel-free snaps allows you to dress your baby without struggling to pull fabric over their sensitive head.
+    shortDescription: 'সাইড-স্ন্যাপ কিমোনো স্টাইল রমপার - বাচ্চার মাথার ওপর দিয়ে টানার ঝামেলা ছাড়া সহজে পরানো যায়। সাইজ নির্বাচন করুন।',
+    description: `নবজাতক ও ছোট্ট সোনামণিকে কাপড় পরানো এখন আরও সহজ ও আরামদায়ক! নরম জাপানি কিমোনো কাটিং এবং নিকেল-মুক্ত বোতামের কারণে বাচ্চার সংবেদনশীল মাথার ওপর দিয়ে টানার কোনো ঝামেলা নেই।
 
-Features fold-over cuff mittens to protect baby from accidental facial scratches and soft breathable footies. Available in multiple age variations: 1 Year, 2 Year, and 3 Year.`,
+হাতে রয়েছে ফোল্ড-ওভার মিটেন গ্লাভস যা বাচ্চার মুখের নরম ত্বকে নখের আঁচড় লাগা থেকে রক্ষা করে। বিভিন্ন বয়সের সাইজে পাওয়া যাচ্ছে: ১ বছর, ২ বছর, ও ৩ বছর।`,
     features: [
-      'GOTS Certified 100% combed organic ribbed cotton',
-      'Side-snap wrap closure avoids pulling garments over head',
-      'Built-in fold-over scratch mittens on wrists',
-      'Tagless neck label eliminates itching or skin redness'
+      'GOTS সার্টিফাইড ১০০% খাঁটি কম্বড অর্গানিক রিবড কটন',
+      'সাইড-স্ন্যাপ কিমোনো র‍্যাপ ডিজাইন - সহজে পরানো ও খোলা যায়',
+      'হাতের কব্জিতে ইন-বিল্ট স্ক্র্যাচ প্রটেকশন মিটেন',
+      'ট্যাগ-লেস নেক লেবেল - ঘাড় ও ত্বকে চুলকানি বা লালচে ভাব রোধ করে'
     ],
     specifications: {
-      'Fabric': '100% GOTS Certified Organic Cotton',
-      'Available Sizes': '1 Year, 2 Year, 3 Year',
-      'Colors': 'Sage Green, Soft Oat, Powder Rose, Sky Blue'
+      'কাপড়': '১০০% GOTS সার্টিফাইড অর্গানিক কটন',
+      'উপলব্ধ বয়স': '১ বছর, ২ বছর, ৩ বছর',
+      'রঙসমূহ': 'সেজ গ্রিন, সফট ওট, পাউডার রোজ, স্কাই ব্লু'
     },
     isNewArrival: true,
-    badge: 'AGE OPTIONS',
+    badge: 'বয়সের সাইজ',
     variationGroup: {
-      name: 'Select Age',
+      name: 'বয়স নির্বাচন করুন',
       options: [
-        { id: 'v-1y', name: '1 Year' },
-        { id: 'v-2y', name: '2 Year' },
-        { id: 'v-3y', name: '3 Year' }
+        { id: 'v-1y', name: '১ বছর' },
+        { id: 'v-2y', name: '২ বছর' },
+        { id: 'v-3y', name: '৩ বছর' }
       ]
     }
   },
   {
     id: 'prod-14',
-    name: 'Ultra-Soft Hooded Bamboo Animal Bath Towel with Washcloth (90x90 cm)',
+    name: 'আল্ট্রা-সফট হুডেড ব্যাম্বু অ্যানিমেল বেবি বাথ টাওয়েল (৯০x৯০ সেমি)',
     slug: 'ultra-soft-hooded-bamboo-baby-bath-towel',
     category: 'Baby Bath & Hygiene',
     categorySlug: 'baby-bath-hygiene',
@@ -560,27 +551,27 @@ Features fold-over cuff mittens to protect baby from accidental facial scratches
       'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1641913337604-7b040a87fc88?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Extra plush 500 GSM bamboo terry towel with cute bear ears hood. Absorbs water 3x faster than traditional cotton.',
-    description: `Wrap your little one in plush warmth immediately after bath time! Made from 500 GSM premium bamboo fabric, this hooded towel absorbs moisture in seconds to prevent post-bath chills.
+    shortDescription: 'এক্সট্রা নরম ও পুরু ৫০০ জিএসএম ব্যাম্বু টেরি তোয়ালে। সাধারণ সুতি তোয়ালের চেয়ে ৩ গুণ দ্রুত পানি শুষে নেয়।',
+    description: `গোসলের পরপরই আপনার সোনামণিকে দিন তুলতুলে উষ্ণতার পরম পরশ! ৫০০ জিএসএম প্রিমিয়াম প্রাকৃতিক বাঁশের ফাইবার দিয়ে তৈরি এই তোয়ালে মাত্র কয়েক সেকেন্ডের মধ্যে পানি শুকিয়ে ফেলে শিশুকে ঠান্ডা লাগা থেকে বাঁচায়।
 
-Generously sized at 90cm x 90cm to comfortably wrap newborns and toddlers alike up to 5 years old.`,
+বড় আকারের ৯০ সেমি x ৯০ সেমি তোয়ালেটি নবজাতক থেকে শুরু করে ৫ বছর বয়স পর্যন্ত আরামে ব্যবহার উপযোগী।`,
     features: [
-      'Super thick 500 GSM bamboo terry cloth',
-      'Cute stitched bear ear hood keeps wet head warm',
-      'Antibacterial and hypoallergenic natural bamboo fibers',
-      'Includes matching bonus double-sided baby washcloth'
+      'অত্যন্ত পুরু ও নরম ৫০০ জিএসএম ব্যাম্বু টেরি ফেব্রিক',
+      'আকর্ষণীয় ভালুকের কানওয়ালা হুড - ভেজা মাথা ঢেকে ঠান্ডা লাগা আটকায়',
+      'অ্যান্টিব্যাকটেরিয়াল ও হাইপোঅ্যালার্জেনিক ন্যাচারাল ব্যাম্বু ফাইবার',
+      'সাথে থাকছে স্পেশাল বোনাস ডাবল-সাইডেড বেবি ওয়াশক্লথ'
     ],
     specifications: {
-      'Dimensions': '90 cm x 90 cm (35.4 x 35.4 in)',
-      'Density': '500 GSM Ultra Plush',
-      'Material': '100% Natural Bamboo Fiber'
+      'সাইজ': '৯০ সেমি x ৯০ সেমি (৩৫.৪ x ৩৫.৪ ইঞ্চি)',
+      'ঘনত্ব': '৫০০ জিএসএম আল্ট্রা প্লাশ',
+      'উপাদান': '১০০% ন্যাচারাল ব্যাম্বু ফাইবার'
     },
     isNewArrival: true,
-    badge: 'NEW ARRIVAL'
+    badge: 'নতুন কালেকশন'
   },
   {
     id: 'prod-15',
-    name: 'Ultra-Soft Organic Cotton Baby Washcloth & Teething Set',
+    name: 'আল্ট্রা-সফট অর্গানিক কটন বেবি ওয়াশক্লথ সেট',
     slug: 'silicone-baby-teething-mitten-crinkle',
     category: 'Baby Care',
     categorySlug: 'baby-care',
@@ -592,33 +583,33 @@ Generously sized at 90cm x 90cm to comfortably wrap newborns and toddlers alike 
       'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'Super-absorbent, hypoallergenic organic cotton washcloth set. Available in 1 Pcs, 2 Pcs, 4 Pcs, and 8 Pcs value bundle packs.',
-    description: `Designed for sensitive newborn and toddler skin! Our Ultra-Soft Organic Cotton Baby Washcloths are made from 100% natural organic cotton fibers that are gentler than standard terry towels.
+    shortDescription: 'উচ্চ শোষণক্ষমতাসম্পন্ন ১০০% অর্গানিক কটন ওয়াশক্লথ। ১টি, ২টি, ৪টি ও ৮টির সাশ্রয়ী বান্ডেল প্যাকে পাওয়া যাচ্ছে।',
+    description: `নবজাতকের অতি সংবেদনশীল ত্বকের যত্নে বিশেষভাবে তৈরি! আমাদের আল্ট্রা-সফট অর্গানিক কটন ওয়াশক্লথ সাধারণ তোয়ালের চেয়েও অনেক বেশি নরম ও মোলায়েম।
 
-Choose your bundle pack to save more: 1 Pcs (৳100), 2 Pcs (৳200), 4 Pcs (৳400), or 8 Pcs (৳800). Perfect for bath time, feeding burps, quick wipes, and drool cleanups.`,
+বেশি নিলে বেশি সাশ্রয়: ১ পিস (৳১০০), ২ পিস (৳২০০), ৪ পিস (৳৪০০), অথবা ৮ পিস (৳৮০০)। গোসলের সময়, দুধ খাওয়ানোর পর মুখ মোছা বা লালা পরিষ্কারের জন্য অপরিহার্য।`,
     features: [
-      '100% GOTS Certified Organic Cotton terry muslin',
-      'Super absorbent 6-layer honeycomb softness',
-      'Choose from 1 Pcs, 2 Pcs, 4 Pcs, or 8 Pcs bundle savings',
-      'Machine washable and stays soft after 50+ wash cycles'
+      '১০০% জিওটিএস সার্টিফাইড অর্গানিক কটন মসলিন ফেব্রিক',
+      'অতিরিক্ত শোষণক্ষমতা সম্পন্ন ৬ লেয়ার হানিকম্ব নরম বুনন',
+      '১ পিস, ২ পিস, ৪ পিস বা ৮ পিস সাশ্রয়ী বান্ডেল অফার',
+      'মেশিনে ধোয়া যায় এবং ৫০+ ওয়াশের পরেও নরম থাকে'
     ],
     specifications: {
-      'Material': '100% Pure Organic Muslin Cotton',
-      'Dimensions': '25 cm x 25 cm (9.8 x 9.8 inches)',
-      'Cleaning': 'Machine Washable'
+      'উপাদান': '১০০% পিওর অর্গানিক মসলিন কটন',
+      'সাইজ': '২৫ সেমি x ২৫ সেমি (৯.৮ x ৯.৮ ইঞ্চি)',
+      'পরিষ্কার': 'মেশিন ওয়াশ উপযোগী'
     },
     isNewArrival: true,
-    badge: 'BUNDLE PACK',
+    badge: 'বান্ডেল অফার',
     bundleTiers: [
-      { id: 'b-1', pieces: 1, title: '1 Pcs', price: 100, originalPrice: 150, badge: 'Standard' },
-      { id: 'b-2', pieces: 2, title: '2 Pcs', price: 200, originalPrice: 300, badge: 'Save ৳20' },
-      { id: 'b-4', pieces: 4, title: '4 Pcs', price: 400, originalPrice: 600, badge: 'Best Value' },
-      { id: 'b-8', pieces: 8, title: '8 Pcs', price: 800, originalPrice: 1200, badge: 'Super Saver' }
+      { id: 'b-1', pieces: 1, title: '১ পিস', price: 100, originalPrice: 150, badge: 'স্ট্যান্ডার্ড' },
+      { id: 'b-2', pieces: 2, title: '২ পিস', price: 200, originalPrice: 300, badge: '৳২০ ছাড়' },
+      { id: 'b-4', pieces: 4, title: '৪ পিস', price: 400, originalPrice: 600, badge: 'সেরা মান' },
+      { id: 'b-8', pieces: 8, title: '৮ পিস', price: 800, originalPrice: 1200, badge: 'সুপার সেভার' }
     ]
   },
   {
     id: 'prod-16',
-    name: 'Complete 10-Piece Baby Healthcare & Grooming Nursery Care Kit',
+    name: 'কমপ্লিট ১০-পিস বেবি হেলথকেয়ার ও গ্রুমিং নার্সারি কেয়ার কিট',
     slug: 'complete-baby-grooming-healthcare-nursery-kit',
     category: 'Baby Care',
     categorySlug: 'baby-care',
@@ -630,18 +621,18 @@ Choose your bundle pack to save more: 1 Pcs (৳100), 2 Pcs (৳200), 4 Pcs (৳
       'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=800'
     ],
     thumbnail: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=600&q=80',
-    shortDescription: 'All essential newborn medical & grooming tools in a durable zippered organizer case: thermometer, nasal aspirator, dropper, brush & more.',
-    description: `Be fully prepared for every infant care moment with this comprehensive 10-piece nursery set. Includes digital oral thermometer, nasal aspirator with soft silicone tip, gentle goat hair cradle-cap brush, round-tip safety scissors, medicine dropper, and finger toothbrush.`,
+    shortDescription: 'নবজাতকের প্রাথমিক চিকিৎসা ও সাজসজ্জার প্রয়োজনীয় ১০টি সামগ্রী একসাথে মজবুত ট্রাভেল ব্যাগে: থার্মোমিটার, নেজাল অ্যাসপিরেটর, নখ কাটার ও ব্রাশ।',
+    description: `ছোট্ট সোনামণির প্রতিদিনের স্বাস্থ্য ও রূপচর্চায় প্রস্তুত থাকুন পূর্ণাঙ্গ ১০ পিসের এই প্রিমিয়াম কেয়ার কিট নিয়ে। এতে রয়েছে ডিজিটাল থার্মোমিটার, নরম সিলিকনের নেজাল অ্যাসপিরেটর (নাকের শ্লেষ্মা পরিষ্কারের জন্য), আল্ট্রা-সফট ব্রাশ, গোল মাথার নিরাপদ কাঁচি, ড্রপার ও ফিঙ্গার টুথব্রাশ।`,
     features: [
-      '10 pediatric health & hygiene tools in one zippered travel case',
-      'Soft silicone bulb nasal aspirator with mucus catcher',
-      'Digital fever thermometer with fever alarm beep',
-      'Ultra-soft natural bristle hairbrush gentle on cradle cap'
+      '১০টি জরুরি স্বাস্থ্য ও সাজসজ্জার সামগ্রী জিপারসহ ট্রাভেল ব্যাগে সাজানো',
+      'শিশুর সংবেদনশীল নাকের জন্য নরম সিলিকন বাল্ব নেজাল অ্যাসপিরেটর',
+      'দ্রুত শরীরের তাপমাত্রা পরিমাপে ডিজিটাল ফিভার থার্মোমিটার',
+      'নবজাতকের নরম মাথার তালু ও চুলের উপযোগী সুপার সফট ব্রাশ'
     ],
     specifications: {
-      'Kit Contents': '10 Essential Nursery Care Tools + Storage Bag',
-      'Safety': 'BPA-Free, Rustproof Stainless Steel, Rounded Edges',
-      'Ideal For': 'Baby Shower Gift & Newborn Starter Set'
+      'সেট অন্তর্ভুক্ত': '১০টি প্রয়োজনীয় নার্সারি কেয়ার সামগ্রী + স্টোরেজ ব্যাগ',
+      'নিরাপত্তা': 'বিপিএ-মুক্ত, জং-রোধী স্টেইনলেস স্টিল, শিশুদের নিরাপদ গোলাকার প্রান্ত',
+      'উপযুক্ততা': 'বেবি শাওয়ার গিফট ও নবজাতকের প্রাথমিক সেট হিসেবে সেরা'
     },
     isNewArrival: true,
     isRecommended: true
@@ -651,12 +642,17 @@ Choose your bundle pack to save more: 1 Pcs (৳100), 2 Pcs (৳200), 4 Pcs (৳
 const getStoredProducts = (): Product[] => {
   try {
     const raw = typeof window !== 'undefined' ? localStorage.getItem('baby_admin_products') : null;
+    let list = initialProductsList;
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
+        list = parsed;
       }
     }
+    return list.map(p => ({
+      ...p,
+      category: getCategoryDisplayName(p.category || p.categorySlug)
+    }));
   } catch {}
   return initialProductsList;
 };
@@ -669,10 +665,16 @@ export const getProductById = (id: string): Product | undefined => {
     if (raw) {
       const parsed: Product[] = JSON.parse(raw);
       const found = parsed.find(p => p.id === id);
-      if (found) return found;
+      if (found) {
+        return {
+          ...found,
+          category: getCategoryDisplayName(found.category || found.categorySlug)
+        };
+      }
     }
   } catch {}
-  return products.find(p => p.id === id);
+  const found = products.find(p => p.id === id);
+  return found ? { ...found, category: getCategoryDisplayName(found.category || found.categorySlug) } : undefined;
 };
 
 export const getProductBySlug = (slug: string): Product | undefined => {
@@ -681,8 +683,14 @@ export const getProductBySlug = (slug: string): Product | undefined => {
     if (raw) {
       const parsed: Product[] = JSON.parse(raw);
       const found = parsed.find(p => p.slug === slug);
-      if (found) return found;
+      if (found) {
+        return {
+          ...found,
+          category: getCategoryDisplayName(found.category || found.categorySlug)
+        };
+      }
     }
   } catch {}
-  return products.find(p => p.slug === slug);
+  const found = products.find(p => p.slug === slug);
+  return found ? { ...found, category: getCategoryDisplayName(found.category || found.categorySlug) } : undefined;
 };

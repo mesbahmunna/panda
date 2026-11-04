@@ -62,7 +62,7 @@ export const ProductGridSection: React.FC<ProductGridSectionProps> = ({
             onClick={viewAllAction}
             className="flex items-center gap-1 text-xs font-bold text-brand-600 hover:text-brand-700 hover:underline shrink-0 group"
           >
-            <span>View All</span>
+            <span>সবগুলো দেখুন</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </button>
         )}

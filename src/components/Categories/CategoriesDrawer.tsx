@@ -65,7 +65,7 @@ export const CategoriesDrawer: React.FC<CategoriesDrawerProps> = ({
           <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-brand-500 text-white">
             <h3 className="text-sm font-bold flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-amber-300" />
-              <span>Baby Departments</span>
+              <span>সকল ক্যাটাগরি</span>
             </h3>
             <button onClick={onClose} className="p-1 rounded-lg text-white/80 hover:text-white">
               <X className="w-5 h-5" />
@@ -82,7 +82,7 @@ export const CategoriesDrawer: React.FC<CategoriesDrawerProps> = ({
                 selectedCategory === null ? 'bg-brand-50 text-brand-600' : 'text-slate-800 hover:bg-slate-50'
               }`}
             >
-              <span>All Products &amp; Departments</span>
+              <span>সব পণ্য ও কালেকশন</span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
             </div>
 
@@ -115,7 +115,7 @@ export const CategoriesDrawer: React.FC<CategoriesDrawerProps> = ({
           </div>
 
           <div className="p-4 border-t border-slate-100 bg-slate-50 text-center text-xs text-slate-500">
-            Hotline: <strong className="text-brand-600 font-bold">+880 9617-100900</strong>
+            হটলাইন: <strong className="text-brand-600 font-bold">+880 9617-100900</strong>
           </div>
 
         </div>

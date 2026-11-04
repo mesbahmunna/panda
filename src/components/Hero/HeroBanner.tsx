@@ -19,11 +19,11 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
   const slides = [
     {
       id: 1,
-      badge: '👶 Winter Warmth & Comfort',
+      badge: '👶 শীতের আরাম ও উষ্ণতা',
       title: 'বেবি স্লিপিং ব্ল্যাঙ্কেট - Baby Sleeping Swaddle',
       subtitle: 'চায়না থেকে আমদানিকৃত নরম ও মোলায়েম কাপড়ে তৈরি। শীতে আপনার শিশুর পরম আরাম ও উষ্ণতার নিশ্চয়তা।',
-      discount: 'STARTING ৳450',
-      ctaText: 'Order Sleeping Blanket',
+      discount: 'মূল্য শুরু মাত্র ৳৪৫০',
+      ctaText: 'ব্ল্যাঙ্কেট অর্ডার করুন',
       image: heroBannerBlanket,
       action: () => {
         navigate('/product/baby-sleeping-blanket-swaddle-wrap');
@@ -33,22 +33,22 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
     },
     {
       id: 2,
-      badge: '🍼 Hassle-Free Weaning & Feeding',
-      title: 'Pediatrician Approved Anti-Colic Feeding Sets',
-      subtitle: '100% Food-grade Platinum Silicone suction bowls, teats and glass bottles for easy transitions.',
-      discount: 'FLAT 35% OFF',
-      ctaText: 'Explore Feeding Essentials',
+      badge: '🍼 সহজ ও আনন্দময় বেবি ফিডিং',
+      title: 'শিশুর জন্য নিরাপদ অ্যান্টি-কলিক ফিডিং কালেকশন',
+      subtitle: '১০০% ফুড-গ্রেড প্ল্যাটিনাম সিলিকন সাকশন বাটি, নরম চামচ ও বিপিএ-মুক্ত ফিডিং বোতল।',
+      discount: 'ফ্ল্যাট ৩৫% ছাড়',
+      ctaText: 'ফিডিং পণ্য দেখুন',
       image: 'https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=1200',
       action: onExploreFeeding,
       bgGradient: 'from-sky-950/90 via-slate-900/80 to-transparent'
     },
     {
       id: 3,
-      badge: '✨ Smart Baby Care & Wellness',
-      title: 'Pediatric Care & Gentle Grooming Essentials',
-      subtitle: 'Whisper-quiet LED nail trimmers, soothing sound machines, and collapsible bathtubs.',
-      discount: 'UP TO 40% OFF',
-      ctaText: 'Explore Baby Care',
+      badge: '✨ স্মার্ট বেবি কেয়ার ও সুরক্ষা',
+      title: 'শিশুর কোমল ত্বকের যত্ন ও নিরাপদ গ্রুমিং কিট',
+      subtitle: 'শব্দহীন এলইডি বেবি নেইল ট্রিমার, হাইজিন কিট এবং আরামদায়ক ফোল্ডিং বাথটাব।',
+      discount: 'সর্বোচ্চ ৪০% পর্যন্ত ছাড়',
+      ctaText: 'বেবি কেয়ার সামগ্রী',
       image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=1200&q=80',
       action: onShopNow,
       bgGradient: 'from-purple-950/90 via-brand-900/80 to-transparent'
@@ -127,7 +127,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
                     onClick={onShopNow}
                     className="px-3.5 py-2.5 sm:px-5 sm:py-3 bg-white/15 hover:bg-white/25 text-white backdrop-blur-sm font-semibold text-xs sm:text-sm rounded-xl border border-white/30 transition-colors"
                   >
-                    Cash On Delivery
+                    ক্যাশ অন ডেলিভারি
                   </button>
                 </div>
               </div>
@@ -175,14 +175,14 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
           >
             <div className="relative z-10 max-w-[65%] text-left">
               <span className="text-[11px] font-bold text-amber-700 bg-amber-200/80 px-2 py-0.5 rounded-md uppercase tracking-wider">
-                Hot Weaning
+                হট ফিডিং অফার
               </span>
               <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-2 leading-snug group-hover:text-brand-600 transition-colors">
-                Silicone Suction Dining Sets
+                সিলিকন সাকশন ডাইনিং ফিডিং সেট
               </h3>
-              <p className="text-xs text-slate-600 mt-1">Starting from ৳ 780</p>
+              <p className="text-xs text-slate-600 mt-1">শুরু মাত্র ৳ ৭৮০ থেকে</p>
               <div className="mt-3 flex items-center gap-1 text-xs font-bold text-brand-600">
-                <span>Order Now</span>
+                <span>অর্ডার করুন</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
@@ -200,14 +200,14 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
           >
             <div className="relative z-10 max-w-[65%] text-left">
               <span className="text-[11px] font-bold text-brand-700 bg-brand-200/70 px-2 py-0.5 rounded-md uppercase tracking-wider">
-                Mom Favorite
+                মায়ের সেরা পছন্দ
               </span>
               <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-2 leading-snug group-hover:text-brand-600 transition-colors">
-                6-in-1 Ergonomic Baby Carrier
+                ৬-ইন-১ এরগনোমিক বেবি ক্যারিয়ার
               </h3>
-              <p className="text-xs text-slate-600 mt-1">Flat 37% Discount</p>
+              <p className="text-xs text-slate-600 mt-1">ফ্ল্যাট ৩৭% স্পেশাল ছাড়</p>
               <div className="mt-3 flex items-center gap-1 text-xs font-bold text-brand-600">
-                <span>Shop Carrier</span>
+                <span>ক্যারিয়ার কিনুন</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
@@ -230,8 +230,8 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
             <Truck className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <h4 className="text-xs font-bold text-slate-800">Cash on Delivery</h4>
-            <p className="text-[11px] text-slate-500">All 64 districts in Bangladesh</p>
+            <h4 className="text-xs font-bold text-slate-800">ক্যাশ অন ডেলিভারি</h4>
+            <p className="text-[11px] text-slate-500">সমগ্র বাংলাদেশে ৬৪ জেলায় হোম ডেলিভারি</p>
           </div>
         </div>
 
@@ -240,8 +240,8 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
             <ShieldCheck className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <h4 className="text-xs font-bold text-slate-800">100% Baby Safe</h4>
-            <p className="text-[11px] text-slate-500">BPA free &amp; certified safe</p>
+            <h4 className="text-xs font-bold text-slate-800">১০০% শিশুর জন্য নিরাপদ</h4>
+            <p className="text-[11px] text-slate-500">বিপিএ-মুক্ত ও পরীক্ষিত প্রিমিয়াম কোয়ালিটি</p>
           </div>
         </div>
 
@@ -250,8 +250,8 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
             <RotateCcw className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <h4 className="text-xs font-bold text-slate-800">Easy 7-Day Return</h4>
-            <p className="text-[11px] text-slate-500">Hassle-free replacement</p>
+            <h4 className="text-xs font-bold text-slate-800">সহজ ৭ দিনের রিটার্ন</h4>
+            <p className="text-[11px] text-slate-500">পণ্য পছন্দ না হলে বা ত্রুটি থাকলে পরিবর্তন</p>
           </div>
         </div>
 
@@ -260,8 +260,8 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
             <Headphones className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <h4 className="text-xs font-bold text-slate-800">Help &amp; Advice</h4>
-            <p className="text-[11px] text-slate-500">Friendly parenting hotline</p>
+            <h4 className="text-xs font-bold text-slate-800">২৪/৭ কাস্টমার সহায়তা</h4>
+            <p className="text-[11px] text-slate-500">যেকোনো প্রয়োজনে আমাদের হটলাইনে কল করুন</p>
           </div>
         </div>
 

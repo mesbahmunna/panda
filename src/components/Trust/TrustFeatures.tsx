@@ -15,10 +15,10 @@ export const TrustFeatures: React.FC = () => {
             </div>
             <div>
               <h3 className="text-sm font-extrabold text-slate-900 mb-1">
-                Cash on Delivery
+                ক্যাশ অন ডেলিভারি
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Pay only when your parcel arrives safely at your doorstep. No advance payment needed.
+                পার্সেল হাতে পেয়ে দেখে সম্পূর্ণ মূল্য পরিশোধ করুন। কোনো অগ্রিম পেমেন্টের ঝামেলা নেই।
               </p>
             </div>
           </div>
@@ -30,10 +30,10 @@ export const TrustFeatures: React.FC = () => {
             </div>
             <div>
               <h3 className="text-sm font-extrabold text-slate-900 mb-1">
-                Quality Baby Products
+                প্রিমিয়াম বেবি প্রোডাক্টস
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                100% Food-grade silicone, BPA-free plastics, and organic hypoallergenic baby-safe cotton.
+                ১০০% ফুড-গ্রেড সিলিকন, বিপিএ-মুক্ত উপাদান এবং শিশুর সংবেদনশীল ত্বকের উপযোগী নরম সুতি ফেব্রিক।
               </p>
             </div>
           </div>
@@ -45,10 +45,10 @@ export const TrustFeatures: React.FC = () => {
             </div>
             <div>
               <h3 className="text-sm font-extrabold text-slate-900 mb-1">
-                Nationwide Delivery
+                সারা দেশে দ্রুত ডেলিভারি
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Fast doorstep courier delivery across all 64 districts in Bangladesh within 24 to 72 hours.
+                বাংলাদেশের ৬৪ জেলার যেকোনো প্রান্তে ২৪ থেকে ৭২ ঘণ্টার মধ্যে দ্রুততম হোম ডেলিভারি।
               </p>
             </div>
           </div>
@@ -60,10 +60,10 @@ export const TrustFeatures: React.FC = () => {
             </div>
             <div>
               <h3 className="text-sm font-extrabold text-slate-900 mb-1">
-                Parenting Customer Support
+                সার্বক্ষণিক কাস্টমার কেয়ার
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Have questions about sizes or usage? Friendly phone and WhatsApp support 9 AM to 11 PM.
+                সাইজ বা পণ্য ব্যবহারের তথ্যের জন্য আমাদের কল বা হোয়াটসঅ্যাপে যেকোনো সময় পরামর্শ নিন।
               </p>
             </div>
           </div>

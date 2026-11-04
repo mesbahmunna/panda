@@ -33,7 +33,7 @@ export default {
         borderLight: '#e5e7eb',
       },
       fontFamily: {
-        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Hind Siliguri"', 'Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'card': '0 2px 10px rgba(0, 0, 0, 0.04)',

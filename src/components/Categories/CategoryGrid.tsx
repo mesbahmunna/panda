@@ -57,10 +57,10 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
         <div>
           <div className="flex items-center gap-1.5 text-xs font-bold text-brand-600 uppercase tracking-wider mb-1">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Shop By Department</span>
+            <span>ক্যাটাগরি অনুযায়ী কেনাকাটা</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-            Popular Baby Categories
+            জনপ্রিয় বেবি ক্যাটাগরিসমূহ
           </h2>
         </div>
 
@@ -69,7 +69,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
             onClick={() => onSelectCategory(null)}
             className="text-xs font-semibold text-brand-600 hover:text-brand-700 bg-brand-50 px-3 py-1.5 rounded-lg border border-brand-200 transition-colors"
           >
-            Show All Categories
+            সব ক্যাটাগরি দেখুন
           </button>
         )}
       </div>
@@ -107,7 +107,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
                   {cat.name}
                 </h3>
                 <span className="text-[10px] text-slate-400 font-medium block mt-1">
-                  {actualItemCount} {actualItemCount === 1 ? 'Item' : 'Items'}
+                  {actualItemCount} টি পণ্য
                 </span>
               </div>
             </div>

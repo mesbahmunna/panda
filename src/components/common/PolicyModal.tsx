@@ -30,7 +30,7 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({ policy, onClose }) => 
             onClick={onClose}
             className="w-full py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs rounded-xl transition-colors"
           >
-            I Understand
+            বুঝেছি, ধন্যবাদ
           </button>
         </div>
       </div>

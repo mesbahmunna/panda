@@ -66,10 +66,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                 )}
                 <div>
                   <span className="text-xs font-bold uppercase tracking-wider text-brand-600">
-                    Baby Department
+                    বেবি ডিপার্টমেন্ট
                   </span>
                   <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
-                    {currentCategoryObj ? currentCategoryObj.name : 'Category Products'}
+                    {currentCategoryObj ? currentCategoryObj.name : 'ক্যাটাগরি পণ্যসমূহ'}
                   </h1>
                   <p className="text-xs text-slate-500 mt-1">
                     {currentCategoryObj?.description}
@@ -82,7 +82,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 className="flex items-center gap-1.5 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-colors self-start sm:self-auto"
               >
                 <X className="w-4 h-4" />
-                <span>Clear Filter (Show All)</span>
+                <span>ফিল্টার মুছুন (সব দেখুন)</span>
               </button>
             </div>
           </div>
@@ -90,8 +90,8 @@ export const HomePage: React.FC<HomePageProps> = ({
           {/* Filtered Grid */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4 text-xs text-slate-500">
-              <span>Showing {categoryProducts.length} items in this category</span>
-              <span className="font-semibold text-emerald-600">All items eligible for Cash on Delivery</span>
+              <span>এই ক্যাটাগরিতে {categoryProducts.length} টি পণ্য রয়েছে</span>
+              <span className="font-semibold text-emerald-600">সব পণ্যেই ক্যাশ অন ডেলিভারি সুবিধা প্রযোজ্য</span>
             </div>
 
             {categoryProducts.length > 0 ? (
@@ -106,12 +106,12 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
             ) : (
               <div className="bg-white rounded-3xl p-12 text-center border border-slate-100">
-                <p className="text-slate-500 text-sm mb-4">No products currently in this category.</p>
+                <p className="text-slate-500 text-sm mb-4">এই ক্যাটাগরিতে বর্তমানে কোনো পণ্য নেই।</p>
                 <button
                   onClick={() => onSelectCategory(null)}
                   className="px-5 py-2.5 bg-brand-500 text-white font-bold text-xs rounded-xl"
                 >
-                  Browse All Categories
+                  সব ক্যাটাগরি দেখুন
                 </button>
               </div>
             )}
@@ -136,10 +136,10 @@ export const HomePage: React.FC<HomePageProps> = ({
           {/* Featured Section: Best Sellers */}
           <ProductGridSection
             id="best-sellers-section"
-            title="Best Sellers"
-            subtitle="Parent-favorite baby staples trusted by families across Bangladesh."
+            title="বেস্ট সেলার পণ্যসমূহ"
+            subtitle="বাংলাদেশ জুড়ে বাবা-মায়েদের সর্বাধিক পছন্দের ও বিশ্বস্ত বেবি কালেকশন।"
             icon={Trophy}
-            badge="TOP CHOICES"
+            badge="টপ চয়েস"
             badgeColor="bg-amber-50 text-amber-700 border-amber-200"
             products={products.filter((p) => p.isBestSeller)}
             onSelectProduct={handleSelectProduct}
@@ -147,10 +147,10 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           {/* Featured Section: Trending Baby Products */}
           <ProductGridSection
-            title="Trending Baby Products"
-            subtitle="Innovative gadgets and everyday parent problem solvers."
+            title="ট্রেন্ডিং বেবি প্রোডাক্টস"
+            subtitle="শিশুর পরিচর্যায় আধুনিক ও ট্রেন্ডিং নিত্যপ্রয়োজনীয় সামগ্রী।"
             icon={TrendingUp}
-            badge="TRENDING"
+            badge="ট্রেন্ডিং"
             badgeColor="bg-rose-50 text-rose-600 border-rose-200"
             products={products.filter((p) => p.isTrending)}
             onSelectProduct={handleSelectProduct}
@@ -158,10 +158,10 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           {/* Featured Section: New Arrivals */}
           <ProductGridSection
-            title="New Arrivals"
-            subtitle="Fresh nursery designs, soothing bath towels, and baby shower favorites."
+            title="নতুন কালেকশন"
+            subtitle="নতুন আকর্ষণীয় ডিজাইনের আরামদায়ক পোশাক, কম্বল ও এক্সেসরিজ।"
             icon={Sparkles}
-            badge="JUST IN"
+            badge="নতুন আগমন"
             badgeColor="bg-emerald-50 text-emerald-700 border-emerald-200"
             products={products.filter((p) => p.isNewArrival)}
             onSelectProduct={handleSelectProduct}
@@ -170,10 +170,10 @@ export const HomePage: React.FC<HomePageProps> = ({
           {/* Featured Section: Just For You */}
           <ProductGridSection
             id="featured-deals"
-            title="Just For You"
-            subtitle="Curated collection of everyday baby care and hygiene essentials."
+            title="আপনার জন্য বাছাইকৃত"
+            subtitle="শিশুর প্রাত্যহিক যত্ন ও হাইজিনের জন্য প্রিমিয়াম কালেকশন।"
             icon={Heart}
-            badge="CURATED"
+            badge="বিশেষ অফার"
             badgeColor="bg-purple-50 text-brand-600 border-purple-200"
             products={products.slice(0, 8)}
             onSelectProduct={handleSelectProduct}
@@ -181,10 +181,10 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           {/* Featured Section: Recommended Products */}
           <ProductGridSection
-            title="Recommended Products"
-            subtitle="Safe feeding bottles, grooming sets, and toddler safety essentials."
+            title="পরামর্শকৃত পণ্যসমূহ"
+            subtitle="শিশুর সঠিক বিকাশ, স্বাস্থ্য ও সুরক্ষায় বিশেষজ্ঞ প্রস্তাবিত পণ্য।"
             icon={ThumbsUp}
-            badge="RECOMMENDED"
+            badge="রেকমেন্ডেড"
             badgeColor="bg-indigo-50 text-indigo-700 border-indigo-200"
             products={products.filter((p) => p.isRecommended)}
             onSelectProduct={handleSelectProduct}
