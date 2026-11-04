@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Truck, ShieldCheck, RotateCcw, Headphones } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Truck, ShieldCheck, RotateCcw, Headphones, ArrowRight } from 'lucide-react';
 import { getHeroSlides, HeroSlide, DEFAULT_HERO_SLIDES } from '../../services/heroSliderService';
 
 interface HeroBannerProps {
@@ -9,7 +9,11 @@ interface HeroBannerProps {
   onExploreClothing?: () => void;
 }
 
-export const HeroBanner: React.FC<HeroBannerProps> = () => {
+export const HeroBanner: React.FC<HeroBannerProps> = ({
+  onShopNow,
+  onExploreFeeding,
+  onExploreClothing,
+}) => {
   const navigate = useNavigate();
   const [slides, setSlides] = useState<HeroSlide[]>(() => {
     const all = getHeroSlides();
@@ -83,84 +87,145 @@ export const HeroBanner: React.FC<HeroBannerProps> = () => {
 
   return (
     <section className="max-w-7xl mx-auto px-4 pt-3 sm:pt-4 pb-4 sm:pb-6">
-      {/* Pure Image Hero Slider Banner (No text overlay, no button overlay) */}
-      <div
-        className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-card bg-slate-100 group select-none aspect-[16/9] sm:aspect-[16/7] md:aspect-[2.2/1] lg:aspect-[2.4/1]"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-        {slides.map((slide, index) => {
-          const isActive = index === currentSlide;
-          return (
-            <div
-              key={slide.id || index}
-              onClick={() => handleSlideClick(slide)}
-              className={`absolute inset-0 transition-opacity duration-700 ease-in-out cursor-pointer ${
-                isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
-              }`}
-              title={slide.redirectUrl ? `ক্লিক করে ভিজিট করুন: ${slide.redirectUrl}` : undefined}
-            >
-              <img
-                src={slide.imageUrl}
-                alt={slide.title || `Baby Panda Banner ${index + 1}`}
-                className="w-full h-full object-cover object-center transform group-hover:scale-[1.01] transition-transform duration-700"
-                loading={index === 0 ? 'eager' : 'lazy'}
-              />
-            </div>
-          );
-        })}
-
-        {/* Previous Button */}
-        {slides.length > 1 && (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              prevSlide();
-            }}
-            className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/35 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-md hover:scale-105 active:scale-95"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
-        )}
-
-        {/* Next Button */}
-        {slides.length > 1 && (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              nextSlide();
-            }}
-            className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/35 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-md hover:scale-105 active:scale-95"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
-        )}
-
-        {/* Dot Indicators */}
-        {slides.length > 1 && (
-          <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full bg-black/35 backdrop-blur-md">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setCurrentSlide(i);
-                }}
-                className={`transition-all duration-300 rounded-full ${
-                  i === currentSlide ? 'w-6 sm:w-7 h-2 bg-amber-400' : 'w-2 h-2 bg-white/60 hover:bg-white'
+      
+      {/* Hero Grid: Main Slider (left 8 cols) + 2 Promo Cards (right 4 cols) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        
+        {/* Main Slider (8 cols on desktop) - Pure Image Banner with No Text / Button overlays */}
+        <div
+          className="lg:col-span-8 relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-card bg-slate-100 group select-none min-h-[240px] sm:min-h-[320px] md:min-h-[380px] lg:h-full flex items-center"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          {slides.map((slide, index) => {
+            const isActive = index === currentSlide;
+            return (
+              <div
+                key={slide.id || index}
+                onClick={() => handleSlideClick(slide)}
+                className={`absolute inset-0 transition-opacity duration-700 ease-in-out cursor-pointer ${
+                  isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
                 }`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
+                title={slide.redirectUrl ? `ক্লিক করে ভিজিট করুন: ${slide.redirectUrl}` : undefined}
+              >
+                <img
+                  src={slide.imageUrl}
+                  alt={slide.title || `Baby Panda Banner ${index + 1}`}
+                  className="w-full h-full object-cover object-center transform group-hover:scale-[1.01] transition-transform duration-700"
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                />
+              </div>
+            );
+          })}
+
+          {/* Previous Button */}
+          {slides.length > 1 && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                prevSlide();
+              }}
+              className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/35 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-md hover:scale-105 active:scale-95"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
+          )}
+
+          {/* Next Button */}
+          {slides.length > 1 && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                nextSlide();
+              }}
+              className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/35 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-md hover:scale-105 active:scale-95"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
+          )}
+
+          {/* Dot Indicators */}
+          {slides.length > 1 && (
+            <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full bg-black/35 backdrop-blur-md">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentSlide(i);
+                  }}
+                  className={`transition-all duration-300 rounded-full ${
+                    i === currentSlide ? 'w-6 sm:w-7 h-2 bg-amber-400' : 'w-2 h-2 bg-white/60 hover:bg-white'
+                  }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Right Side Promotion Tiles (4 cols on desktop) */}
+        <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-4">
+          
+          {/* Card 1: Feeding set promo */}
+          <div
+            onClick={onExploreFeeding || (() => navigate('/category/baby-feeding'))}
+            className="flex-1 relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-card group cursor-pointer bg-gradient-to-br from-amber-50 to-orange-50/50 border border-amber-100/80 p-5 sm:p-6 flex flex-col justify-between min-h-[175px] hover:shadow-card-hover transition-all"
+          >
+            <div className="relative z-10 max-w-[65%] text-left">
+              <span className="text-[11px] font-bold text-amber-700 bg-amber-200/80 px-2 py-0.5 rounded-md uppercase tracking-wider">
+                হট ফিডিং অফার
+              </span>
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-2 leading-snug group-hover:text-brand-600 transition-colors">
+                সিলিকন সাকশন ডাইনিং ফিডিং সেট
+              </h3>
+              <p className="text-xs text-slate-600 mt-1">শুরু মাত্র ৳ ৭৮০ থেকে</p>
+              <div className="mt-3 flex items-center gap-1 text-xs font-bold text-brand-600">
+                <span>অর্ডার করুন</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+            <img
+              src="https://images.pexels.com/photos/7282619/pexels-photo-7282619.jpeg?auto=compress&cs=tinysrgb&w=400"
+              alt="Baby Feeding"
+              className="absolute right-0 bottom-0 w-36 h-36 object-cover rounded-tl-3xl transform group-hover:scale-105 transition-transform"
+            />
           </div>
-        )}
+
+          {/* Card 2: Baby Carrier promo */}
+          <div
+            onClick={onShopNow || (() => navigate('/category/baby-clothing'))}
+            className="flex-1 relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-card group cursor-pointer bg-gradient-to-br from-indigo-50 to-purple-50/50 border border-indigo-100/80 p-5 sm:p-6 flex flex-col justify-between min-h-[175px] hover:shadow-card-hover transition-all"
+          >
+            <div className="relative z-10 max-w-[65%] text-left">
+              <span className="text-[11px] font-bold text-brand-700 bg-brand-200/70 px-2 py-0.5 rounded-md uppercase tracking-wider">
+                মায়ের সেরা পছন্দ
+              </span>
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-2 leading-snug group-hover:text-brand-600 transition-colors">
+                ৬-ইন-১ এরগনোমিক বেবি ক্যারিয়ার
+              </h3>
+              <p className="text-xs text-slate-600 mt-1">ফ্ল্যাট ৩৭% স্পেশাল ছাড়</p>
+              <div className="mt-3 flex items-center gap-1 text-xs font-bold text-brand-600">
+                <span>ক্যারিয়ার কিনুন</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+            <img
+              src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=400&q=80"
+              alt="Baby Carrier"
+              className="absolute right-0 bottom-0 w-36 h-36 object-cover rounded-tl-3xl transform group-hover:scale-105 transition-transform"
+            />
+          </div>
+
+        </div>
+
       </div>
 
       {/* 4 Trust Signals Bar Below Banner */}
