@@ -48,9 +48,9 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenPolicy }
 
   return (
     <footer
-      className="relative text-slate-200 text-xs pt-12 pb-24 md:pb-8 border-t border-indigo-950 overflow-hidden bg-[#241066]"
+      className="relative text-slate-300 text-xs pt-12 pb-24 md:pb-8 border-t border-white/10 overflow-hidden bg-[#07051e]"
       style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(16, 8, 55, 0.35), rgba(11, 9, 82, 0.50)), url(${footerPattern})`,
+        backgroundImage: `linear-gradient(to bottom, rgba(7, 5, 30, 0.92), rgba(5, 4, 22, 0.96)), url(${footerPattern})`,
         backgroundRepeat: 'repeat',
         backgroundSize: 'auto, 480px auto',
       }}
